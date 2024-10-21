@@ -3,6 +3,9 @@
   <persistence-unit name="laboratorioComputo" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>entidades.Carrera</class>
+    <class>entidades.Software</class>
+    <class>entidades.UnidadAcademica</class>
+    <class>entidades.CentroLaboratorio</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/laboratorioComputo?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
       <property name="javax.persistence.jdbc.user" value="root"/>

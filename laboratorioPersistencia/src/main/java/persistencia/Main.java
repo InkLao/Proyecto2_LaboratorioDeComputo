@@ -5,6 +5,9 @@
 package persistencia;
 
 import entidades.Carrera;
+import entidades.CentroLaboratorio;
+import entidades.UnidadAcademica;
+import java.time.LocalDate;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -24,8 +27,13 @@ public class Main {
         Carrera carrera=new Carrera( "ISW", 5);
         carreraDAO.agregarCarrera(carrera);
         
+        UnidadAcademicaDAO unidadAcademicaDAO=new UnidadAcademicaDAO(em);
+        UnidadAcademica unidadAcademica=new UnidadAcademica("Obregon");
+        unidadAcademicaDAO.agregarUnidadAcademica(unidadAcademica);
         
-        
+        CentroLaboratorioDAO centroLaboratorioDAO=new CentroLaboratorioDAO(em);
+CentroLaboratorio centroLaboratorio = new CentroLaboratorio("Cisco", LocalDate.of(2023, 1, 1), LocalDate.of(2023, 12, 31), "admin");
+ centroLaboratorioDAO.agregarLaboratorio(centroLaboratorio);
         
     }
 }
