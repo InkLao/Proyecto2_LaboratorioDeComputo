@@ -41,6 +41,11 @@ public class GestionAlumnos extends javax.swing.JFrame {
         jButton1.setText("Buscar");
 
         jButton2.setText("Agregar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -113,6 +118,15 @@ administrador.setVisible(true);
 
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+this.setVisible(false);
+AgregarAlumno agregarAlumno=new AgregarAlumno();
+agregarAlumno.setVisible(true);
+
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
 
    
 

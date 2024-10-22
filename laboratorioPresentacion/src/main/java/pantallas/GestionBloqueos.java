@@ -61,6 +61,11 @@ public class GestionBloqueos extends javax.swing.JFrame {
         });
 
         jButton3.setText("Agregar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -112,6 +117,15 @@ administrador.setVisible(true);
 
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+this.setVisible(false);
+AgregarBloqueo agregarBloqueo=new AgregarBloqueo();
+agregarBloqueo.setVisible(true);
+
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
 
   
     // Variables declaration - do not modify//GEN-BEGIN:variables
