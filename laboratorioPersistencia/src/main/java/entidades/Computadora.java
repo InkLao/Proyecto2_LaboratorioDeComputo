@@ -38,8 +38,10 @@ public class Computadora implements Serializable {
     
     private List<String> softwareInstalado;
 
-    public Computadora(Long id, String estatus, String direccionIP, int numeroMaquina, List<String> softwareInstalado) {
-        this.id = id;
+    public Computadora() {
+    }
+
+    public Computadora( String estatus, String direccionIP, int numeroMaquina, List<String> softwareInstalado) {
         this.estatus = estatus;
         this.direccionIP = direccionIP;
         this.numeroMaquina = numeroMaquina;

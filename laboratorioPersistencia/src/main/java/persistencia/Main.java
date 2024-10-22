@@ -4,10 +4,16 @@
  */
 package persistencia;
 
+import entidades.Bloqueo;
 import entidades.Carrera;
 import entidades.CentroLaboratorio;
+import entidades.Computadora;
+import entidades.Software;
 import entidades.UnidadAcademica;
 import java.time.LocalDate;
+import java.time.Month;
+import java.util.Arrays;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -34,6 +40,19 @@ public class Main {
         CentroLaboratorioDAO centroLaboratorioDAO=new CentroLaboratorioDAO(em);
 CentroLaboratorio centroLaboratorio = new CentroLaboratorio("Cisco", LocalDate.of(2023, 1, 1), LocalDate.of(2023, 12, 31), "admin");
  centroLaboratorioDAO.agregarLaboratorio(centroLaboratorio);
-        
+ 
+ 
+ ComputadoraDAO computadoraDAO=new ComputadoraDAO(em);
+         List<String> software = Arrays.asList("Windows", "Office", "Antivirus");
+SoftwareDAO softwareDAO=new SoftwareDAO(em);
+Software software1=new Software("Windows");
+
+ Computadora computadora=new Computadora( "ocupado", "122.22", 1, software);
+        computadoraDAO.agregarComputadora(computadora);
+        softwareDAO.agregarSoftware(software1);
+    
+    BloqueoDAO bloqueoDAO=new BloqueoDAO(em);
+    Bloqueo bloqueo=new Bloqueo("Se acabo el tiempo", LocalDate.of(2023, 6, 10));
+    bloqueoDAO.agregarBloqueo(bloqueo);
     }
 }
