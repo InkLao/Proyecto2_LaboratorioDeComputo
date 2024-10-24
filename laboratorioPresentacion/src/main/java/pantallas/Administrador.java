@@ -201,7 +201,7 @@ try{
     UnidadAcademicaDTO academicaDTO=new UnidadAcademicaDTO(" Medicina");
     unidadNegocio.agregarUnidadAcademica(academicaDTO);
     
-    UnidadAcademicaDTO academicaDTO1=new UnidadAcademicaDTO("veterinaria");
+    UnidadAcademicaDTO academicaDTO1=new UnidadAcademicaDTO("Los");
     unidadNegocio.agregarUnidadAcademica(academicaDTO1);
     
     

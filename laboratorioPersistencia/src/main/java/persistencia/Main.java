@@ -33,34 +33,34 @@ public class Main {
         
              EntityManagerFactory emf = Persistence.createEntityManagerFactory("laboratorioComputo");
         EntityManager em = emf.createEntityManager();
-                CarreraDAO carreraDAO=new CarreraDAO(em);
-Carrera carrera=new Carrera("isw", 6);
-carreraDAO.agregarCarrera(carrera);
-<<<<<<< Updated upstream
- AlumnoDAO alumnoDAO = new AlumnoDAO(em);
-
-     
-
-        Alumno nuevoAlumno = new Alumno();
-        nuevoAlumno.setNombres("Juan");
-        nuevoAlumno.setApellidoPaterno("Pérez");
-        nuevoAlumno.setApellidoMaterno("García");
-        nuevoAlumno.setContraseña("segura123");
-        nuevoAlumno.setCarrera(carrera);
-        
-        alumnoDAO.agregarAlumno(nuevoAlumno);
-        System.out.println("Alumno agregado: " + nuevoAlumno.getNombres() + " " + nuevoAlumno.getApellidoPaterno());
-
-        Alumno alumnoBuscado = alumnoDAO.buscarAlumno(nuevoAlumno.getId());
-        System.out.println("Alumno buscado: " + alumnoBuscado.getNombres() + " " + alumnoBuscado.getApellidoPaterno());
-
-        alumnoBuscado.setApellidoMaterno("Mateo");
-        alumnoDAO.editarAlumno(alumnoBuscado);
-        System.out.println("Alumno editado: " + alumnoBuscado.getNombres() + " " + alumnoBuscado.getApellidoMaterno());
-
-//        alumnoDAO.eliminarAlumno(alumnoBuscado.getId());
-//        System.out.println("Alumno eliminado.");
+//                CarreraDAO carreraDAO=new CarreraDAO(em);
+//Carrera carrera=new Carrera("isw", 6);
+//carreraDAO.agregarCarrera(carrera);
+//<<<<<<< Updated upstream
+// AlumnoDAO alumnoDAO = new AlumnoDAO(em);
+//
+//     
+//
+//        Alumno nuevoAlumno = new Alumno();
+//        nuevoAlumno.setNombres("Juan");
+//        nuevoAlumno.setApellidoPaterno("Pérez");
+//        nuevoAlumno.setApellidoMaterno("García");
+//        nuevoAlumno.setContraseña("segura123");
+//        nuevoAlumno.setCarrera(carrera);
 //        
+//        alumnoDAO.agregarAlumno(nuevoAlumno);
+//        System.out.println("Alumno agregado: " + nuevoAlumno.getNombres() + " " + nuevoAlumno.getApellidoPaterno());
+//
+//        Alumno alumnoBuscado = alumnoDAO.buscarAlumno(nuevoAlumno.getId());
+//        System.out.println("Alumno buscado: " + alumnoBuscado.getNombres() + " " + alumnoBuscado.getApellidoPaterno());
+//
+//        alumnoBuscado.setApellidoMaterno("Mateo");
+//        alumnoDAO.editarAlumno(alumnoBuscado);
+//        System.out.println("Alumno editado: " + alumnoBuscado.getNombres() + " " + alumnoBuscado.getApellidoMaterno());
+//
+////        alumnoDAO.eliminarAlumno(alumnoBuscado.getId());
+////        System.out.println("Alumno eliminado.");
+////        
         
         
         
@@ -74,15 +74,6 @@ carreraDAO.agregarCarrera(carrera);
         
         
         
-=======
-
-
-
-
-UnidadAcademicaDAO academicaDAO=new UnidadAcademicaDAO(em);
-UnidadAcademica unidadAcademica=new UnidadAcademica("Itson23");
-academicaDAO.agregarUnidadAcademica(unidadAcademica);
->>>>>>> Stashed changes
 //        CarreraDAO carreraDAO =new CarreraDAO(em);
 //        Carrera carrera=new Carrera( "ISW", 5);
 //        carreraDAO.agregarCarrera(carrera);
