@@ -5,6 +5,7 @@
 package pantallas;
 
 import negocio.ICarreraNegocio;
+import negocio.IUnidadNegocio;
 
 /**
  *
@@ -12,6 +13,7 @@ import negocio.ICarreraNegocio;
  */
 public class MenuReportes extends javax.swing.JFrame {
 private ICarreraNegocio carreraNegocio;
+private IUnidadNegocio unidadNegocio;
 
     /**
      * Creates new form MenuReportes
@@ -92,7 +94,7 @@ private ICarreraNegocio carreraNegocio;
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
 this.setVisible(false);
-Administrador gestionComputadoras=new Administrador(carreraNegocio);
+Administrador gestionComputadoras=new Administrador(carreraNegocio,unidadNegocio);
 gestionComputadoras.setVisible(true);
 
         // TODO add your handling code here:

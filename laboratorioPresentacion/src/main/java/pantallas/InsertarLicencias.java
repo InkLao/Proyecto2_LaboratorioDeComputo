@@ -5,6 +5,7 @@
 package pantallas;
 
 import negocio.ICarreraNegocio;
+import negocio.IUnidadNegocio;
 
 /**
  *
@@ -12,6 +13,7 @@ import negocio.ICarreraNegocio;
  */
 public class InsertarLicencias extends javax.swing.JFrame {
 private ICarreraNegocio carreraNegocio;
+private IUnidadNegocio unidadNegocio;
 
     /**
      * Creates new form InsertarLicencias
@@ -68,7 +70,7 @@ private ICarreraNegocio carreraNegocio;
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 this.setVisible(false);
-Administrador administrador=new Administrador(carreraNegocio);
+Administrador administrador=new Administrador(carreraNegocio,unidadNegocio);
 administrador.setVisible(true);
 
 
