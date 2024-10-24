@@ -12,7 +12,7 @@ import javax.persistence.EntityTransaction;
  *
  * @author Oley
  */
-public class CarreraDAO {
+public class CarreraDAO implements ICarreraDAO{
        private EntityManager entityManager;
 
     public CarreraDAO(EntityManager entityManager) {

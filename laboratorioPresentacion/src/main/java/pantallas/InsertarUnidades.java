@@ -4,11 +4,14 @@
  */
 package pantallas;
 
+import negocio.ICarreraNegocio;
+
 /**
  *
  * @author Oley
  */
 public class InsertarUnidades extends javax.swing.JFrame {
+private ICarreraNegocio carreraNegocio;
 
     /**
      * Creates new form InsertarUnidades
@@ -65,7 +68,7 @@ public class InsertarUnidades extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 this.setVisible(false);
-Administrador administrador=new Administrador();
+Administrador administrador=new Administrador(carreraNegocio);
 administrador.setVisible(true);
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
