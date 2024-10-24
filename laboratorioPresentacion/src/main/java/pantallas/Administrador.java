@@ -5,8 +5,10 @@
 package pantallas;
 
 import dto.CarreraDTO;
+import dto.UnidadAcademicaDTO;
 import javax.swing.JOptionPane;
 import negocio.ICarreraNegocio;
+import negocio.IUnidadNegocio;
 
 
 
@@ -16,12 +18,14 @@ import negocio.ICarreraNegocio;
  */
 public class Administrador extends javax.swing.JFrame {
 private ICarreraNegocio carreraNegocio;
+private IUnidadNegocio unidadNegocio;
 
     /**
      * Creates new form Administrador
      */
-    public Administrador(ICarreraNegocio carreraNegocio) {
+    public Administrador(ICarreraNegocio carreraNegocio, IUnidadNegocio unidadNegocio) {
         this.carreraNegocio=carreraNegocio;
+        this.unidadNegocio=unidadNegocio;
         initComponents();
     }
 
@@ -151,7 +155,7 @@ private ICarreraNegocio carreraNegocio;
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
 this.setVisible(false);
-        InicioSesion inicioSesion=new InicioSesion(carreraNegocio);
+        InicioSesion inicioSesion=new InicioSesion(carreraNegocio,unidadNegocio);
 inicioSesion.setVisible(true);
 
         // TODO add your handling code here:
@@ -193,7 +197,25 @@ try {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-this.setVisible(false);
+try{
+    UnidadAcademicaDTO academicaDTO=new UnidadAcademicaDTO(" Medicina");
+    unidadNegocio.agregarUnidadAcademica(academicaDTO);
+    
+    UnidadAcademicaDTO academicaDTO1=new UnidadAcademicaDTO("veterinaria");
+    unidadNegocio.agregarUnidadAcademica(academicaDTO1);
+    
+    
+    
+      this.setVisible(false);
+InsertarUnidades insertarUnidades=new InsertarUnidades();
+insertarUnidades.setVisible(true);
+}catch(Exception e){
+            JOptionPane.showMessageDialog(this, "Error al agregar las unidades ya estan agregadas: " + e.getMessage());
+
+}
+        
+        
+        this.setVisible(false);
 InsertarUnidades insertarUnidades=new InsertarUnidades();
 insertarUnidades.setVisible(true);
 

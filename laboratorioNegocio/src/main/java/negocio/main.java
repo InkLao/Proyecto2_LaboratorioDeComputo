@@ -6,6 +6,8 @@ package negocio;
 
 import dto.AlumnoDTO;
 import dto.CarreraDTO;
+import dto.UnidadAcademicaDTO;
+import entidades.UnidadAcademica;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -13,6 +15,8 @@ import persistencia.AlumnoDAO;
 import persistencia.CarreraDAO;
 import persistencia.IAlumnoDAO;
 import persistencia.ICarreraDAO;
+import persistencia.IUnidadAcademicaDAO;
+import persistencia.UnidadAcademicaDAO;
 
 /**
  *
@@ -37,6 +41,7 @@ public class main {
         System.out.println("Agregando Carrera: " + carreraDTO.getNombre());
         carreraNegocio.agregarCarrera(carreraDTO);
         System.out.println("Carrera agregada exitosamente.");
+<<<<<<< Updated upstream
 
         IAlumnoDAO alumnoDAO = new AlumnoDAO(entityManager);
         IAlumnoNegocio alumnoNegocio = new AlumnoNegocio(alumnoDAO);
@@ -73,6 +78,15 @@ public class main {
 //        alumnoNegocio.eliminarAlumno(1L);
 //        System.out.println("Alumno eliminado.");
 //        
+=======
+        
+        IUnidadAcademicaDAO unidadAcademicaDAO=new UnidadAcademicaDAO(entityManager);
+        IUnidadNegocio unidadNegocio=new UnidadNegocio(unidadAcademicaDAO);
+        UnidadAcademicaDTO academicaDTO=new UnidadAcademicaDTO( "Arquitectura");
+       unidadNegocio.agregarUnidadAcademica(academicaDTO);
+           
+        
+>>>>>>> Stashed changes
         
     }
 }

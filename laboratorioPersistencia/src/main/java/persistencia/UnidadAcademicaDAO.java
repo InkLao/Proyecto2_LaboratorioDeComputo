@@ -13,7 +13,7 @@ import javax.persistence.EntityTransaction;
  *
  * @author Oley
  */
-public class UnidadAcademicaDAO {
+public class UnidadAcademicaDAO implements IUnidadAcademicaDAO{
      private EntityManager entityManager;
 
     public UnidadAcademicaDAO(EntityManager entityManager) {

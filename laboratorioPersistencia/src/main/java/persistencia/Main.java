@@ -36,6 +36,7 @@ public class Main {
                 CarreraDAO carreraDAO=new CarreraDAO(em);
 Carrera carrera=new Carrera("isw", 6);
 carreraDAO.agregarCarrera(carrera);
+<<<<<<< Updated upstream
  AlumnoDAO alumnoDAO = new AlumnoDAO(em);
 
      
@@ -73,6 +74,15 @@ carreraDAO.agregarCarrera(carrera);
         
         
         
+=======
+
+
+
+
+UnidadAcademicaDAO academicaDAO=new UnidadAcademicaDAO(em);
+UnidadAcademica unidadAcademica=new UnidadAcademica("Itson23");
+academicaDAO.agregarUnidadAcademica(unidadAcademica);
+>>>>>>> Stashed changes
 //        CarreraDAO carreraDAO =new CarreraDAO(em);
 //        Carrera carrera=new Carrera( "ISW", 5);
 //        carreraDAO.agregarCarrera(carrera);
