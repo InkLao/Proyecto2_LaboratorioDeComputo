@@ -6,12 +6,17 @@ package entidades;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Calendar;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -25,17 +30,51 @@ public class Bloqueo implements Serializable {
     @Column(name = "idBloqueo")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-@Column(name = "motivo",nullable = false,length = 50)
+    
+    
+    @Column(name = "motivo",nullable = false, length = 50)
     private  String motivo;
+    
+    
+    @Temporal(TemporalType.DATE)
     @Column(name = "fechaBloqueo",nullable = false)
-    private LocalDate fechaBloqueo;
+    private Calendar fechaBloqueo;
 
+    
+    @Temporal(TemporalType.DATE)
+    @Column(name = "fechaLiberacion",nullable = false)
+    private Calendar fechaLiberacion;
+    
+    
+    @OneToOne(cascade = CascadeType.PERSIST)
+    private Alumno alumno;
+    
+    
     public Bloqueo() {
     }
 
-    public Bloqueo(String motivo, LocalDate fechaBloqueo) {
+    public Bloqueo(Long id, String motivo, Calendar fechaBloqueo, Calendar fechaLiberacion, Alumno alumno) {
+        this.id = id;
         this.motivo = motivo;
         this.fechaBloqueo = fechaBloqueo;
+        this.fechaLiberacion = fechaLiberacion;
+        this.alumno = alumno;
+    }
+
+    public Bloqueo(String motivo, Calendar fechaBloqueo, Calendar fechaLiberacion, Alumno alumno) {
+        this.motivo = motivo;
+        this.fechaBloqueo = fechaBloqueo;
+        this.fechaLiberacion = fechaLiberacion;
+        this.alumno = alumno;
+    }
+
+    
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getMotivo() {
@@ -46,22 +85,31 @@ public class Bloqueo implements Serializable {
         this.motivo = motivo;
     }
 
-    public LocalDate getFechaBloqueo() {
+    public Calendar getFechaBloqueo() {
         return fechaBloqueo;
     }
 
-    public void setFechaBloqueo(LocalDate fechaBloqueo) {
+    public void setFechaBloqueo(Calendar fechaBloqueo) {
         this.fechaBloqueo = fechaBloqueo;
     }
-    
-    
-    public Long getId() {
-        return id;
+
+    public Calendar getFechaLiberacion() {
+        return fechaLiberacion;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setFechaLiberacion(Calendar fechaLiberacion) {
+        this.fechaLiberacion = fechaLiberacion;
     }
+
+    public Alumno getAlumno() {
+        return alumno;
+    }
+
+    public void setAlumno(Alumno alumno) {
+        this.alumno = alumno;
+    }
+
+
 
   
 }
