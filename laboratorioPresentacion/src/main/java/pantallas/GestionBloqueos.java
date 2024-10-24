@@ -4,6 +4,7 @@
  */
 package pantallas;
 
+import negocio.IAlumnoNegocio;
 import negocio.ICarreraNegocio;
 import negocio.IUnidadNegocio;
 
@@ -14,6 +15,7 @@ import negocio.IUnidadNegocio;
 public class GestionBloqueos extends javax.swing.JFrame {
 private ICarreraNegocio carreraNegocio;
 private IUnidadNegocio unidadNegocio;
+private IAlumnoNegocio alumnoNegocio;
 
     /**
      * Creates new form GestionBloqueos
@@ -117,7 +119,7 @@ private IUnidadNegocio unidadNegocio;
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
 
 this.setVisible(false);
-Administrador administrador=new Administrador(carreraNegocio,unidadNegocio);
+Administrador administrador=new Administrador(carreraNegocio,unidadNegocio,alumnoNegocio);
 administrador.setVisible(true);
 
         // TODO add your handling code here:

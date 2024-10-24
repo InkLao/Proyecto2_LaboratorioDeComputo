@@ -7,25 +7,27 @@ package pantallas;
 import dto.CarreraDTO;
 import dto.UnidadAcademicaDTO;
 import javax.swing.JOptionPane;
+import negocio.IAlumnoNegocio;
 import negocio.ICarreraNegocio;
 import negocio.IUnidadNegocio;
-
-
 
 /**
  *
  * @author Oley
  */
 public class Administrador extends javax.swing.JFrame {
-private ICarreraNegocio carreraNegocio;
-private IUnidadNegocio unidadNegocio;
+
+    private ICarreraNegocio carreraNegocio;
+    private IUnidadNegocio unidadNegocio;
+    private IAlumnoNegocio alumnoNegocio;
 
     /**
      * Creates new form Administrador
      */
-    public Administrador(ICarreraNegocio carreraNegocio, IUnidadNegocio unidadNegocio) {
-        this.carreraNegocio=carreraNegocio;
-        this.unidadNegocio=unidadNegocio;
+    public Administrador(ICarreraNegocio carreraNegocio, IUnidadNegocio unidadNegocio, IAlumnoNegocio alumnoNegocio) {
+        this.carreraNegocio = carreraNegocio;
+        this.unidadNegocio = unidadNegocio;
+        this.alumnoNegocio= alumnoNegocio;
         initComponents();
     }
 
@@ -154,112 +156,99 @@ private IUnidadNegocio unidadNegocio;
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-this.setVisible(false);
-        InicioSesion inicioSesion=new InicioSesion(carreraNegocio,unidadNegocio);
-inicioSesion.setVisible(true);
+        this.setVisible(false);
+        InicioSesion inicioSesion = new InicioSesion(carreraNegocio, unidadNegocio, alumnoNegocio);
+        inicioSesion.setVisible(true);
 
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-try {
-    CarreraDTO carrera1 = new CarreraDTO();
-    carrera1.setNombre("Ingeniería en Sistemas Computacionales");
-    carrera1.setTiempoMaxUsoDiario(7);
-    carreraNegocio.agregarCarrera(carrera1);
-    
-    CarreraDTO carrera2 = new CarreraDTO();
-    carrera2.setNombre("Ingeniería Industrial");
-    carrera2.setTiempoMaxUsoDiario(4);
-    carreraNegocio.agregarCarrera(carrera2);
-    
-    CarreraDTO carrera3 = new CarreraDTO();
-    carrera3.setNombre("Ingeniería civil");
-    carrera3.setTiempoMaxUsoDiario(5);
-    carreraNegocio.agregarCarrera(carrera3);
-    
+        try {
+            CarreraDTO carrera1 = new CarreraDTO();
+            carrera1.setNombre("Ingeniería en Sistemas Computacionales");
+            carrera1.setTiempoMaxUsoDiario(7);
+            carreraNegocio.agregarCarrera(carrera1);
+
+            CarreraDTO carrera2 = new CarreraDTO();
+            carrera2.setNombre("Ingeniería Industrial");
+            carrera2.setTiempoMaxUsoDiario(4);
+            carreraNegocio.agregarCarrera(carrera2);
+
+            CarreraDTO carrera3 = new CarreraDTO();
+            carrera3.setNombre("Ingeniería civil");
+            carrera3.setTiempoMaxUsoDiario(5);
+            carreraNegocio.agregarCarrera(carrera3);
+
 //    JOptionPane.showMessageDialog(this, "Carreras agregadas exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-    
-   
-    
-    this.setVisible(false);
-    InsertarLicencias insertarLicencias = new InsertarLicencias();
-    insertarLicencias.setVisible(true);
-    
-} catch (Exception e) {
-        JOptionPane.showMessageDialog(this, "Error al agregar las carreras ya estan agregadas: " + e.getMessage());
+            this.setVisible(false);
+            InsertarLicencias insertarLicencias = new InsertarLicencias();
+            insertarLicencias.setVisible(true);
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al agregar las carreras ya estan agregadas: " + e.getMessage());
 
 //    JOptionPane.showMessageDialog(this, "Error al agregar las carreras: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-}
-
+        }
 
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-try{
-    UnidadAcademicaDTO academicaDTO=new UnidadAcademicaDTO(" Medicina");
-    unidadNegocio.agregarUnidadAcademica(academicaDTO);
-    
-    UnidadAcademicaDTO academicaDTO1=new UnidadAcademicaDTO("Los");
-    unidadNegocio.agregarUnidadAcademica(academicaDTO1);
-    
-    
-    
-      this.setVisible(false);
-InsertarUnidades insertarUnidades=new InsertarUnidades();
-insertarUnidades.setVisible(true);
-}catch(Exception e){
+        try {
+            UnidadAcademicaDTO academicaDTO = new UnidadAcademicaDTO(" Medicina");
+            unidadNegocio.agregarUnidadAcademica(academicaDTO);
+
+            UnidadAcademicaDTO academicaDTO1 = new UnidadAcademicaDTO("Los");
+            unidadNegocio.agregarUnidadAcademica(academicaDTO1);
+
+            this.setVisible(false);
+            InsertarUnidades insertarUnidades = new InsertarUnidades();
+            insertarUnidades.setVisible(true);
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error al agregar las unidades ya estan agregadas: " + e.getMessage());
 
-}
-        
-        
+        }
+
         this.setVisible(false);
-InsertarUnidades insertarUnidades=new InsertarUnidades();
-insertarUnidades.setVisible(true);
+        InsertarUnidades insertarUnidades = new InsertarUnidades();
+        insertarUnidades.setVisible(true);
 
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-this.setVisible(false);
-GestionComputadoras gestionComputadoras=new GestionComputadoras();
-gestionComputadoras.setVisible(true);
-
+        this.setVisible(false);
+        GestionComputadoras gestionComputadoras = new GestionComputadoras();
+        gestionComputadoras.setVisible(true);
 
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-this.setVisible(false);
-MenuReportes menuReportes=new MenuReportes();
-menuReportes.setVisible(true);
-
+        this.setVisible(false);
+        MenuReportes menuReportes = new MenuReportes();
+        menuReportes.setVisible(true);
 
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-this.setVisible(false);
-GestionAlumnos gestionAlumnos=new GestionAlumnos();
-gestionAlumnos.setVisible(true);
-
-
+        this.setVisible(false);
+        GestionAlumnos gestionAlumnos = new GestionAlumnos(alumnoNegocio, carreraNegocio);
+        gestionAlumnos.setVisible(true);
 
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-this.setVisible(false);
-GestionBloqueos gestionBloqueos=new GestionBloqueos();
-gestionBloqueos.setVisible(true);
-
+        this.setVisible(false);
+        GestionBloqueos gestionBloqueos = new GestionBloqueos();
+        gestionBloqueos.setVisible(true);
 
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton6ActionPerformed
 
-   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
