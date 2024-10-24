@@ -25,9 +25,12 @@ public class UnidadAcademica implements Serializable {
     @Column(name = "idUnidadAcademica")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    
+    
     @Column(name="nombre",nullable = false,length = 75)
     private String nombre;
 
+    
     public UnidadAcademica() {
     }
 

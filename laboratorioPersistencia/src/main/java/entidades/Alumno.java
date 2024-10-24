@@ -5,11 +5,13 @@
 package entidades;
 
 import java.io.Serializable;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -25,17 +27,78 @@ public class Alumno implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "nombreCompleto", length = 75, nullable = false)
-    private String nombreCompleto;
+    @Column(name = "nombres", length = 50, nullable = false)
+    private String nombres;
+    
+    @Column(name = "apellidoPaterno", length = 50, nullable = false)
+    private String apellidoPaterno;
+    
+    @Column(name = "apellidoMaterno", length = 50, nullable = false)
+    private String apellidoMaterno;
+    
     @Column(name = "contraseña", length = 50, nullable = false)
     private String contraseña;
 
-    public String getNombreCompleto() {
-        return nombreCompleto;
+    
+    @OneToOne(cascade = CascadeType.PERSIST)
+    private Carrera carrera;
+
+    public Alumno() {
     }
 
-    public void setNombreCompleto(String nombreCompleto) {
-        this.nombreCompleto = nombreCompleto;
+    public Alumno(Long id, String nombres, String apellidoPaterno, String apellidoMaterno, String contraseña, Carrera carrera) {
+        this.id = id;
+        this.nombres = nombres;
+        this.apellidoPaterno = apellidoPaterno;
+        this.apellidoMaterno = apellidoMaterno;
+        this.contraseña = contraseña;
+        this.carrera = carrera;
+    }
+
+    
+    
+    
+    public Alumno(String nombres, String apellidoPaterno, String apellidoMaterno, String contraseña, Carrera carrera) {
+        this.nombres = nombres;
+        this.apellidoPaterno = apellidoPaterno;
+        this.apellidoMaterno = apellidoMaterno;
+        this.contraseña = contraseña;
+        this.carrera = carrera;
+    }
+    
+    
+    
+    
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNombres() {
+        return nombres;
+    }
+
+    public void setNombres(String nombres) {
+        this.nombres = nombres;
+    }
+
+    public String getApellidoPaterno() {
+        return apellidoPaterno;
+    }
+
+    public void setApellidoPaterno(String apellidoPaterno) {
+        this.apellidoPaterno = apellidoPaterno;
+    }
+
+    public String getApellidoMaterno() {
+        return apellidoMaterno;
+    }
+
+    public void setApellidoMaterno(String apellidoMaterno) {
+        this.apellidoMaterno = apellidoMaterno;
     }
 
     public String getContraseña() {
@@ -46,12 +109,6 @@ public class Alumno implements Serializable {
         this.contraseña = contraseña;
     }
 
-    public Long getId() {
-        return id;
-    }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
 
 }

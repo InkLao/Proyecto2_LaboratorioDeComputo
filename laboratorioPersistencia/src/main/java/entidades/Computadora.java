@@ -6,12 +6,14 @@ package entidades;
 
 import java.util.List;
 import java.io.Serializable;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -27,26 +29,46 @@ public class Computadora implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @Column(nullable = false)
+    @Column(name = "estatus", nullable = false)
     private String estatus;
     
-    @Column(nullable = false, unique = true)
+    @Column(name = "ip", nullable = false, unique = true)
     private String direccionIP;
     
-    @Column(nullable = false)
-    private int numeroMaquina;
+    @Column(name = "numeroMaquina", nullable = false)
+    private Integer numeroMaquina;
     
-    private List<String> softwareInstalado;
+    @Column(name = "usoAlumno", nullable = false)
+    private boolean usoAlumno;
+    
 
+    @OneToOne(cascade = CascadeType.PERSIST)
+    private CentroLaboratorio centroLaboratorio;
+    
     public Computadora() {
     }
 
-    public Computadora( String estatus, String direccionIP, int numeroMaquina, List<String> softwareInstalado) {
+    public Computadora(Long id, String estatus, String direccionIP, Integer numeroMaquina, boolean usoAlumno) {
+        this.id = id;
         this.estatus = estatus;
         this.direccionIP = direccionIP;
         this.numeroMaquina = numeroMaquina;
-        this.softwareInstalado = softwareInstalado;
+        this.usoAlumno = usoAlumno;
     }
+
+    public Computadora(String estatus, String direccionIP, Integer numeroMaquina, boolean usoAlumno, CentroLaboratorio centroLaboratorio) {
+        this.estatus = estatus;
+        this.direccionIP = direccionIP;
+        this.numeroMaquina = numeroMaquina;
+        this.usoAlumno = usoAlumno;
+        this.centroLaboratorio = centroLaboratorio;
+    }
+
+
+    
+    
+    
+    
 
     public Long getId() {
         return id;
@@ -72,20 +94,31 @@ public class Computadora implements Serializable {
         this.direccionIP = direccionIP;
     }
 
-    public int getNumeroMaquina() {
+    public Integer getNumeroMaquina() {
         return numeroMaquina;
     }
 
-    public void setNumeroMaquina(int numeroMaquina) {
+    public void setNumeroMaquina(Integer numeroMaquina) {
         this.numeroMaquina = numeroMaquina;
     }
 
-    public List<String> getSoftwareInstalado() {
-        return softwareInstalado;
+    public boolean isUsoAlumno() {
+        return usoAlumno;
     }
 
-    public void setSoftwareInstalado(List<String> softwareInstalado) {
-        this.softwareInstalado = softwareInstalado;
+    public void setUsoAlumno(boolean usoAlumno) {
+        this.usoAlumno = usoAlumno;
     }
+
+    public CentroLaboratorio getCentroLaboratorio() {
+        return centroLaboratorio;
+    }
+
+    
+    
+    public void setCentroLaboratorio(CentroLaboratorio centroLaboratorio) {
+        this.centroLaboratorio = centroLaboratorio;
+    }
+
 
 }

@@ -27,32 +27,32 @@ public class Main {
     Prueba de metodos
     */
     public static void main(String[] args) {
-             EntityManagerFactory emf = Persistence.createEntityManagerFactory("laboratorioComputo");
-        EntityManager em = emf.createEntityManager();
-        CarreraDAO carreraDAO =new CarreraDAO(em);
-        Carrera carrera=new Carrera( "ISW", 5);
-        carreraDAO.agregarCarrera(carrera);
-        
-        UnidadAcademicaDAO unidadAcademicaDAO=new UnidadAcademicaDAO(em);
-        UnidadAcademica unidadAcademica=new UnidadAcademica("Obregon");
-        unidadAcademicaDAO.agregarUnidadAcademica(unidadAcademica);
-        
-        CentroLaboratorioDAO centroLaboratorioDAO=new CentroLaboratorioDAO(em);
-CentroLaboratorio centroLaboratorio = new CentroLaboratorio("Cisco", LocalDate.of(2023, 1, 1), LocalDate.of(2023, 12, 31), "admin");
- centroLaboratorioDAO.agregarLaboratorio(centroLaboratorio);
- 
- 
- ComputadoraDAO computadoraDAO=new ComputadoraDAO(em);
-         List<String> software = Arrays.asList("Windows", "Office", "Antivirus");
-SoftwareDAO softwareDAO=new SoftwareDAO(em);
-Software software1=new Software("Windows");
-
- Computadora computadora=new Computadora( "ocupado", "122.22", 1, software);
-        computadoraDAO.agregarComputadora(computadora);
-        softwareDAO.agregarSoftware(software1);
-    
-    BloqueoDAO bloqueoDAO=new BloqueoDAO(em);
-    Bloqueo bloqueo=new Bloqueo("Se acabo el tiempo", LocalDate.of(2023, 6, 10));
-    bloqueoDAO.agregarBloqueo(bloqueo);
+//             EntityManagerFactory emf = Persistence.createEntityManagerFactory("laboratorioComputo");
+//        EntityManager em = emf.createEntityManager();
+//        CarreraDAO carreraDAO =new CarreraDAO(em);
+//        Carrera carrera=new Carrera( "ISW", 5);
+//        carreraDAO.agregarCarrera(carrera);
+//        
+//        UnidadAcademicaDAO unidadAcademicaDAO=new UnidadAcademicaDAO(em);
+//        UnidadAcademica unidadAcademica=new UnidadAcademica("Obregon");
+//        unidadAcademicaDAO.agregarUnidadAcademica(unidadAcademica);
+//        
+//        CentroLaboratorioDAO centroLaboratorioDAO=new CentroLaboratorioDAO(em);
+//CentroLaboratorio centroLaboratorio = new CentroLaboratorio("Cisco", LocalDate.of(2023, 1, 1), LocalDate.of(2023, 12, 31), "admin");
+// centroLaboratorioDAO.agregarLaboratorio(centroLaboratorio);
+// 
+// 
+// ComputadoraDAO computadoraDAO=new ComputadoraDAO(em);
+//         List<String> software = Arrays.asList("Windows", "Office", "Antivirus");
+//SoftwareDAO softwareDAO=new SoftwareDAO(em);
+//Software software1=new Software("Windows");
+//
+// Computadora computadora=new Computadora( "ocupado", "122.22", 1, software);
+//        computadoraDAO.agregarComputadora(computadora);
+//        softwareDAO.agregarSoftware(software1);
+//    
+//    BloqueoDAO bloqueoDAO=new BloqueoDAO(em);
+//    Bloqueo bloqueo=new Bloqueo("Se acabo el tiempo", LocalDate.of(2023, 6, 10));
+//    bloqueoDAO.agregarBloqueo(bloqueo);
     }
 }
