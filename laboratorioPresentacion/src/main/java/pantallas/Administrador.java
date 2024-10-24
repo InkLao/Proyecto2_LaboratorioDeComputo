@@ -4,6 +4,10 @@
  */
 package pantallas;
 
+import dto.CarreraDTO;
+import javax.swing.JOptionPane;
+import negocio.ICarreraNegocio;
+
 
 
 /**
@@ -11,11 +15,13 @@ package pantallas;
  * @author Oley
  */
 public class Administrador extends javax.swing.JFrame {
+private ICarreraNegocio carreraNegocio;
 
     /**
      * Creates new form Administrador
      */
-    public Administrador() {
+    public Administrador(ICarreraNegocio carreraNegocio) {
+        this.carreraNegocio=carreraNegocio;
         initComponents();
     }
 
@@ -145,16 +151,43 @@ public class Administrador extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
 this.setVisible(false);
-        InicioSesion inicioSesion=new InicioSesion();
+        InicioSesion inicioSesion=new InicioSesion(carreraNegocio);
 inicioSesion.setVisible(true);
 
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-this.setVisible(false);
-InsertarLicencias insertarLicencias=new InsertarLicencias();
-insertarLicencias.setVisible(true);
+try {
+    CarreraDTO carrera1 = new CarreraDTO();
+    carrera1.setNombre("Ingeniería en Sistemas Computacionales");
+    carrera1.setTiempoMaxUsoDiario(7);
+    carreraNegocio.agregarCarrera(carrera1);
+    
+    CarreraDTO carrera2 = new CarreraDTO();
+    carrera2.setNombre("Ingeniería Industrial");
+    carrera2.setTiempoMaxUsoDiario(4);
+    carreraNegocio.agregarCarrera(carrera2);
+    
+    CarreraDTO carrera3 = new CarreraDTO();
+    carrera3.setNombre("Ingeniería civil");
+    carrera3.setTiempoMaxUsoDiario(5);
+    carreraNegocio.agregarCarrera(carrera3);
+    
+//    JOptionPane.showMessageDialog(this, "Carreras agregadas exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+    
+   
+    
+    this.setVisible(false);
+    InsertarLicencias insertarLicencias = new InsertarLicencias();
+    insertarLicencias.setVisible(true);
+    
+} catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Error al agregar las carreras ya estan agregadas: " + e.getMessage());
+
+//    JOptionPane.showMessageDialog(this, "Error al agregar las carreras: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+}
+
 
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed

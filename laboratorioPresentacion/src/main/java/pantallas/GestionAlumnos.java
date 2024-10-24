@@ -4,11 +4,14 @@
  */
 package pantallas;
 
+import negocio.ICarreraNegocio;
+
 /**
  *
  * @author Oley
  */
 public class GestionAlumnos extends javax.swing.JFrame {
+private ICarreraNegocio carreraNegocio;
 
     /**
      * Creates new form GestionAlumnos
@@ -112,7 +115,7 @@ public class GestionAlumnos extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
 
 this.setVisible(false);
-Administrador administrador=new Administrador();
+Administrador administrador=new Administrador(carreraNegocio);
 administrador.setVisible(true);
 
 
