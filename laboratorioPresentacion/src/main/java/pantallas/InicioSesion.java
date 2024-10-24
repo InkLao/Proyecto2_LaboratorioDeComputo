@@ -5,6 +5,7 @@
 package pantallas;
 
 import negocio.CarreraNegocio;
+import negocio.IAlumnoNegocio;
 import negocio.ICarreraNegocio;
 import negocio.IUnidadNegocio;
 
@@ -15,13 +16,14 @@ import negocio.IUnidadNegocio;
 public class InicioSesion extends javax.swing.JFrame {
 private ICarreraNegocio carreraNegocio;
 private IUnidadNegocio unidadNegocio;
-
+private IAlumnoNegocio alumnoNegocio;
     /**
      * Creates new form InicioSesion
      */
-    public InicioSesion(ICarreraNegocio carreraNegocio,IUnidadNegocio unidadNegocio) {
+    public InicioSesion(ICarreraNegocio carreraNegocio,IUnidadNegocio unidadNegocio,IAlumnoNegocio alumnoNegocio) {
         this.carreraNegocio= carreraNegocio;
         this.unidadNegocio=unidadNegocio;
+        this.alumnoNegocio=alumnoNegocio;
         initComponents();
     }
 
@@ -103,7 +105,7 @@ private IUnidadNegocio unidadNegocio;
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
  this.setVisible(false);
-        Administrador administrador=new Administrador(carreraNegocio,unidadNegocio);
+        Administrador administrador=new Administrador(carreraNegocio,unidadNegocio,alumnoNegocio);
 administrador.setVisible(true);
 
 

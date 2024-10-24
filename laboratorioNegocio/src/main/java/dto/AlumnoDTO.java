@@ -19,8 +19,7 @@ public class AlumnoDTO {
     public AlumnoDTO() {
     }
 
-    public AlumnoDTO(Long id, String nombres, String apellidoPaterno, String apellidoMaterno, String contraseña, CarreraDTO carrera) {
-        this.id = id;
+    public AlumnoDTO( String nombres, String apellidoPaterno, String apellidoMaterno, String contraseña, CarreraDTO carrera) {
         this.nombres = nombres;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;

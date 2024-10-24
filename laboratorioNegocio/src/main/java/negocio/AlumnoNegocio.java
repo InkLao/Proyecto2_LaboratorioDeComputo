@@ -8,6 +8,10 @@ import dto.AlumnoDTO;
 import dto.CarreraDTO;
 import entidades.Alumno;
 import entidades.Carrera;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import persistencia.AlumnoDAO;
 import persistencia.IAlumnoDAO;
 
 /**
@@ -15,7 +19,7 @@ import persistencia.IAlumnoDAO;
  * @author Oley
  */
 public class AlumnoNegocio implements  IAlumnoNegocio{
-     private IAlumnoDAO alumnoDAO;
+   private IAlumnoDAO alumnoDAO;
 
     public AlumnoNegocio(IAlumnoDAO alumnoDAO) {
         this.alumnoDAO = alumnoDAO;
@@ -44,19 +48,38 @@ public class AlumnoNegocio implements  IAlumnoNegocio{
         if (alumnoDTO == null) {
             return null;
         }
-        Carrera carrera = new Carrera();
-        return new Alumno(alumnoDTO.getId(), alumnoDTO.getNombres(), 
-                          alumnoDTO.getApellidoPaterno(), alumnoDTO.getApellidoMaterno(),
-                          alumnoDTO.getContraseña(), carrera);
+        Carrera carrera = null;
+        if (alumnoDTO.getCarrera() != null) {
+            carrera = new Carrera();
+            carrera.setId(alumnoDTO.getCarrera().getId());
+            carrera.setNombre(alumnoDTO.getCarrera().getNombre());
+        }
+        return new Alumno(
+            alumnoDTO.getId(),
+            alumnoDTO.getNombres(),
+            alumnoDTO.getApellidoPaterno(),
+            alumnoDTO.getApellidoMaterno(),
+            alumnoDTO.getContraseña(),
+            carrera
+        );
     }
 
     private AlumnoDTO convertirADto(Alumno alumno) {
         if (alumno == null) {
             return null;
         }
-        CarreraDTO carreraDTO = new CarreraDTO();
-        return new AlumnoDTO(alumno.getId(), alumno.getNombres(), 
-                             alumno.getApellidoPaterno(), alumno.getApellidoMaterno(),
-                             alumno.getContraseña(), carreraDTO);
+        CarreraDTO carreraDTO = null;
+        if (alumno.getCarrera() != null) {
+            carreraDTO = new CarreraDTO();
+            carreraDTO.setId(alumno.getCarrera().getId());
+            carreraDTO.setNombre(alumno.getCarrera().getNombre());
+        }
+        return new AlumnoDTO(
+            alumno.getNombres(),
+            alumno.getApellidoPaterno(),
+            alumno.getApellidoMaterno(),
+            alumno.getContraseña(),
+            carreraDTO
+        );
     }
 }
