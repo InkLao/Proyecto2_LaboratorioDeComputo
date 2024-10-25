@@ -27,7 +27,7 @@ public class Administrador extends javax.swing.JFrame {
     public Administrador(ICarreraNegocio carreraNegocio, IUnidadNegocio unidadNegocio, IAlumnoNegocio alumnoNegocio) {
         this.carreraNegocio = carreraNegocio;
         this.unidadNegocio = unidadNegocio;
-        this.alumnoNegocio= alumnoNegocio;
+        this.alumnoNegocio = alumnoNegocio;
         initComponents();
     }
 

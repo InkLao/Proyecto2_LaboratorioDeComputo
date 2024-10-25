@@ -13,14 +13,21 @@ import negocio.IUnidadNegocio;
  * @author Oley
  */
 public class InsertarLicencias extends javax.swing.JFrame {
-private ICarreraNegocio carreraNegocio;
-private IUnidadNegocio unidadNegocio;
-private IAlumnoNegocio alumnoNegocio;
+
+    private ICarreraNegocio carreraNegocio;
+    private IUnidadNegocio unidadNegocio;
+    private IAlumnoNegocio alumnoNegocio;
 
     /**
      * Creates new form InsertarLicencias
      */
-    public InsertarLicencias() {
+    public InsertarLicencias(
+            ICarreraNegocio carreraNegocio,
+            IUnidadNegocio unidadNegocio,
+            IAlumnoNegocio alumnoNegocio) {
+        this.carreraNegocio = carreraNegocio;
+        this.unidadNegocio = unidadNegocio;
+        this.alumnoNegocio = alumnoNegocio;
         initComponents();
     }
 
@@ -71,16 +78,13 @@ private IAlumnoNegocio alumnoNegocio;
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-this.setVisible(false);
-Administrador administrador=new Administrador(carreraNegocio,unidadNegocio,alumnoNegocio);
-administrador.setVisible(true);
-
-
+        this.setVisible(false);
+        Administrador administrador = new Administrador(this.carreraNegocio, unidadNegocio, alumnoNegocio);
+        administrador.setVisible(true);
 
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
-   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

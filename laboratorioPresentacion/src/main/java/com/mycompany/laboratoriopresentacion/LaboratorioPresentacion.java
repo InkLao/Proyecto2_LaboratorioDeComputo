@@ -25,22 +25,20 @@ import persistencia.UnidadAcademicaDAO;
  * @author eduar
  */
 public class LaboratorioPresentacion {
-    
-    public static void main(String[] args) {
-EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("laboratorioComputo");
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-        
-        IUnidadAcademicaDAO unidadAcademicaDAO=new UnidadAcademicaDAO(entityManager);
-        ICarreraDAO carreraDAO=new CarreraDAO(entityManager);
-        IAlumnoDAO alumnoDAO=new AlumnoDAO(entityManager);
-        
-        IUnidadNegocio unidadNegocio=new UnidadNegocio(unidadAcademicaDAO);
-        ICarreraNegocio carreraNegocio=new CarreraNegocio(carreraDAO);
-                IAlumnoNegocio alumnoNegocio=new AlumnoNegocio(alumnoDAO);
 
-        
-        
-        InicioSesion inicio = new InicioSesion(carreraNegocio,unidadNegocio,alumnoNegocio);
+    public static void main(String[] args) {
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("laboratorioComputo");
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+
+        IUnidadAcademicaDAO unidadAcademicaDAO = new UnidadAcademicaDAO(entityManager);
+        ICarreraDAO carreraDAO = new CarreraDAO(entityManager);
+        IAlumnoDAO alumnoDAO = new AlumnoDAO(entityManager);
+
+        IUnidadNegocio unidadNegocio = new UnidadNegocio(unidadAcademicaDAO);
+        ICarreraNegocio carreraNegocio = new CarreraNegocio(carreraDAO);
+        IAlumnoNegocio alumnoNegocio = new AlumnoNegocio(alumnoDAO);
+
+        InicioSesion inicio = new InicioSesion(carreraNegocio, unidadNegocio, alumnoNegocio);
         inicio.setVisible(true);
     }
 }
