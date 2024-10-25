@@ -13,16 +13,19 @@ import negocio.IUnidadNegocio;
  * @author Oley
  */
 public class GestionAlumnos extends javax.swing.JFrame {
-private ICarreraNegocio carreraNegocio;
-private IUnidadNegocio unidadNegocio;
-private IAlumnoNegocio alumnoNegocio;
+    
+    private Administrador administrador;
+    private ICarreraNegocio carreraNegocio;
+    private IUnidadNegocio unidadNegocio;
+    private IAlumnoNegocio alumnoNegocio;
 
     /**
      * Creates new form GestionAlumnos
      */
-    public GestionAlumnos(IAlumnoNegocio alumnoNegocio,ICarreraNegocio carreraNegocio) {
+    public GestionAlumnos(Administrador administrador, IAlumnoNegocio alumnoNegocio,ICarreraNegocio carreraNegocio) {
         this.alumnoNegocio=alumnoNegocio;
         this.carreraNegocio=carreraNegocio;
+        this.administrador = administrador;
         initComponents();
     }
 
@@ -121,7 +124,6 @@ private IAlumnoNegocio alumnoNegocio;
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
 
 this.setVisible(false);
-Administrador administrador=new Administrador(carreraNegocio,unidadNegocio,alumnoNegocio);
 administrador.setVisible(true);
 
 
@@ -130,7 +132,7 @@ administrador.setVisible(true);
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
 this.setVisible(false);
-AgregarAlumno agregarAlumno=new AgregarAlumno();
+AgregarAlumno agregarAlumno=new AgregarAlumno(administrador);
 agregarAlumno.setVisible(true);
 
 

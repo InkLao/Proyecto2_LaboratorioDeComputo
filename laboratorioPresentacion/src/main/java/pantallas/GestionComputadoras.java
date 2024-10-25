@@ -16,11 +16,13 @@ public class GestionComputadoras extends javax.swing.JFrame {
 private ICarreraNegocio carreraNegocio;
 private IUnidadNegocio unidadNegocio;
 private IAlumnoNegocio alumnoNegocio;
+private Administrador administrador;
 
     /**
      * Creates new form GestionComputadoras
      */
-    public GestionComputadoras() {
+    public GestionComputadoras(Administrador administrador) {
+        this.administrador = administrador;
         initComponents();
     }
 
@@ -118,7 +120,6 @@ private IAlumnoNegocio alumnoNegocio;
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
 this.setVisible(false);
-Administrador administrador=new Administrador(carreraNegocio,unidadNegocio,alumnoNegocio);
 administrador.setVisible(true);
 
 
@@ -127,7 +128,7 @@ administrador.setVisible(true);
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 this.setVisible(false);
-AgregarComputadora agregarComputadora=new AgregarComputadora();
+AgregarComputadora agregarComputadora=new AgregarComputadora(this);
 agregarComputadora.setVisible(true);
 
 

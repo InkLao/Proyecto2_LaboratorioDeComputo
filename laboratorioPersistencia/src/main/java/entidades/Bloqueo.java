@@ -32,19 +32,21 @@ public class Bloqueo implements Serializable {
     private Long id;
     
     
-    @Column(name = "motivo",nullable = false, length = 50)
+    @Column(name = "motivo", nullable = false, length = 50)
     private  String motivo;
     
     
     @Temporal(TemporalType.DATE)
-    @Column(name = "fechaBloqueo",nullable = false)
+    @Column(name = "fechaBloqueo", nullable = false)
     private Calendar fechaBloqueo;
 
     
     @Temporal(TemporalType.DATE)
-    @Column(name = "fechaLiberacion",nullable = false)
+    @Column(name = "fechaLiberacion", nullable = false)
     private Calendar fechaLiberacion;
     
+    @Column(name = "Eliminado", nullable = false)
+    private boolean eliminado;
     
     @OneToOne(cascade = CascadeType.PERSIST)
     private Alumno alumno;
@@ -53,20 +55,25 @@ public class Bloqueo implements Serializable {
     public Bloqueo() {
     }
 
-    public Bloqueo(Long id, String motivo, Calendar fechaBloqueo, Calendar fechaLiberacion, Alumno alumno) {
+    public Bloqueo(Long id, Calendar fechaBloqueo, Calendar fechaLiberacion, String motivo, boolean eliminado, Alumno alumno) {
         this.id = id;
-        this.motivo = motivo;
         this.fechaBloqueo = fechaBloqueo;
         this.fechaLiberacion = fechaLiberacion;
+        this.motivo = motivo;
+        this.eliminado = eliminado;
         this.alumno = alumno;
     }
 
-    public Bloqueo(String motivo, Calendar fechaBloqueo, Calendar fechaLiberacion, Alumno alumno) {
-        this.motivo = motivo;
+    public Bloqueo(String motivo, Calendar fechaBloqueo, Calendar fechaLiberacion, boolean Eliminado, Alumno alumno) {
+        
         this.fechaBloqueo = fechaBloqueo;
         this.fechaLiberacion = fechaLiberacion;
+        this.motivo = motivo;
+        this.eliminado = Eliminado;
         this.alumno = alumno;
     }
+
+
 
     
     public Long getId() {
@@ -107,6 +114,14 @@ public class Bloqueo implements Serializable {
 
     public void setAlumno(Alumno alumno) {
         this.alumno = alumno;
+    }
+
+    public boolean isEliminado() {
+        return eliminado;
+    }
+
+    public void setEliminado(boolean eliminado) {
+        this.eliminado = eliminado;
     }
 
 

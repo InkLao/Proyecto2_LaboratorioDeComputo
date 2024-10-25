@@ -10,10 +10,14 @@ package pantallas;
  */
 public class AgregarBloqueo extends javax.swing.JFrame {
 
+    
+    private GestionBloqueos gestionBloqueos;
+    
     /**
      * Creates new form AgregarBloqueo
      */
-    public AgregarBloqueo() {
+    public AgregarBloqueo(GestionBloqueos gestion) {
+        this.gestionBloqueos = gestionBloqueos;
         initComponents();
     }
 
@@ -122,9 +126,8 @@ public class AgregarBloqueo extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-this.setVisible(false);
-GestionBloqueos gestionBloqueos=new GestionBloqueos();
-gestionBloqueos.setVisible(true);
+        this.setVisible(false);
+        gestionBloqueos.setVisible(true);
 
 
         // TODO add your handling code here:

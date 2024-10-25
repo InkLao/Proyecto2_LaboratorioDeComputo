@@ -10,10 +10,14 @@ package pantallas;
  */
 public class AgregarComputadora extends javax.swing.JFrame {
 
+    
+    private GestionComputadoras gestionComputadoras;
+    
     /**
      * Creates new form AgregarComputadora
      */
-    public AgregarComputadora() {
+    public AgregarComputadora(GestionComputadoras gestionComputadoras) {
+        this.gestionComputadoras = gestionComputadoras;
         initComponents();
     }
 
@@ -103,7 +107,6 @@ public class AgregarComputadora extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 this.setVisible(false);
-GestionComputadoras gestionComputadoras=new GestionComputadoras();
 gestionComputadoras.setVisible(true);
 
         // TODO add your handling code here:

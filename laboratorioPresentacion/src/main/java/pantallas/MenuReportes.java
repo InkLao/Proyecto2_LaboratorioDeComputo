@@ -5,6 +5,7 @@
 package pantallas;
 
 import negocio.IAlumnoNegocio;
+import negocio.IBloqueoNegocio;
 import negocio.ICarreraNegocio;
 import negocio.IUnidadNegocio;
 
@@ -13,14 +14,20 @@ import negocio.IUnidadNegocio;
  * @author Oley
  */
 public class MenuReportes extends javax.swing.JFrame {
-private ICarreraNegocio carreraNegocio;
-private IUnidadNegocio unidadNegocio;
-private IAlumnoNegocio alumnoNegocio;
+    
+    private ICarreraNegocio carreraNegocio;
+    private IUnidadNegocio unidadNegocio;
+    private IAlumnoNegocio alumnoNegocio;
+    private InicioSesion inicioSesion;
+    private Administrador administrador;
 
     /**
      * Creates new form MenuReportes
      */
-    public MenuReportes() {
+    public MenuReportes(Administrador administrador) {
+        this.administrador = administrador;
+        this.inicioSesion = inicioSesion;
+        
         initComponents();
     }
 
@@ -96,8 +103,7 @@ private IAlumnoNegocio alumnoNegocio;
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
 this.setVisible(false);
-Administrador gestionComputadoras=new Administrador(carreraNegocio,unidadNegocio,alumnoNegocio);
-gestionComputadoras.setVisible(true);
+administrador.setVisible(true);
 
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton4ActionPerformed
