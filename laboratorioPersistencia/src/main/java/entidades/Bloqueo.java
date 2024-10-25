@@ -124,6 +124,11 @@ public class Bloqueo implements Serializable {
         this.eliminado = eliminado;
     }
 
+    @Override
+    public String toString() {
+        return "Bloqueo{" + "id=" + id + ", motivo=" + motivo + ", fechaBloqueo=" + fechaBloqueo + ", fechaLiberacion=" + fechaLiberacion + ", eliminado=" + eliminado + ", alumno=" + alumno + '}';
+    }
+
 
 
   

@@ -4,7 +4,6 @@
  */
 package dto;
 
-import entidades.Alumno;
 import java.util.Calendar;
 
 /**
@@ -18,14 +17,14 @@ public class BloqueoDTO {
     private Calendar fechaLiberacion;
     private String motivo;
     private boolean eliminado;
-    private Alumno Alumno;
+    private long Alumno;
 
     
     public BloqueoDTO() {
     }
 
     
-    public BloqueoDTO(long id, Calendar fechaBloqueo, Calendar fechaLiberacion, String motivo, boolean eliminado, Alumno Alumno) {
+    public BloqueoDTO(long id, Calendar fechaBloqueo, Calendar fechaLiberacion, String motivo, boolean eliminado, long Alumno) {
         this.id = id;
         this.fechaBloqueo = fechaBloqueo;
         this.fechaLiberacion = fechaLiberacion;
@@ -67,11 +66,11 @@ public class BloqueoDTO {
         this.motivo = motivo;
     }
 
-    public Alumno getAlumno() {
+    public long getAlumno() {
         return Alumno;
     }
 
-    public void setAlumno(Alumno idAlumno) {
+    public void setAlumno(long Alumno) {
         this.Alumno = Alumno;
     }
 
@@ -81,6 +80,11 @@ public class BloqueoDTO {
 
     public void setEliminado(boolean eliminado) {
         this.eliminado = eliminado;
+    }
+
+    @Override
+    public String toString() {
+        return "BloqueoDTO{" + "id=" + id + ", fechaBloqueo=" + fechaBloqueo + ", fechaLiberacion=" + fechaLiberacion + ", motivo=" + motivo + ", eliminado=" + eliminado + ", Alumno=" + Alumno + '}';
     }
     
     

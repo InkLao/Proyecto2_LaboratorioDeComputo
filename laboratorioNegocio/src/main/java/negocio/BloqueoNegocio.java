@@ -6,7 +6,9 @@ package negocio;
 
 import Excepciones.PersistenciaException;
 import NegocioException.NegocioException;
+import dto.AlumnoDTO;
 import dto.BloqueoDTO;
+import entidades.Alumno;
 import entidades.Bloqueo;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -22,9 +24,11 @@ public class BloqueoNegocio implements IBloqueoNegocio{
 
     
     private IBloqueoDAO bloqueoDAO;
+    private IAlumnoNegocio alumnoNegocio;
 
-    public BloqueoNegocio(IBloqueoDAO bloqueoDAO) {
+    public BloqueoNegocio(IBloqueoDAO bloqueoDAO, IAlumnoNegocio alumnoNegocio) {
         this.bloqueoDAO = bloqueoDAO;
+        this.alumnoNegocio = alumnoNegocio;
     }
     
     
@@ -49,16 +53,23 @@ public class BloqueoNegocio implements IBloqueoNegocio{
 
         try{
             
-            Bloqueo blo = new Bloqueo(bloqueo.getMotivo(), bloqueo.getFechaBloqueo(), bloqueo.getFechaLiberacion(), bloqueo.isEliminado(), bloqueo.getAlumno());
+            AlumnoDTO alumnoDTO = new AlumnoDTO();
+            alumnoDTO = alumnoNegocio.buscarAlumno(bloqueo.getAlumno());
+            
+            
+            Alumno alu = alumnoNegocio.convertirAEntidad(alumnoDTO);
+            
+            Bloqueo blo = new Bloqueo(bloqueo.getMotivo(), bloqueo.getFechaBloqueo(), bloqueo.getFechaLiberacion(), bloqueo.isEliminado(), alu);
 
             BloqueoDTO bloqueoNuevo;
             
-            bloqueoNuevo = this.convertirBloqueoDTO(bloqueoDAO.agregarBloqueo(blo));
-            
+           System.out.println(blo.getMotivo());
+           bloqueoNuevo = this.convertirBloqueoDTO(bloqueoDAO.agregarBloqueo(blo));
+            System.out.println(bloqueoNuevo.getId());
             return bloqueoNuevo;
         }
         
-        catch(Exception e){
+        catch(NegocioException e){
             System.out.println(e.getMessage());
         }
         
@@ -69,11 +80,15 @@ public class BloqueoNegocio implements IBloqueoNegocio{
     public BloqueoDTO obtenerPorId(Long id) throws NegocioException {
         
         try {
+            System.out.println("id busca " + id);
             Bloqueo entidad = bloqueoDAO.buscarBloqueo(id);
             if (entidad == null) {
                 throw new NegocioException("Bloqueo no encontrado");
             }
-            return new BloqueoDTO(entidad.getId(), entidad.getFechaBloqueo(), entidad.getFechaLiberacion(), entidad.getMotivo(), entidad.isEliminado(), entidad.getAlumno());
+            
+            System.out.println("encontro este id " + entidad.getId());
+            
+            return new BloqueoDTO(entidad.getId(), entidad.getFechaBloqueo(), entidad.getFechaLiberacion(), entidad.getMotivo(), entidad.isEliminado(), entidad.getAlumno().getId());
         } 
         
         catch (Exception e) {
@@ -87,7 +102,7 @@ public class BloqueoNegocio implements IBloqueoNegocio{
         
         try {
             return bloqueoDAO.obtenerTodos().stream()
-                    .map(entidad -> new BloqueoDTO(entidad.getId(), entidad.getFechaBloqueo(), entidad.getFechaLiberacion(), entidad.getMotivo(), entidad.isEliminado(), entidad.getAlumno()))
+                    .map(entidad -> new BloqueoDTO(entidad.getId(), entidad.getFechaBloqueo(), entidad.getFechaLiberacion(), entidad.getMotivo(), entidad.isEliminado(), entidad.getAlumno().getId()))
                     .collect(Collectors.toList());
         } 
         
@@ -103,27 +118,32 @@ public class BloqueoNegocio implements IBloqueoNegocio{
         
         try{
             
-            Bloqueo blo = new Bloqueo();
-            blo.setAlumno(bloqueo.getAlumno());
-            blo.setEliminado(blo.isEliminado());
-            blo.setFechaBloqueo(bloqueo.getFechaBloqueo());
-            blo.setFechaLiberacion(bloqueo.getFechaLiberacion());
-            blo.setId(bloqueo.getId());
-            blo.setMotivo(bloqueo.getMotivo());
+            Bloqueo entidad = bloqueoDAO.buscarBloqueo(bloqueo.getId());
+            if (entidad == null) {
+                throw new NegocioException("bloqueo no encontrado");
+            }
+            
+          //  entidad.setAlumno(alumnoNegocio.convertirAEntidad(alumnoNegocio.buscarAlumno(bloqueo.getAlumno())));
+            entidad.setEliminado(bloqueo.isEliminado());
+            entidad.setFechaBloqueo(bloqueo.getFechaBloqueo());
+            entidad.setFechaLiberacion(bloqueo.getFechaLiberacion());
+            entidad.setMotivo(bloqueo.getMotivo());
             
             
-            BloqueoDTO bloqueoNuevo;
+            System.out.println(entidad.getId() + " id negocio");
             
-            bloqueoNuevo = this.convertirBloqueoDTO(bloqueoDAO.editarBloqueo(blo));
+            bloqueoDAO.editarBloqueo(entidad);
             
-            return bloqueoNuevo;
+            System.out.println("listo");
+ 
+            
         }
         
         catch(Exception e){
             System.out.println(e.getMessage());
         }
         
-        return null;
+        return bloqueo;
     }    
 
     @Override
@@ -135,10 +155,9 @@ public class BloqueoNegocio implements IBloqueoNegocio{
             
             System.out.println(blo.getId());
             blo.setEliminado(true);
-
-            BloqueoDTO bloqueoNuevo;
             
-            bloqueoNuevo = this.convertirBloqueoDTO(bloqueoDAO.eliminarBloqueo(blo));
+            bloqueoDAO.eliminarBloqueo(blo);
+            
             
         }
         
@@ -162,7 +181,7 @@ public class BloqueoNegocio implements IBloqueoNegocio{
             dto.setFechaBloqueo(bloqueo.getFechaBloqueo());
             dto.setFechaLiberacion(bloqueo.getFechaLiberacion());
             dto.setId(bloqueo.getId());
-            dto.setAlumno(bloqueo.getAlumno());
+            dto.setAlumno(bloqueo.getAlumno().getId());
             dto.setMotivo(bloqueo.getMotivo());
             
 
@@ -177,6 +196,7 @@ public class BloqueoNegocio implements IBloqueoNegocio{
             throw new NegocioException("No se pudo obtener el bloqueo.");
         }
 
-        return new BloqueoDTO(bloqueo.getId(), bloqueo.getFechaBloqueo(), bloqueo.getFechaLiberacion(), bloqueo.getMotivo(), bloqueo.isEliminado(), bloqueo.getAlumno());
+        return new BloqueoDTO(bloqueo.getId(), bloqueo.getFechaBloqueo(), bloqueo.getFechaLiberacion(), bloqueo.getMotivo(), bloqueo.isEliminado(), bloqueo.getAlumno().getId());
     } 
+    
 }

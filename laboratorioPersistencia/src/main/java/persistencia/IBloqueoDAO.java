@@ -18,7 +18,7 @@ public interface IBloqueoDAO {
         
        public Bloqueo editarBloqueo(Bloqueo bloqueo);
        
-       public Bloqueo buscarBloqueo(Long id);
+       public Bloqueo buscarBloqueo(Long id) throws PersistenciaException;
        
        public Bloqueo eliminarBloqueo(Bloqueo bloqueo);
        

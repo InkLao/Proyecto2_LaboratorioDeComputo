@@ -5,7 +5,9 @@
 package negocio;
 
 import dto.AlumnoDTO;
+import dto.CarreraDTO;
 import entidades.Alumno;
+import entidades.Carrera;
 
 /**
  *
@@ -16,5 +18,8 @@ public interface IAlumnoNegocio {
     void editarAlumno(AlumnoDTO alumno);
     AlumnoDTO buscarAlumno(Long id);
     void eliminarAlumno(Long id);
+    
+    public Carrera convertirAEntidad(CarreraDTO carrera);
+    public Alumno convertirAEntidad(AlumnoDTO alumno);
 }
 

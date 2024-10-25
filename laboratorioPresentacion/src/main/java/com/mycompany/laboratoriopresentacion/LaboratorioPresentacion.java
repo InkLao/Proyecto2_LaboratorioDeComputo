@@ -44,7 +44,7 @@ public class LaboratorioPresentacion {
         IUnidadNegocio unidadNegocio = new UnidadNegocio(unidadAcademicaDAO);
         ICarreraNegocio carreraNegocio = new CarreraNegocio(carreraDAO);
         IAlumnoNegocio alumnoNegocio = new AlumnoNegocio(alumnoDAO);
-        IBloqueoNegocio bloqueoNegocio = new BloqueoNegocio(bloqueoDAO);
+        IBloqueoNegocio bloqueoNegocio = new BloqueoNegocio(bloqueoDAO, alumnoNegocio);
         
         
         InicioSesion inicio = new InicioSesion(carreraNegocio, unidadNegocio, alumnoNegocio, bloqueoNegocio);

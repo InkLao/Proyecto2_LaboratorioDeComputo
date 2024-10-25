@@ -36,10 +36,18 @@ public class Carrera implements Serializable {
     public Carrera() {
     }
 
-    public Carrera( String nombre, int tiempoMaxUsoDiario) {
+    public Carrera(Long id, String nombre, Integer tiempoMaxUsoDiario) {
+        this.id = id;
         this.nombre = nombre;
         this.tiempoMaxUsoDiario = tiempoMaxUsoDiario;
     }
+
+    public Carrera(String nombre, Integer tiempoMaxUsoDiario) {
+        this.nombre = nombre;
+        this.tiempoMaxUsoDiario = tiempoMaxUsoDiario;
+    }
+
+ 
   
     
     public String getNombre() {
@@ -50,11 +58,11 @@ public class Carrera implements Serializable {
         this.nombre = nombre;
     }
 
-    public int getTiempoMaxUsoDiario() {
+    public Integer getTiempoMaxUsoDiario() {
         return tiempoMaxUsoDiario;
     }
 
-    public void setTiempoMaxUsoDiario(int tiempoMaxUsoDiario) {
+    public void setTiempoMaxUsoDiario(Integer tiempoMaxUsoDiario) {
         this.tiempoMaxUsoDiario = tiempoMaxUsoDiario;
     }
     
