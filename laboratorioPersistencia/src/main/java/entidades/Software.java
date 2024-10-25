@@ -25,13 +25,13 @@ public class Software implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "nombre",nullable = false,length = 50)
-   private String nombre;
+    @Column(name = "nombre", nullable = false, length = 50)
+    private String nombre;
 
     public Software() {
     }
 
-    public Software( String nombre) {
+    public Software(String nombre) {
         this.nombre = nombre;
     }
 
@@ -50,7 +50,5 @@ public class Software implements Serializable {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-    
-    
-    
+
 }

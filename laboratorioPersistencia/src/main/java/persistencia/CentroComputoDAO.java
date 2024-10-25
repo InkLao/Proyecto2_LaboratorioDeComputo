@@ -4,7 +4,7 @@
  */
 package persistencia;
 
-import entidades.CentroLaboratorio;
+import entidades.CentroComputo;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
@@ -12,18 +12,18 @@ import javax.persistence.EntityTransaction;
  *
  * @author Oley
  */
-public class CentroLaboratorioDAO {
+public class CentroComputoDAO implements ICentroComputoDAO{
       private EntityManager entityManager;
 
-    public CentroLaboratorioDAO(EntityManager entityManager) {
+    public CentroComputoDAO(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
     
-    public void agregarLaboratorio(CentroLaboratorio centroLaboratorio){
+    public void agregarLaboratorio(CentroComputo centroComputo){
         EntityTransaction transaction = entityManager.getTransaction();
         try {
             transaction.begin();
-            entityManager.persist(centroLaboratorio);
+            entityManager.persist(centroComputo);
             transaction.commit();
         } catch (Exception e) {
             if (transaction.isActive()) {

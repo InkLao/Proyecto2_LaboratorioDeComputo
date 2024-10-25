@@ -7,7 +7,7 @@ package Prueba;
 import entidades.Alumno;
 import entidades.Bloqueo;
 import entidades.Carrera;
-import entidades.CentroLaboratorio;
+import entidades.CentroComputo;
 import entidades.Computadora;
 import entidades.UnidadAcademica;
 import java.util.Calendar;
@@ -82,7 +82,7 @@ public class PruebaDAO {
 
         UnidadAcademica unidad = new UnidadAcademica("Nainari");
         
-        CentroLaboratorio centro = new CentroLaboratorio("Cisco", Calendar.getInstance(), Calendar.getInstance(), "1234", unidad);
+        CentroComputo centro = new CentroComputo("Cisco", Calendar.getInstance(), Calendar.getInstance(), "1234", unidad);
         
         entityManager.persist(centro);
         entityManager.getTransaction().commit();
@@ -99,7 +99,7 @@ public class PruebaDAO {
 
         UnidadAcademica unidad = new UnidadAcademica("Nainari");
         
-        CentroLaboratorio centro = new CentroLaboratorio("Cisco", Calendar.getInstance(), Calendar.getInstance(), "1234", unidad);
+        CentroComputo centro = new CentroComputo("Cisco", Calendar.getInstance(), Calendar.getInstance(), "1234", unidad);
         
         
         Computadora compu = new Computadora("Disponible", "12.12", 2, true, centro);

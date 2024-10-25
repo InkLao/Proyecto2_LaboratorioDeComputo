@@ -5,7 +5,6 @@
 package entidades;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.util.Calendar;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -23,41 +22,35 @@ import javax.persistence.TemporalType;
  * @author Oley
  */
 @Entity
-@Table(name="tblCentroLaboratorio")
-public class CentroLaboratorio implements Serializable {
+@Table(name = "tblCentroComputo")
+public class CentroComputo implements Serializable {
 
-    private static final long serialVersionUID = 1L;
     @Id
-    @Column(name = "idCentroLaboratorio")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "idCentroComputo")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
-    
-   @Column(name = "nombre",length = 75,nullable = false)
-   private String nombre;
-    
-   @Temporal(TemporalType.DATE)
-   @Column(name="horaInicio",nullable = false)
-   private Calendar horaInicio;
-   
-   
-   @Temporal(TemporalType.DATE)
-   @Column(name = "horaFinal",nullable = false)
-   private Calendar horaFinal;
-   
-   
-   @Column(name = "contraMaestra",length = 25, nullable = false)
-   private String contraseñaMaestra;
 
-   
-   @OneToOne(cascade = CascadeType.PERSIST)
-   UnidadAcademica unidadAcademica;
-   
-   
-   public CentroLaboratorio() {
+    @Column(name = "nombre", length = 75, nullable = false)
+    private String nombre;
+
+    @Temporal(TemporalType.DATE)
+    @Column(name = "horaInicio", nullable = false)
+    private Calendar horaInicio;
+
+    @Temporal(TemporalType.DATE)
+    @Column(name = "horaFinal", nullable = false)
+    private Calendar horaFinal;
+
+    @Column(name = "contraMaestra", length = 25, nullable = false)
+    private String contraseñaMaestra;
+
+    @OneToOne(cascade = CascadeType.PERSIST)
+    UnidadAcademica unidadAcademica;
+
+    public CentroComputo() {
     }
 
-    public CentroLaboratorio(Long id, String nombre, Calendar horaInicio, Calendar horaFinal, String contraseñaMaestra, UnidadAcademica unidadAcademica) {
+    public CentroComputo(Long id, String nombre, Calendar horaInicio, Calendar horaFinal, String contraseñaMaestra, UnidadAcademica unidadAcademica) {
         this.id = id;
         this.nombre = nombre;
         this.horaInicio = horaInicio;
@@ -66,7 +59,7 @@ public class CentroLaboratorio implements Serializable {
         this.unidadAcademica = unidadAcademica;
     }
 
-    public CentroLaboratorio(String nombre, Calendar horaInicio, Calendar horaFinal, String contraseñaMaestra, UnidadAcademica unidadAcademica) {
+    public CentroComputo(String nombre, Calendar horaInicio, Calendar horaFinal, String contraseñaMaestra, UnidadAcademica unidadAcademica) {
         this.nombre = nombre;
         this.horaInicio = horaInicio;
         this.horaFinal = horaFinal;
@@ -74,10 +67,6 @@ public class CentroLaboratorio implements Serializable {
         this.unidadAcademica = unidadAcademica;
     }
 
-
-
-    
-    
     public Long getId() {
         return id;
     }
@@ -126,7 +115,4 @@ public class CentroLaboratorio implements Serializable {
         this.unidadAcademica = unidadAcademica;
     }
 
-
-   
-    
 }

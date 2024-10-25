@@ -12,36 +12,29 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-/**
- *
- * @author Oley
- */
 @Entity
 @Table(name = "tblCarrera")
 public class Carrera implements Serializable {
 
-    private static final long serialVersionUID = 1L;
     @Id
     @Column(name = "idCarrera")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "nombreCarrera",nullable = false)
+    @Column(name = "nombreCarrera", nullable = false)
     private String nombre;
-  
+
     @Column(name = "  tiempoMaxUsoDiario")
     private Integer tiempoMaxUsoDiario;
-    
-    
+
     public Carrera() {
     }
 
-    public Carrera( String nombre, int tiempoMaxUsoDiario) {
+    public Carrera(String nombre, int tiempoMaxUsoDiario) {
         this.nombre = nombre;
         this.tiempoMaxUsoDiario = tiempoMaxUsoDiario;
     }
-  
-    
+
     public String getNombre() {
         return nombre;
     }
@@ -57,8 +50,7 @@ public class Carrera implements Serializable {
     public void setTiempoMaxUsoDiario(int tiempoMaxUsoDiario) {
         this.tiempoMaxUsoDiario = tiempoMaxUsoDiario;
     }
-    
-  
+
     public Long getId() {
         return id;
     }
@@ -67,5 +59,4 @@ public class Carrera implements Serializable {
         this.id = id;
     }
 
-    
 }

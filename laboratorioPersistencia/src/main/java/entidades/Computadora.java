@@ -43,7 +43,7 @@ public class Computadora implements Serializable {
     
 
     @OneToOne(cascade = CascadeType.PERSIST)
-    private CentroLaboratorio centroLaboratorio;
+    private CentroComputo centroComputo;
     
     public Computadora() {
     }
@@ -56,12 +56,12 @@ public class Computadora implements Serializable {
         this.usoAlumno = usoAlumno;
     }
 
-    public Computadora(String estatus, String direccionIP, Integer numeroMaquina, boolean usoAlumno, CentroLaboratorio centroLaboratorio) {
+    public Computadora(String estatus, String direccionIP, Integer numeroMaquina, boolean usoAlumno, CentroComputo centroComputo) {
         this.estatus = estatus;
         this.direccionIP = direccionIP;
         this.numeroMaquina = numeroMaquina;
         this.usoAlumno = usoAlumno;
-        this.centroLaboratorio = centroLaboratorio;
+        this.centroComputo = centroComputo;
     }
 
 
@@ -110,15 +110,11 @@ public class Computadora implements Serializable {
         this.usoAlumno = usoAlumno;
     }
 
-    public CentroLaboratorio getCentroLaboratorio() {
-        return centroLaboratorio;
+    public CentroComputo getCentroComputo() {
+        return centroComputo;
     }
 
-    
-    
-    public void setCentroLaboratorio(CentroLaboratorio centroLaboratorio) {
-        this.centroLaboratorio = centroLaboratorio;
+    public void setCentroComputo(CentroComputo centroComputo) {
+        this.centroComputo = centroComputo;
     }
-
-
 }
