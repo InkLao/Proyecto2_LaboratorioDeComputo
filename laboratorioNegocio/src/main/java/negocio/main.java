@@ -37,6 +37,7 @@ ICarreraNegocio carreraNegocio=new CarreraNegocio(carreraDAO);
             carreraDTO.setNombre("Ingeniería en Software");
             carreraDTO.setTiempoMaxUsoDiario(240);
             carreraNegocio.agregarCarrera(carreraDTO);
+            
             AlumnoDTO alumnoDTO = new AlumnoDTO(
                 "Juan",
                 "Pérez",
