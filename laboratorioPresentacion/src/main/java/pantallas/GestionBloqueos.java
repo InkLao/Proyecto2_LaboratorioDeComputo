@@ -58,11 +58,12 @@ public class GestionBloqueos extends javax.swing.JFrame {
     
     private void editarBloqueoTabla(BloqueoDTO bloqueo) {
         try {
-            BloqueoDTO bloqueActualiado = this.bloqueoNegocio.actualizarBloqueo(bloqueo);
-            System.out.println(bloqueActualiado.getId());
+            System.out.println(bloqueo.toString() + "editar bloqueo id");
+            BloqueoDTO bloqueoActualizado = bloqueoNegocio.actualizarBloqueo(bloqueo);
+            System.out.println(bloqueoActualizado.getId());
             JOptionPane.showMessageDialog(this, "Bloqueo editado");
-            this.cargarMetodosIniciales();
-            System.out.println(bloqueActualiado.getId() + "22");
+            this.cargarBloqueosEnTabla();
+            System.out.println(bloqueoActualizado.getId() + "22");
 
             
         } catch (NegocioException ex) {
@@ -154,6 +155,19 @@ public class GestionBloqueos extends javax.swing.JFrame {
             return false;
         }
     }
+    
+    private String getMotivoSeleccionadoTablaBloqueo() {
+        int indiceFilaSeleccionada = this.tblBloqueos.getSelectedRow();
+        if (indiceFilaSeleccionada != -1) {
+            DefaultTableModel modelo = (DefaultTableModel) this.tblBloqueos.getModel();
+            int indiceColumnaId = 1;
+            String motivoBloqueoSeleccionado = (String) modelo.getValueAt(indiceFilaSeleccionada,
+                    indiceColumnaId);
+            return motivoBloqueoSeleccionado;
+        } else {
+            return null;
+        }
+    }    
 
 
     private void editar() {
@@ -165,10 +179,11 @@ public class GestionBloqueos extends javax.swing.JFrame {
 
         bloqueo = bloqueoNegocio.obtenerPorId(getIdSeleccionadoTablaBloqueo());
 
-        System.out.println(bloqueo.getId());
+        System.out.println(bloqueo.getId() + " si busco");
+        bloqueo.setMotivo(getMotivoSeleccionadoTablaBloqueo());
         editarBloqueoTabla(bloqueo);
         
-        cargarMetodosIniciales();
+        cargarBloqueosEnTabla();
         }
         
         catch(NegocioException e ){
@@ -183,10 +198,12 @@ public class GestionBloqueos extends javax.swing.JFrame {
         
         eliminado = bloqueoNegocio.obtenerPorId(getIdSeleccionadoTablaBloqueo());
 
-        eliminado.setEliminado(getEliminadoSeleccionadoTablaBloqueo());
+        System.out.println("Preparando el id: " + eliminado.getId() + " para borrar");
+        
+        eliminado.setEliminado(true);
         
         eliminarBloqueoTabla(eliminado);
-        cargarMetodosIniciales();
+        cargarBloqueosEnTabla();
 
     }
 
@@ -256,7 +273,7 @@ public class GestionBloqueos extends javax.swing.JFrame {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                true, true, true, true, false, true, true
+                false, true, true, true, false, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -331,7 +348,7 @@ public class GestionBloqueos extends javax.swing.JFrame {
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         this.setVisible(false);
-        AgregarBloqueo agregarBloqueo=new AgregarBloqueo(this);
+        AgregarBloqueo agregarBloqueo=new AgregarBloqueo(this, alumnoNegocio, bloqueoNegocio);
         agregarBloqueo.setVisible(true);
 
 

@@ -12,29 +12,44 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ *
+ * @author Oley
+ */
 @Entity
 @Table(name = "tblCarrera")
 public class Carrera implements Serializable {
 
+    private static final long serialVersionUID = 1L;
     @Id
     @Column(name = "idCarrera")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "nombreCarrera", nullable = false)
+    @Column(name = "nombreCarrera",nullable = false)
     private String nombre;
-
+  
     @Column(name = "  tiempoMaxUsoDiario")
     private Integer tiempoMaxUsoDiario;
-
+    
+    
     public Carrera() {
     }
 
-    public Carrera(String nombre, int tiempoMaxUsoDiario) {
+    public Carrera(Long id, String nombre, Integer tiempoMaxUsoDiario) {
+        this.id = id;
         this.nombre = nombre;
         this.tiempoMaxUsoDiario = tiempoMaxUsoDiario;
     }
 
+    public Carrera(String nombre, Integer tiempoMaxUsoDiario) {
+        this.nombre = nombre;
+        this.tiempoMaxUsoDiario = tiempoMaxUsoDiario;
+    }
+
+ 
+  
+    
     public String getNombre() {
         return nombre;
     }
@@ -43,14 +58,15 @@ public class Carrera implements Serializable {
         this.nombre = nombre;
     }
 
-    public int getTiempoMaxUsoDiario() {
+    public Integer getTiempoMaxUsoDiario() {
         return tiempoMaxUsoDiario;
     }
 
-    public void setTiempoMaxUsoDiario(int tiempoMaxUsoDiario) {
+    public void setTiempoMaxUsoDiario(Integer tiempoMaxUsoDiario) {
         this.tiempoMaxUsoDiario = tiempoMaxUsoDiario;
     }
-
+    
+  
     public Long getId() {
         return id;
     }
@@ -59,4 +75,5 @@ public class Carrera implements Serializable {
         this.id = id;
     }
 
+    
 }

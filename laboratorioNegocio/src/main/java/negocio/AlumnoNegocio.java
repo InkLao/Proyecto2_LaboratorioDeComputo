@@ -44,7 +44,7 @@ public class AlumnoNegocio implements  IAlumnoNegocio{
         alumnoDAO.eliminarAlumno(id);
     }
 
-    private Alumno convertirADto(AlumnoDTO alumnoDTO) {
+    public Alumno convertirADto(AlumnoDTO alumnoDTO) {
         if (alumnoDTO == null) {
             return null;
         }
@@ -64,7 +64,7 @@ public class AlumnoNegocio implements  IAlumnoNegocio{
         );
     }
 
-    private AlumnoDTO convertirADto(Alumno alumno) {
+    public AlumnoDTO convertirADto(Alumno alumno) {
         if (alumno == null) {
             return null;
         }
@@ -82,4 +82,46 @@ public class AlumnoNegocio implements  IAlumnoNegocio{
             carreraDTO
         );
     }
+    
+    
+    @Override
+    public Alumno convertirAEntidad(AlumnoDTO alumno) {
+        if (alumno == null) {
+            return null;
+        }
+        CarreraDTO carreraDTO = null;
+        if (alumno.getCarrera() != null) {
+            carreraDTO = new CarreraDTO();
+            carreraDTO.setId(alumno.getCarrera().getId());
+            carreraDTO.setNombre(alumno.getCarrera().getNombre());
+        }
+        return new Alumno(
+            alumno.getNombres(),
+            alumno.getApellidoPaterno(),
+            alumno.getApellidoMaterno(),
+            alumno.getContraseña(),
+            this.convertirAEntidad(alumno.getCarrera())
+        );
+    }    
+    
+    @Override
+    public Carrera convertirAEntidad(CarreraDTO carrera) {
+        if (carrera == null) {
+            return null;
+        }
+        return new Carrera(              
+                carrera.getNombre(),
+                carrera.getTiempoMaxUsoDiario() 
+        );
+    }    
+    
+    public CarreraDTO convertirADTO(Carrera carrera) {
+        if (carrera == null) {
+            return null;
+        }
+        return new CarreraDTO(
+                carrera.getNombre(),
+                carrera.getTiempoMaxUsoDiario()         
+        );
+    } 
 }

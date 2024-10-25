@@ -19,21 +19,20 @@ import javax.persistence.Persistence;
 public class BloqueoDAO implements IBloqueoDAO{
     
     
-    private EntityManager entityManager;
+    //private EntityManager entityManager;
     
-    private EntityManagerFactory entityManagerFactory;
+    private EntityManagerFactory emf = Persistence.createEntityManagerFactory("laboratorioComputo");
 
 
     
-    public BloqueoDAO(EntityManager entityManager, EntityManagerFactory entityManagerFactory) {
-        this.entityManager = entityManager;
-        this.entityManagerFactory = entityManagerFactory;
+    public BloqueoDAO(EntityManager entityManager, EntityManagerFactory emf) {
+        //this.entityManager = entityManager;
     }
     
     
     @Override
     public List<Bloqueo> obtenerTodos() throws PersistenciaException {
-        EntityManager em = entityManagerFactory.createEntityManager();
+        EntityManager em = emf.createEntityManager();
         List<Bloqueo> bloqueos = em.createQuery("SELECT b FROM Bloqueo b", Bloqueo.class).getResultList();
         em.close();
         return bloqueos;
@@ -41,87 +40,71 @@ public class BloqueoDAO implements IBloqueoDAO{
     
     @Override
     public Bloqueo agregarBloqueo(Bloqueo bloqueo) {
-        EntityTransaction transaction = entityManager.getTransaction();
         
-        try {
-            transaction.begin();
-            entityManager.persist(bloqueo);
-            transaction.commit();
-            
-            return bloqueo;
-        } 
+        EntityManager entityManager = emf.createEntityManager();
+
+        entityManager.getTransaction().begin();
+        entityManager.persist(bloqueo);
+        entityManager.getTransaction().commit();
+        entityManager.close();
         
-        catch (Exception e) {
-            if (transaction.isActive()) {
-                transaction.rollback();
-            }
-            e.printStackTrace(); 
-            
-        }
-        
-        finally{
-            entityManager.close();
-        }
-        
-        return null;
+        return bloqueo;
     }  
     
 
     @Override
     public Bloqueo editarBloqueo(Bloqueo bloqueo) {
 
-        EntityTransaction transaction = entityManager.getTransaction();
+        EntityManager entityManager = emf.createEntityManager();
+
         
-        try {
-            transaction.begin();
-            entityManager.merge(bloqueo);
-            transaction.commit();
-        }
+        System.out.println("bloqueoeditar " + bloqueo.toString());
+        entityManager.getTransaction().begin();
+        entityManager.merge(bloqueo);
+        entityManager.getTransaction().commit();
+        entityManager.close();
         
-        catch (Exception e) {
-            if (transaction.isActive()) {
-                transaction.rollback();
-            }
-            e.printStackTrace();
-        }
-     
-        finally{
-            entityManager.close();
-        }
+        return bloqueo;
         
-        return null;
     }
 
     @Override
-    public Bloqueo buscarBloqueo(Long id) {
+    public Bloqueo buscarBloqueo(Long id) throws PersistenciaException{
         
-        return entityManager.find(Bloqueo.class, id);
+        try{
+        EntityManager entityManager = emf.createEntityManager();
+  
+        Bloqueo bloqueo = entityManager.find(Bloqueo.class, id);
         
+        entityManager.close();
+        
+        return bloqueo;
+        }
+        
+        catch(Exception e){
+            System.out.println(e.getMessage());
+            System.out.println("error en buscarBloqueo id persistencia");
+        }
+        
+        return null;
     }
 
     @Override
     public Bloqueo eliminarBloqueo(Bloqueo bloqueo) {
+
+        EntityManager entityManager = emf.createEntityManager();
+
         
-        EntityTransaction transaction = entityManager.getTransaction();
+        entityManager.getTransaction().begin();
+        entityManager.merge(bloqueo);
+        entityManager.getTransaction().commit();
+        entityManager.close();
         
-        try {
-            transaction.begin();
-            entityManager.merge(bloqueo);
-            transaction.commit();
-        }
         
-        catch (Exception e) {
-            if (transaction.isActive()) {
-                transaction.rollback();
-            }
-            e.printStackTrace();
-        }
-     
-        finally{
-            entityManager.close();
-        }
+        return bloqueo;
         
-        return null;
+        
+        
 
     }
     
