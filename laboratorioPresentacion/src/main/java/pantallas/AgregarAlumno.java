@@ -12,12 +12,15 @@ import negocio.ICarreraNegocio;
  * @author Oley
  */
 public class AgregarAlumno extends javax.swing.JFrame {
-private IAlumnoNegocio alumnoNegocio;
-private ICarreraNegocio carreraNegocio;
+
+    private Administrador administrador;
+    private IAlumnoNegocio alumnoNegocio;
+    private ICarreraNegocio carreraNegocio;
     /**
      * Creates new form AgregarAlumno
      */
-    public AgregarAlumno() {
+    public AgregarAlumno(Administrador administrador) {
+        this.administrador = administrador;
         initComponents();
     }
 
@@ -119,7 +122,7 @@ private ICarreraNegocio carreraNegocio;
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 this.setVisible(false);
-GestionAlumnos gestionAlumnos=new GestionAlumnos(alumnoNegocio, carreraNegocio);
+GestionAlumnos gestionAlumnos=new GestionAlumnos(administrador, alumnoNegocio, carreraNegocio);
 gestionAlumnos.setVisible(true);
 
 

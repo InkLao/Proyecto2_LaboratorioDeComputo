@@ -13,14 +13,17 @@ import negocio.IUnidadNegocio;
  * @author Oley
  */
 public class InsertarUnidades extends javax.swing.JFrame {
-private ICarreraNegocio carreraNegocio;
-private IUnidadNegocio unidadNegocio;
-private IAlumnoNegocio alumnoNegocio;
+    
+    private Administrador administrador;
+    private ICarreraNegocio carreraNegocio;
+    private IUnidadNegocio unidadNegocio;
+    private IAlumnoNegocio alumnoNegocio;
 
     /**
      * Creates new form InsertarUnidades
      */
-    public InsertarUnidades() {
+    public InsertarUnidades(Administrador administrador) {
+        this.administrador = administrador;
         initComponents();
     }
 
@@ -71,9 +74,8 @@ private IAlumnoNegocio alumnoNegocio;
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-this.setVisible(false);
-Administrador administrador=new Administrador(carreraNegocio,unidadNegocio,alumnoNegocio);
-administrador.setVisible(true);
+    this.setVisible(false);
+    administrador.setVisible(true);
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 

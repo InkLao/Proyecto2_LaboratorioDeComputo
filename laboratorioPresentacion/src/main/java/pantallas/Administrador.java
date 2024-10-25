@@ -8,6 +8,7 @@ import dto.CarreraDTO;
 import dto.UnidadAcademicaDTO;
 import javax.swing.JOptionPane;
 import negocio.IAlumnoNegocio;
+import negocio.IBloqueoNegocio;
 import negocio.ICarreraNegocio;
 import negocio.IUnidadNegocio;
 
@@ -17,17 +18,25 @@ import negocio.IUnidadNegocio;
  */
 public class Administrador extends javax.swing.JFrame {
 
+    
+    private InicioSesion inicioSesion;
     private ICarreraNegocio carreraNegocio;
     private IUnidadNegocio unidadNegocio;
     private IAlumnoNegocio alumnoNegocio;
+    private IBloqueoNegocio bloqueoNegocio;
 
     /**
      * Creates new form Administrador
      */
-    public Administrador(ICarreraNegocio carreraNegocio, IUnidadNegocio unidadNegocio, IAlumnoNegocio alumnoNegocio) {
+    public Administrador(InicioSesion inicioSesion, ICarreraNegocio carreraNegocio, IUnidadNegocio unidadNegocio, IAlumnoNegocio alumnoNegocio,
+                         IBloqueoNegocio bloqueoNegocio) {
         this.carreraNegocio = carreraNegocio;
         this.unidadNegocio = unidadNegocio;
         this.alumnoNegocio= alumnoNegocio;
+        this.bloqueoNegocio = bloqueoNegocio;
+        
+        this.inicioSesion = inicioSesion;
+        
         initComponents();
     }
 
@@ -46,7 +55,7 @@ public class Administrador extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        btnBloqueos = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -88,10 +97,10 @@ public class Administrador extends javax.swing.JFrame {
             }
         });
 
-        jButton6.setText("Gestion Bloqueos");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        btnBloqueos.setText("Gestion Bloqueos");
+        btnBloqueos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                btnBloqueosActionPerformed(evt);
             }
         });
 
@@ -120,7 +129,7 @@ public class Administrador extends javax.swing.JFrame {
                         .addGap(40, 40, 40)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(70, 70, 70)
-                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnBloqueos, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(40, 40, 40)
                         .addComponent(jButton3)
@@ -143,7 +152,7 @@ public class Administrador extends javax.swing.JFrame {
                 .addGap(17, 17, 17)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton2)
-                    .addComponent(jButton6))
+                    .addComponent(btnBloqueos))
                 .addGap(17, 17, 17)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton3)
@@ -157,7 +166,6 @@ public class Administrador extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         this.setVisible(false);
-        InicioSesion inicioSesion = new InicioSesion(carreraNegocio, unidadNegocio, alumnoNegocio);
         inicioSesion.setVisible(true);
 
         // TODO add your handling code here:
@@ -182,7 +190,7 @@ public class Administrador extends javax.swing.JFrame {
 
 //    JOptionPane.showMessageDialog(this, "Carreras agregadas exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
             this.setVisible(false);
-            InsertarLicencias insertarLicencias = new InsertarLicencias();
+            InsertarLicencias insertarLicencias = new InsertarLicencias(this);
             insertarLicencias.setVisible(true);
 
         } catch (Exception e) {
@@ -203,7 +211,7 @@ public class Administrador extends javax.swing.JFrame {
             unidadNegocio.agregarUnidadAcademica(academicaDTO1);
 
             this.setVisible(false);
-            InsertarUnidades insertarUnidades = new InsertarUnidades();
+            InsertarUnidades insertarUnidades = new InsertarUnidades(this);
             insertarUnidades.setVisible(true);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error al agregar las unidades ya estan agregadas: " + e.getMessage());
@@ -211,7 +219,7 @@ public class Administrador extends javax.swing.JFrame {
         }
 
         this.setVisible(false);
-        InsertarUnidades insertarUnidades = new InsertarUnidades();
+        InsertarUnidades insertarUnidades = new InsertarUnidades(this);
         insertarUnidades.setVisible(true);
 
         // TODO add your handling code here:
@@ -219,7 +227,7 @@ public class Administrador extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         this.setVisible(false);
-        GestionComputadoras gestionComputadoras = new GestionComputadoras();
+        GestionComputadoras gestionComputadoras = new GestionComputadoras(this);
         gestionComputadoras.setVisible(true);
 
         // TODO add your handling code here:
@@ -227,7 +235,7 @@ public class Administrador extends javax.swing.JFrame {
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         this.setVisible(false);
-        MenuReportes menuReportes = new MenuReportes();
+        MenuReportes menuReportes = new MenuReportes(this);
         menuReportes.setVisible(true);
 
         // TODO add your handling code here:
@@ -235,28 +243,28 @@ public class Administrador extends javax.swing.JFrame {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         this.setVisible(false);
-        GestionAlumnos gestionAlumnos = new GestionAlumnos(alumnoNegocio, carreraNegocio);
+        GestionAlumnos gestionAlumnos = new GestionAlumnos(this, alumnoNegocio, carreraNegocio);
         gestionAlumnos.setVisible(true);
 
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton5ActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+    private void btnBloqueosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBloqueosActionPerformed
         this.setVisible(false);
-        GestionBloqueos gestionBloqueos = new GestionBloqueos();
+        GestionBloqueos gestionBloqueos = new GestionBloqueos(this, bloqueoNegocio);
         gestionBloqueos.setVisible(true);
 
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton6ActionPerformed
+    }//GEN-LAST:event_btnBloqueosActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBloqueos;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
