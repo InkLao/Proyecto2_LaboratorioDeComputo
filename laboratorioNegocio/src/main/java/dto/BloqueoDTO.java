@@ -33,6 +33,15 @@ public class BloqueoDTO {
         this.eliminado = eliminado;
     }
 
+    public BloqueoDTO(Calendar fechaBloqueo, Calendar fechaLiberacion, String motivo, boolean eliminado, long Alumno) {
+        this.fechaBloqueo = fechaBloqueo;
+        this.fechaLiberacion = fechaLiberacion;
+        this.motivo = motivo;
+        this.eliminado = eliminado;
+        this.Alumno = Alumno;
+    }
+
+    
     
     public long getId() {
         return id;
