@@ -20,7 +20,7 @@ public interface ICentroComputoDAO {
 
     CentroComputo buscarCentroComputo(Long id);
 
-    void eliminarCentroComputo(Long id);
+    CentroComputo eliminarCentroComputo(CentroComputo centroComputo);
     
     public List<CentroComputo> obtenerTodos() throws PersistenciaException;
 }

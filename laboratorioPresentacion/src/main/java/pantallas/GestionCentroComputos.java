@@ -4,10 +4,13 @@
  */
 package pantallas;
 
+import NegocioException.NegocioException;
 import dto.CentroComputoDTO;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
@@ -19,8 +22,9 @@ import utilerias.JButtonCellEditor;
 import utilerias.JButtonRenderer;
 
 /**
- * Aqui se muestran todos los centros de cómputo asignados a cada unidad académica, 
- * con la opción de agregar, editar y elminar
+ * Aqui se muestran todos los centros de cómputo asignados a cada unidad
+ * académica, con la opción de agregar, editar y elminar
+ *
  * @author eduar
  */
 public class GestionCentroComputos extends javax.swing.JFrame {
@@ -28,6 +32,7 @@ public class GestionCentroComputos extends javax.swing.JFrame {
     private ICarreraNegocio carreraNegocio;
     private IUnidadNegocio unidadNegocio;
     private IAlumnoNegocio alumnoNegocio;
+    private Administrador administrador;
 
     private ICentroComputoNegocio centroComputoNegocio;
 
@@ -46,7 +51,7 @@ public class GestionCentroComputos extends javax.swing.JFrame {
             }
         };
 
-        int indiceColumnaEditar = 5;
+        int indiceColumnaEditar = 7;
         TableColumnModel modeloColumnas = this.tblCentroComputo.getColumnModel();
         modeloColumnas.getColumn(indiceColumnaEditar).setCellRenderer(new JButtonRenderer("Editar"));
         modeloColumnas.getColumn(indiceColumnaEditar).setCellEditor(new JButtonCellEditor("Editar", onEditarClickListener));
@@ -54,10 +59,15 @@ public class GestionCentroComputos extends javax.swing.JFrame {
         ActionListener onEliminarClickListener = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                eliminar();
+                try {
+                    //Metodo para eliminar un bloqueo
+                    eliminar();
+                } catch (NegocioException ex) {
+                    Logger.getLogger(GestionBloqueos.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         };
-        int indiceColumnaEliminar = 6;
+        int indiceColumnaEliminar = 8;
         modeloColumnas.getColumn(indiceColumnaEliminar).setCellRenderer(new JButtonRenderer("Eliminar"));
         modeloColumnas.getColumn(indiceColumnaEliminar).setCellEditor(new JButtonCellEditor("Eliminar", onEliminarClickListener));
     }
@@ -78,68 +88,116 @@ public class GestionCentroComputos extends javax.swing.JFrame {
         for (CentroComputoDTO centro : centros) {
             modeloTabla.addRow(new Object[]{
                 centro.getId(),
+                centro.getUnidadAcademica(),
                 centro.getNombre(),
                 centro.getHoraInicio().getTime().toString(),
                 centro.getHoraFinal().getTime().toString(),
                 centro.getContraseñaMaestra(),
+                centro.isEliminado(),
                 "Editar",
                 "Eliminar"
             });
         }
     }
 
-    private void editar() {
-        int filaSeleccionada = tblCentroComputo.getSelectedRow();
-        if (filaSeleccionada == -1) {
-            JOptionPane.showMessageDialog(this, "Seleccione un centro para editar.");
-            return;
-        }
-
-        Long idCentro = (Long) tblCentroComputo.getValueAt(filaSeleccionada, 0);
-        String nombre = (String) tblCentroComputo.getValueAt(filaSeleccionada, 1);
-        String horaInicio = (String) tblCentroComputo.getValueAt(filaSeleccionada, 2);
-        String horaFinal = (String) tblCentroComputo.getValueAt(filaSeleccionada, 3);
-        String contraseña = (String) tblCentroComputo.getValueAt(filaSeleccionada, 4);
-
-        // Convertir las horas de inicio y final en formato de tiempo
-        CentroComputoDTO centroEditado = new CentroComputoDTO();
-        centroEditado.setId(idCentro);
-        centroEditado.setNombre(nombre);
-        // Conversión de horaInicio y horaFinal desde String a Calendar, por ejemplo.
-        // centroEditado.setHoraInicio(...); // Convierte y asigna el valor de horaInicio
-        // centroEditado.setHoraFinal(...);   // Convierte y asigna el valor de horaFinal
-        centroEditado.setContraseñaMaestra(contraseña);
-
-        // Guardar cambios
+    private void editarCentroComputoTabla(CentroComputoDTO centroComputo) {
         try {
-            centroComputoNegocio.editarCentroComputo(centroEditado);
-            JOptionPane.showMessageDialog(this, "Centro de cómputo editado con éxito.");
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Error al editar el centro de cómputo: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
+            centroComputo = centroComputoNegocio.buscarCentroComputo(getIdSeleccionadoTablaCentroComputo());
+            centroComputo.setNombre(getNombreSeleccionadoTabla());
+            System.out.println(centroComputo.toString() + "editar centro id");
+            CentroComputoDTO centroActualizado = centroComputoNegocio.actualizarCentroComputo(centroComputo);
+            System.out.println(centroActualizado.toString());
+            JOptionPane.showMessageDialog(this, "Centro editado");
+            this.cargarCentrosEnTabla();
+            System.out.println(centroActualizado.getId() + "22");
 
-        cargarCentrosEnTabla(); // Recargar la tabla
-    }
-
-    private void eliminar() {
-        int filaSeleccionada = tblCentroComputo.getSelectedRow();
-        if (filaSeleccionada == -1) {
-            JOptionPane.showMessageDialog(this, "Seleccione un centro para eliminar.");
-            return;
-        }
-
-        Long idCentro = (Long) tblCentroComputo.getValueAt(filaSeleccionada, 0);
-        int confirm = JOptionPane.showConfirmDialog(this, "¿Está seguro de eliminar este centro?", "Confirmar", JOptionPane.YES_NO_OPTION);
-        if (confirm == JOptionPane.YES_OPTION) {
-            try {
-                centroComputoNegocio.eliminarCentroComputo(idCentro);
-                JOptionPane.showMessageDialog(this, "Centro de cómputo eliminado con éxito.");
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(this, "Error al eliminar el centro de cómputo: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-            }
-            cargarCentrosEnTabla(); // Recargar la tabla
+        } catch (NegocioException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Información", JOptionPane.ERROR_MESSAGE);
         }
     }
+    
+    private String getNombreSeleccionadoTabla() {
+        int indiceFilaSeleccionada = this.tblCentroComputo.getSelectedRow();
+        if (indiceFilaSeleccionada != -1) {
+            DefaultTableModel modelo = (DefaultTableModel) this.tblCentroComputo.getModel();
+            int indiceColumnaId = 2;
+            String nombreSeleccionado = (String) modelo.getValueAt(indiceFilaSeleccionada,
+                    indiceColumnaId);
+            return nombreSeleccionado;
+        } else {
+            return null;
+        }
+    }
+
+    private String getContraseñaMaestraSeleccionadoTabla() {
+        int indiceFilaSeleccionada = this.tblCentroComputo.getSelectedRow();
+        if (indiceFilaSeleccionada != -1) {
+            DefaultTableModel modelo = (DefaultTableModel) this.tblCentroComputo.getModel();
+            int indiceColumnaId = 5;
+            String contraseñaMaestraSeleccionada = (String) modelo.getValueAt(indiceFilaSeleccionada,
+                    indiceColumnaId);
+            return contraseñaMaestraSeleccionada;
+        } else {
+            return null;
+        }
+    }
+
+    private void editar() {
+        try {
+
+            CentroComputoDTO centroComputo = new CentroComputoDTO();
+
+            centroComputo = centroComputoNegocio.buscarCentroComputo(getIdSeleccionadoTablaCentroComputo());
+
+            System.out.println(centroComputo.getId() + " si busco");
+            centroComputo.setContraseñaMaestra(getContraseñaMaestraSeleccionadoTabla());
+            editarCentroComputoTabla(centroComputo);
+
+            cargarCentrosEnTabla();
+        } catch (NegocioException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private long getIdSeleccionadoTablaCentroComputo() {
+        int indiceFilaSeleccionada = this.tblCentroComputo.getSelectedRow();
+        if (indiceFilaSeleccionada != -1) {
+            DefaultTableModel modelo = (DefaultTableModel) this.tblCentroComputo.getModel();
+            int indiceColumnaId = 0;
+            long idBloqueoSeleccionado = (long) modelo.getValueAt(indiceFilaSeleccionada,
+                    indiceColumnaId);
+            return idBloqueoSeleccionado;
+        } else {
+            return 0;
+        }
+    }
+
+    private void eliminarCentroComputoTabla(CentroComputoDTO centroComputo) {
+        try {
+            this.centroComputoNegocio.eliminarCentroComputo(centroComputo);
+            JOptionPane.showMessageDialog(this, "Centro Computo Eliminado");
+            this.cargarCentrosEnTabla();
+
+        } catch (NegocioException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Información", JOptionPane.ERROR_MESSAGE);
+        }
+
+    }
+
+    private void eliminar() throws NegocioException {
+        CentroComputoDTO eliminado = new CentroComputoDTO();
+
+        eliminado = centroComputoNegocio.buscarCentroComputo(getIdSeleccionadoTablaCentroComputo());
+
+        System.out.println("Preparando el id: " + eliminado.getId() + " para borrar");
+
+        eliminado.setEliminado(true);
+
+        eliminarCentroComputoTabla(eliminado);
+        cargarCentrosEnTabla();
+
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -172,15 +230,23 @@ public class GestionCentroComputos extends javax.swing.JFrame {
 
         tblCentroComputo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "idCentro", "Nombre", "Hora Inicio", "Hora Final", "Contraseña maestra", "Editar", "Eliminar"
+                "idCentro", "Unidad Academica", "Nombre", "Hora Inicio", "Hora Final", "Contraseña maestra", "Esta Eliminado", "Editar", "Eliminar"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, true, false, false, true, false, true, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(tblCentroComputo);
 
         btnRegresar.setText("Regresar");
@@ -201,16 +267,15 @@ public class GestionCentroComputos extends javax.swing.JFrame {
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(10, 10, 10)
-                        .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(10, 10, 10)
-                        .addComponent(btnBuscar))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 685, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnAgregar)
-                            .addComponent(btnRegresar))))
-                .addContainerGap(29, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 714, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnBuscar))
+                            .addComponent(btnAgregar, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnRegresar, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 816, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -218,7 +283,7 @@ public class GestionCentroComputos extends javax.swing.JFrame {
                 .addGap(10, 10, 10)
                 .addComponent(jLabel1)
                 .addGap(14, 14, 14)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBuscar))
                 .addGap(7, 7, 7)
@@ -231,6 +296,7 @@ public class GestionCentroComputos extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
@@ -244,8 +310,7 @@ public class GestionCentroComputos extends javax.swing.JFrame {
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
 
         this.setVisible(false);
-        //Administrador administrador = new Administrador(carreraNegocio, unidadNegocio, alumnoNegocio);
-//        administrador.setVisible(true);
+        administrador.setVisible(true);
 
         // TODO add your handling code here:
     }//GEN-LAST:event_btnRegresarActionPerformed

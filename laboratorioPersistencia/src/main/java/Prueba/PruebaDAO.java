@@ -122,7 +122,7 @@ public class PruebaDAO {
 
     public void agregarCentroComputo() {
         UnidadAcademica unidad = new UnidadAcademica("Unidad Prueba");
-        CentroComputo nuevoCentro = new CentroComputo("Centro de Prueba", Calendar.getInstance(), Calendar.getInstance(), "clave123", unidad);
+        CentroComputo nuevoCentro = new CentroComputo("Centro de Prueba", Calendar.getInstance(), Calendar.getInstance(), "clave123", false, unidad);
         centroComputoDAO.agregarCentroComputo(nuevoCentro);
         System.out.println("Centro de Computo agregado: " + nuevoCentro.getId());
     }
@@ -142,9 +142,9 @@ public class PruebaDAO {
         return centro;
     }
 
-    public void eliminarCentroComputo(Long id) {
-        centroComputoDAO.eliminarCentroComputo(id);
-        System.out.println("Centro de Computo eliminado con id: " + id);
+    public void eliminarCentroComputo(CentroComputo centroComputo) {
+        centroComputoDAO.eliminarCentroComputo(centroComputo);
+        System.out.println("Centro de Computo eliminado con id: " + centroComputo.getId());
     }
 
     public void cerrar() {

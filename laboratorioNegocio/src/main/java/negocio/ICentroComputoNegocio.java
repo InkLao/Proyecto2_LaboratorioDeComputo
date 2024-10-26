@@ -20,9 +20,11 @@ public interface ICentroComputoNegocio {
     
     public void editarCentroComputo(CentroComputoDTO centroComputoDTO);
     
-    public CentroComputoDTO buscarCentroComputo(Long id);
+    public CentroComputoDTO buscarCentroComputo(Long id) throws NegocioException;
     
-    public void eliminarCentroComputo(Long id);
+    public void eliminarCentroComputo(CentroComputoDTO centroComputo) throws NegocioException;
+    
+    public CentroComputoDTO actualizarCentroComputo(CentroComputoDTO centroComputo) throws NegocioException;
     
     public List<CentroComputoDTO> obtenerTodosLosCentros() throws NegocioException;
 }
