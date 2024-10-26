@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 import negocio.IAlumnoNegocio;
 import negocio.IBloqueoNegocio;
 import negocio.ICarreraNegocio;
+import negocio.ICentroComputoNegocio;
 import negocio.IUnidadNegocio;
 
 /**
@@ -24,16 +25,18 @@ public class Administrador extends javax.swing.JFrame {
     private IUnidadNegocio unidadNegocio;
     private IAlumnoNegocio alumnoNegocio;
     private IBloqueoNegocio bloqueoNegocio;
+    private ICentroComputoNegocio centroComputoNegocio;
 
     /**
      * Creates new form Administrador
      */
     public Administrador(InicioSesion inicioSesion, ICarreraNegocio carreraNegocio, IUnidadNegocio unidadNegocio, IAlumnoNegocio alumnoNegocio,
-                         IBloqueoNegocio bloqueoNegocio) {
+                         IBloqueoNegocio bloqueoNegocio, ICentroComputoNegocio centroComputoNegocio) {
         this.carreraNegocio = carreraNegocio;
         this.unidadNegocio = unidadNegocio;
         this.alumnoNegocio= alumnoNegocio;
         this.bloqueoNegocio = bloqueoNegocio;
+        this.centroComputoNegocio = centroComputoNegocio;
         
         this.inicioSesion = inicioSesion;
         
@@ -57,6 +60,7 @@ public class Administrador extends javax.swing.JFrame {
         jButton5 = new javax.swing.JButton();
         btnBloqueos = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
+        btnGestionCentroComputos = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -111,34 +115,43 @@ public class Administrador extends javax.swing.JFrame {
             }
         });
 
+        btnGestionCentroComputos.setText("Gestión Centro de Computos");
+        btnGestionCentroComputos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGestionCentroComputosActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(150, 150, 150)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(40, 40, 40)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(70, 70, 70)
-                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(40, 40, 40)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(70, 70, 70)
-                        .addComponent(btnBloqueos, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(40, 40, 40)
-                        .addComponent(jButton3)
-                        .addGap(38, 38, 38)
-                        .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(jButton4)))
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnGestionCentroComputos)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(150, 150, 150)
+                            .addComponent(jLabel1))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(40, 40, 40)
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(70, 70, 70)
+                            .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(20, 20, 20)
+                            .addComponent(jButton4))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(40, 40, 40)
+                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(70, 70, 70)
+                            .addComponent(btnBloqueos, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(40, 40, 40)
+                            .addComponent(jButton3)
+                            .addGap(38, 38, 38)
+                            .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(59, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -153,11 +166,16 @@ public class Administrador extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton2)
                     .addComponent(btnBloqueos))
-                .addGap(17, 17, 17)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton3)
-                    .addComponent(jButton7))
-                .addGap(107, 107, 107)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(17, 17, 17)
+                        .addComponent(jButton7))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton3)))
+                .addGap(33, 33, 33)
+                .addComponent(btnGestionCentroComputos)
+                .addGap(50, 50, 50)
                 .addComponent(jButton4))
         );
 
@@ -257,9 +275,17 @@ public class Administrador extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnBloqueosActionPerformed
 
+    private void btnGestionCentroComputosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionCentroComputosActionPerformed
+        // TODO add your handling code here:
+        this.setVisible(false);
+        GestionCentroComputos gcp = new GestionCentroComputos(this, centroComputoNegocio);
+        gcp.setVisible(true);
+    }//GEN-LAST:event_btnGestionCentroComputosActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBloqueos;
+    private javax.swing.JButton btnGestionCentroComputos;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;

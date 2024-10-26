@@ -6,8 +6,6 @@ package pantallas;
 
 import negocio.IAlumnoNegocio;
 import negocio.ICarreraNegocio;
-import negocio.IUnidadNegocio;
-import negocio.UnidadNegocio;
 
 /**
  *
@@ -17,18 +15,11 @@ public class AgregarCentroComputos extends javax.swing.JFrame {
     
     private IAlumnoNegocio alumnoNegocio;
     private ICarreraNegocio carreraNegocio;
-    private IUnidadNegocio unidadNegocio;
-    private GestionCentroComputos gestionCentroComputos;
 
     /**
      * Creates new form AgregarCentroComputos
      */
-    public AgregarCentroComputos(GestionCentroComputos gestionCentroComputos, IAlumnoNegocio alumnoNegocio, ICarreraNegocio carreraNegocio, IUnidadNegocio unidadNegocio) {
-        this.unidadNegocio = unidadNegocio;
-        this.alumnoNegocio = alumnoNegocio;
-        this.carreraNegocio = carreraNegocio;
-        this.gestionCentroComputos = gestionCentroComputos;
-        
+    public AgregarCentroComputos() {
         initComponents();
     }
 
@@ -141,9 +132,9 @@ public class AgregarCentroComputos extends javax.swing.JFrame {
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         this.setVisible(false);
-        gestionCentroComputos.setVisible(true);
+        //GestionAlumnos gestionAlumnos = new GestionAlumnos(alumnoNegocio, carreraNegocio);
+       // gestionAlumnos.setVisible(true);
     }//GEN-LAST:event_btnRegresarActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnContinuar;
