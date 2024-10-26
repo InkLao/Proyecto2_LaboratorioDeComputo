@@ -12,4 +12,6 @@ import entidades.Carrera;
  */
 public interface ICarreraDAO {
       void agregarCarrera(Carrera carrera);
+          Carrera obtenerCarreraPorNombre(String nombre);
+
 }

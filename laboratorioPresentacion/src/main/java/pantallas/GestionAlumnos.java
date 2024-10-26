@@ -5,6 +5,7 @@
 package pantallas;
 
 import NegocioException.NegocioException;
+import dto.AlumnoDTO;
 import dto.BloqueoDTO;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -50,25 +51,35 @@ public class GestionAlumnos extends javax.swing.JFrame {
     
     
     
-    private void editarBloqueoTabla(BloqueoDTO bloqueo) {
-//        try {
-            System.out.println(bloqueo.toString() + "editar bloqueo id");
-//            BloqueoDTO bloqueoActualizado = alumnoNegocio.actualizarBloqueo(bloqueo);
-//            System.out.println(bloqueoActualizado.getId());
-            JOptionPane.showMessageDialog(this, "Bloqueo editado");
-            this.cargarBloqueosEnTabla();
-//            System.out.println(bloqueoActualizado.getId() + "22");
-
-            
-//        } catch (NegocioException ex) {
-//            JOptionPane.showMessageDialog(this, ex.getMessage(), "Información", JOptionPane.ERROR_MESSAGE);
-//        }
+    private void editarBloqueoTabla(AlumnoDTO bloqueo) {
+      try {
+        System.out.println(bloqueo.toString() + " editar alumno id");
+        
+        // Actualiza el alumno
+        AlumnoDTO bloqueoActualizado = alumnoNegocio.actualizarAlumnos(bloqueo);
+        
+        // Muestra información en consola
+        System.out.println(bloqueoActualizado.getId());
+        
+        // Mensaje de éxito
+        JOptionPane.showMessageDialog(this, "Bloqueo editado exitosamente");
+        
+        // Recarga la tabla
+        this.cargarBloqueosEnTabla();
+        
+        System.out.println(bloqueoActualizado.getId() + " actualizado");
+    }catch (Exception ex) {
+        // Manejo de cualquier otra excepción
+        JOptionPane.showMessageDialog(this, "Ocurrió un error inesperado: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }   
+        // Manejo de excepciones
+           
 
     }
     
-    private void eliminarBloqueoTabla(BloqueoDTO bloqueo) {
+    private void eliminarBloqueoTabla(AlumnoDTO bloqueo) {
 //        try {
-//            this.bloqueoNegocio.eliminarBloqueo(bloqueo);
+            this.alumnoNegocio.eliminarAlumnos(bloqueo);
             JOptionPane.showMessageDialog(this, "Bloqueo Eliminado");
             this.cargarBloqueosEnTabla();
             
@@ -165,43 +176,36 @@ public class GestionAlumnos extends javax.swing.JFrame {
 
 
     private void editar() {
-        //Metodo para regresar el alumno seleccionado
-
-//        try{
-
-        BloqueoDTO bloqueo = new BloqueoDTO();
-
-//        bloqueo = alumnoNegocio.obtenerPorId(getIdSeleccionadoTablaBloqueo());
-
-        System.out.println(bloqueo.getId() + " si busco");
-        bloqueo.setMotivo(getMotivoSeleccionadoTablaBloqueo());
+           AlumnoDTO bloqueo = alumnoNegocio.obtenerPorId(getIdSeleccionadoTablaBloqueo());
+    
+    if (bloqueo != null) {
+        bloqueo.setApellidoMaterno(getMotivoSeleccionadoTablaBloqueo());
         editarBloqueoTabla(bloqueo);
-        
-        cargarBloqueosEnTabla();
+    } else {
+        JOptionPane.showMessageDialog(this, "No se encontró el alumno seleccionado", "Error", JOptionPane.ERROR_MESSAGE);
+    }
         }
         
-//        catch(NegocioException e ){
-//            e.printStackTrace();
-//        }
-    
+        
+   
 
     private void eliminar() throws NegocioException {
         //Metodo para regresar el beneficiario seleccionado
         
-        BloqueoDTO eliminado = new BloqueoDTO();
+        AlumnoDTO eliminado = new AlumnoDTO();
         
-//        eliminado = alumnoNegocio.obtenerPorId(getIdSeleccionadoTablaBloqueo());
+        eliminado = alumnoNegocio.obtenerPorId(getIdSeleccionadoTablaBloqueo());
 
         System.out.println("Preparando el id: " + eliminado.getId() + " para borrar");
         
-        eliminado.setEliminado(true);
+        eliminado.setEstaEliminado(true);
         
         eliminarBloqueoTabla(eliminado);
         cargarBloqueosEnTabla();
 
     }
 
-    private void llenarTablaBloqueos(List<BloqueoDTO> bloqueosLista) {
+    private void llenarTablaBloqueos(List<AlumnoDTO> bloqueosLista) {
         DefaultTableModel modeloTabla = (DefaultTableModel) this.tblAlumnos.getModel();
 
         if (modeloTabla.getRowCount() > 0) {
@@ -214,47 +218,35 @@ public class GestionAlumnos extends javax.swing.JFrame {
             bloqueosLista.forEach(row -> {
                 Object[] fila = new Object[5];
                 fila[0] = row.getId();
-                fila[1] = row.getMotivo();
-                fila[2] = row.getFechaBloqueo().getTime().toString();
-                fila[3] = row.getFechaLiberacion().getTime().toString();
-                fila[4] = row.isEliminado();
+                fila[1] = row.getNombres();
+                fila[2] = row.getApellidoPaterno();
+                fila[3] = row.getApellidoMaterno();
+                fila[4] = row.isEstaEliminado();
                 modeloTabla.addRow(fila);
             });
         }
     }
 
     private void cargarBloqueosEnTabla() {
-//        try {
-//            List<BloqueoDTO> bloqueos = this.bloqueoNegocio.buscarBloqueosTabla();
-//            this.llenarTablaBloqueos(bloqueos);
-//        } catch (NegocioException ex) {
-//            JOptionPane.showMessageDialog(this, ex.getMessage(), "Información", JOptionPane.ERROR_MESSAGE);
-//        }
+            List<AlumnoDTO> bloqueos = this.alumnoNegocio.buscarAlumnosTabla();
+            this.llenarTablaBloqueos(bloqueos);
+       
     }    
     
     
     private void cargarBloqueosEnTablaPorMotivo(String motivo) {
-//        try {
-//            
-//            System.out.println(motivo);
-////            List<BloqueoDTO> bloqueos = this.bloqueoNegocio.buscarBloqueosTabla(motivo);
-//            
-//            if(bloqueos.size() > 0){
-//            
-//            this.llenarTablaBloqueos(bloqueos);
-//            
-//            }
-//            
-//            else{
-//               JOptionPane.showMessageDialog(this, "No se encontraron registros con los datos especificados, se mostraran todos los datos", "Informacion", JOptionPane.ERROR_MESSAGE); 
-//                cargarBloqueosEnTabla();
-//            }
-//            
-//            
-//        } catch (NegocioException ex) {
-//            JOptionPane.showMessageDialog(this, ex.getMessage(), "Información", JOptionPane.ERROR_MESSAGE);
-//            cargarBloqueosEnTabla();
-//        }
+        System.out.println(motivo);
+        List<AlumnoDTO> bloqueos = this.alumnoNegocio.buscarAlumnosTabla(motivo);
+        if(bloqueos.size() > 0){
+            
+            this.llenarTablaBloqueos(bloqueos);
+            
+        }
+        
+        else{
+            JOptionPane.showMessageDialog(this, "No se encontraron registros con los datos especificados, se mostraran todos los datos", "Informacion", JOptionPane.ERROR_MESSAGE);
+            cargarBloqueosEnTabla();
+        }
     }     
   
 
@@ -361,7 +353,7 @@ administrador.setVisible(true);
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
 this.setVisible(false);
-AgregarAlumno agregarAlumno=new AgregarAlumno(administrador);
+AgregarAlumno agregarAlumno=new AgregarAlumno(this, alumnoNegocio, carreraNegocio);
 agregarAlumno.setVisible(true);
 
 

@@ -5,6 +5,8 @@
 package persistencia;
 
 import entidades.Carrera;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
@@ -32,4 +34,16 @@ public class CarreraDAO implements ICarreraDAO{
             e.printStackTrace(); 
         }
     }  
+
+    @Override
+    public Carrera obtenerCarreraPorNombre(String nombre) {
+   try {
+            return entityManager.createQuery("SELECT c FROM Carrera c WHERE c.nombre = :nombre", Carrera.class)
+                                .setParameter("nombre", nombre)
+                                .getSingleResult();
+        } catch (Exception e) {
+            e.printStackTrace(); 
+            return null; 
+        }
+    }
 }

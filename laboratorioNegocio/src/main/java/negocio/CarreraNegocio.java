@@ -25,5 +25,17 @@ public class CarreraNegocio implements ICarreraNegocio{
         Carrera carrera = new Carrera(carreraDTO.getNombre(), carreraDTO.getTiempoMaxUsoDiario());
         carreraDAO.agregarCarrera(carrera);
     }
+
+    @Override
+    public CarreraDTO obtenerCarreraPorNombre(String nombre) {
+ Carrera carrera = carreraDAO.obtenerCarreraPorNombre(nombre);
+        return carrera != null ? convertirACarreraDTO(carrera) : null;
+    }
+     private CarreraDTO convertirACarreraDTO(Carrera carrera) {
+        CarreraDTO carreraDTO = new CarreraDTO();
+        carreraDTO.setId(carrera.getId());
+        carreraDTO.setNombre(carrera.getNombre());
+        return carreraDTO;
+    }
 }
 

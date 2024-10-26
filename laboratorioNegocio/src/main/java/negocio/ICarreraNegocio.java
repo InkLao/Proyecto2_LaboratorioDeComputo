@@ -12,4 +12,6 @@ import dto.CarreraDTO;
  */
 public interface ICarreraNegocio {
       void agregarCarrera(CarreraDTO carreraDTO);
+          CarreraDTO obtenerCarreraPorNombre(String nombre);
+
 }
