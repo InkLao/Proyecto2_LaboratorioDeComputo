@@ -6,6 +6,8 @@ package pantallas;
 
 import negocio.IAlumnoNegocio;
 import negocio.ICarreraNegocio;
+import negocio.IUnidadNegocio;
+import negocio.UnidadNegocio;
 
 /**
  *
@@ -15,11 +17,18 @@ public class AgregarCentroComputos extends javax.swing.JFrame {
     
     private IAlumnoNegocio alumnoNegocio;
     private ICarreraNegocio carreraNegocio;
+    private IUnidadNegocio unidadNegocio;
+    private GestionCentroComputos gestionCentroComputos;
 
     /**
      * Creates new form AgregarCentroComputos
      */
-    public AgregarCentroComputos() {
+    public AgregarCentroComputos(GestionCentroComputos gestionCentroComputos, IAlumnoNegocio alumnoNegocio, ICarreraNegocio carreraNegocio, IUnidadNegocio unidadNegocio) {
+        this.unidadNegocio = unidadNegocio;
+        this.alumnoNegocio = alumnoNegocio;
+        this.carreraNegocio = carreraNegocio;
+        this.gestionCentroComputos = gestionCentroComputos;
+        
         initComponents();
     }
 
@@ -132,44 +141,9 @@ public class AgregarCentroComputos extends javax.swing.JFrame {
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         this.setVisible(false);
-        GestionAlumnos gestionAlumnos = new GestionAlumnos(alumnoNegocio, carreraNegocio);
-        gestionAlumnos.setVisible(true);
+        gestionCentroComputos.setVisible(true);
     }//GEN-LAST:event_btnRegresarActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AgregarCentroComputos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AgregarCentroComputos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AgregarCentroComputos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AgregarCentroComputos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new AgregarCentroComputos().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnContinuar;
