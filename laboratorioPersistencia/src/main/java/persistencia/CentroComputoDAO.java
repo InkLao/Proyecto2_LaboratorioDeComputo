@@ -19,7 +19,7 @@ public class CentroComputoDAO implements ICentroComputoDAO{
         this.entityManager = entityManager;
     }
     
-    public void agregarLaboratorio(CentroComputo centroComputo){
+    public void agregarCentroComputo(CentroComputo centroComputo){
         EntityTransaction transaction = entityManager.getTransaction();
         try {
             transaction.begin();
@@ -32,4 +32,39 @@ public class CentroComputoDAO implements ICentroComputoDAO{
             e.printStackTrace(); 
         }
     }  
+    
+    public void editarCentroComputo(CentroComputo centroComputo){
+        EntityTransaction transaction = entityManager.getTransaction();
+        try {
+            transaction.begin();
+            entityManager.merge(centroComputo);
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction.isActive()) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }
+    }
+    
+    public CentroComputo buscarCentroComputo(Long id) {
+        return entityManager.find(CentroComputo.class, id);
+    }
+
+    public void eliminarCentroComputo(Long id) {
+        EntityTransaction transaction = entityManager.getTransaction();
+        try {
+            transaction.begin();
+            CentroComputo centroComputo = buscarCentroComputo(id);
+            if (centroComputo != null) {
+                entityManager.remove(centroComputo);
+            }
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction.isActive()) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }
+    }
 }

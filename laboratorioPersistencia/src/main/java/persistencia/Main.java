@@ -4,6 +4,7 @@
  */
 package persistencia;
 
+import Prueba.PruebaDAO;
 import entidades.Alumno;
 import entidades.Bloqueo;
 import entidades.Carrera;
@@ -24,14 +25,13 @@ import javax.persistence.Persistence;
  * @author Oley
  */
 public class Main {
+
     /*
     Prueba de metodos
-    */
+     */
     public static void main(String[] args) {
-        
-        
-        
-             EntityManagerFactory emf = Persistence.createEntityManagerFactory("laboratorioComputo");
+
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("laboratorioComputo");
         EntityManager em = emf.createEntityManager();
 //                CarreraDAO carreraDAO=new CarreraDAO(em);
 //Carrera carrera=new Carrera("isw", 6);
@@ -61,19 +61,7 @@ public class Main {
 ////        alumnoDAO.eliminarAlumno(alumnoBuscado.getId());
 ////        System.out.println("Alumno eliminado.");
 ////        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+
 //        CarreraDAO carreraDAO =new CarreraDAO(em);
 //        Carrera carrera=new Carrera( "ISW", 5);
 //        carreraDAO.agregarCarrera(carrera);
@@ -99,5 +87,22 @@ public class Main {
 //    BloqueoDAO bloqueoDAO=new BloqueoDAO(em);
 //    Bloqueo bloqueo=new Bloqueo("Se acabo el tiempo", LocalDate.of(2023, 6, 10));
 //    bloqueoDAO.agregarBloqueo(bloqueo);
+
+        PruebaDAO pruebaDAO = new PruebaDAO();
+// Agregar un nuevo Centro de Cómputo
+            pruebaDAO.agregarCentroComputo();
+
+        //Buscar el Centro de Cómputo agregado
+        Long idCentro = (long) 2; // Cambia a la ID obtenida del Centro de Cómputo agregado
+        pruebaDAO.buscarCentroComputo(idCentro);
+
+//        // Editar el Centro de Cómputo
+//        pruebaDAO.editarCentroComputo(idCentro);
+//
+//        // Eliminar el Centro de Cómputo
+//        pruebaDAO.eliminarCentroComputo(idCentro);
+////
+////        // Cerrar conexiones
+//        pruebaDAO.cerrar();
     }
 }

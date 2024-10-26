@@ -4,10 +4,19 @@
  */
 package persistencia;
 
+import entidades.CentroComputo;
+
 /**
  *
  * @author eduar
  */
 public interface ICentroComputoDAO {
-    
+
+    void agregarCentroComputo(CentroComputo centroComputo);
+
+    void editarCentroComputo(CentroComputo centroComputo);
+
+    CentroComputo buscarCentroComputo(Long id);
+
+    void eliminarCentroComputo(Long id);
 }

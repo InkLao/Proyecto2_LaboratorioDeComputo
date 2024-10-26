@@ -132,8 +132,8 @@ public class AgregarCentroComputos extends javax.swing.JFrame {
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         this.setVisible(false);
-        GestionAlumnos gestionAlumnos = new GestionAlumnos(alumnoNegocio, carreraNegocio);
-        gestionAlumnos.setVisible(true);
+        //GestionAlumnos gestionAlumnos = new GestionAlumnos(alumnoNegocio, carreraNegocio);
+       // gestionAlumnos.setVisible(true);
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     /**
