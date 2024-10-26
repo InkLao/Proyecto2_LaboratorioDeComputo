@@ -50,17 +50,20 @@ public class BloqueoNegocio implements IBloqueoNegocio{
     
     @Override
     public BloqueoDTO guardarBloqueo(BloqueoDTO bloqueo) throws NegocioException {
-
+        System.out.println("dd");
         try{
             
             AlumnoDTO alumnoDTO = new AlumnoDTO();
-            alumnoDTO = alumnoNegocio.buscarAlumno(bloqueo.getAlumno());
             
+            alumnoDTO = alumnoNegocio.buscarAlumno(bloqueo.getAlumno());
+            System.out.println(alumnoDTO.toString());
             
             Alumno alu = alumnoNegocio.convertirAEntidad(alumnoDTO);
             
             Bloqueo blo = new Bloqueo(bloqueo.getMotivo(), bloqueo.getFechaBloqueo(), bloqueo.getFechaLiberacion(), bloqueo.isEliminado(), alu);
 
+            System.out.println(blo.toString());
+            
             BloqueoDTO bloqueoNuevo;
             
            System.out.println(blo.getMotivo());
@@ -95,6 +98,21 @@ public class BloqueoNegocio implements IBloqueoNegocio{
             throw new NegocioException("Error al obtener los bloqueos por id");
         }    
     }
+    
+    
+    @Override
+    public List<BloqueoDTO> buscarBloqueosTabla(String motivo) throws NegocioException {
+        
+        try {
+            List<Bloqueo> bloqueos = this.bloqueoDAO.buscarBloqueo(motivo);
+            return this.convertirBloqueoDTO(bloqueos);
+        } 
+        
+        catch (PersistenciaException ex) {
+            System.out.println(ex.getMessage());
+            throw new NegocioException(ex.getMessage());
+        }    
+    }   
 
     
     @Override

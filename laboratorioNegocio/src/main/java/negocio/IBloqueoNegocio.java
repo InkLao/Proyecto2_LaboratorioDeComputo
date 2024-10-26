@@ -26,4 +26,6 @@ public interface IBloqueoNegocio {
     
     void eliminarBloqueo(BloqueoDTO bloqueo) throws NegocioException;
     
+    public List<BloqueoDTO> buscarBloqueosTabla(String motivo) throws NegocioException;
+    
 }

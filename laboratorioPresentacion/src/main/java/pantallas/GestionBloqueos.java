@@ -36,10 +36,11 @@ public class GestionBloqueos extends javax.swing.JFrame {
     /**
      * Creates new form GestionBloqueos
      */
-    public GestionBloqueos(Administrador administrador, IBloqueoNegocio bloqueoNegocio) {
+    public GestionBloqueos(Administrador administrador, IBloqueoNegocio bloqueoNegocio, IAlumnoNegocio alumnoNegocio) {
         
         this.administrador = administrador;
         this.bloqueoNegocio = bloqueoNegocio;
+        this.alumnoNegocio = alumnoNegocio;
                 
         initComponents();
         
@@ -238,6 +239,30 @@ public class GestionBloqueos extends javax.swing.JFrame {
         }
     }    
     
+    
+    private void cargarBloqueosEnTablaPorMotivo(String motivo) {
+        try {
+            
+            System.out.println(motivo);
+            List<BloqueoDTO> bloqueos = this.bloqueoNegocio.buscarBloqueosTabla(motivo);
+            
+            if(bloqueos.size() > 0){
+            
+            this.llenarTablaBloqueos(bloqueos);
+            
+            }
+            
+            else{
+               JOptionPane.showMessageDialog(this, "No se encontraron registros con los datos especificados, se mostraran todos los datos", "Informacion", JOptionPane.ERROR_MESSAGE); 
+                cargarBloqueosEnTabla();
+            }
+            
+            
+        } catch (NegocioException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Información", JOptionPane.ERROR_MESSAGE);
+            cargarBloqueosEnTabla();
+        }
+    }     
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -260,6 +285,11 @@ public class GestionBloqueos extends javax.swing.JFrame {
         jLabel1.setText("Gestion Bloqueos");
 
         btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
 
         tblBloqueos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -348,12 +378,20 @@ public class GestionBloqueos extends javax.swing.JFrame {
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         this.setVisible(false);
-        AgregarBloqueo agregarBloqueo=new AgregarBloqueo(this, alumnoNegocio, bloqueoNegocio);
+        AgregarBloqueo agregarBloqueo=new AgregarBloqueo(this, alumnoNegocio, bloqueoNegocio, alumnoNegocio);
         agregarBloqueo.setVisible(true);
 
 
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAgregarActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        // TODO add your handling code here:
+        
+        this.cargarBloqueosEnTablaPorMotivo(txtBuscar.getText());
+        
+        
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
   
     // Variables declaration - do not modify//GEN-BEGIN:variables

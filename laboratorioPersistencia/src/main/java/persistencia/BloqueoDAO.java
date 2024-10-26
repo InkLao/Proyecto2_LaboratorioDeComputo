@@ -11,6 +11,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -89,6 +90,34 @@ public class BloqueoDAO implements IBloqueoDAO{
         return null;
     }
 
+    
+    @Override
+    public List<Bloqueo> buscarBloqueo(String motivo) throws PersistenciaException{
+       
+        try{
+        EntityManager em = emf.createEntityManager();
+
+        String consultaJPQL = """
+                                    SELECT b from Bloqueo b
+                                    WHERE b.motivo = :motivo
+                                
+                                """;
+            TypedQuery<Bloqueo> query = em.createQuery(consultaJPQL, Bloqueo.class);
+            query.setParameter("motivo", motivo);
+            
+            List<Bloqueo> bloqueo = query.getResultList();
+            
+            return bloqueo;
+            
+        }
+        
+        catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+          
+        return null;
+    }
+    
     @Override
     public Bloqueo eliminarBloqueo(Bloqueo bloqueo) {
 
