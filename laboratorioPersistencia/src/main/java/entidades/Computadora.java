@@ -41,28 +41,37 @@ public class Computadora implements Serializable {
     @Column(name = "usoAlumno", nullable = false)
     private boolean usoAlumno;
     
+    @Column(name = "eliminado")
+    private boolean eliminado;
+    
 
     @OneToOne(cascade = CascadeType.PERSIST)
     private CentroComputo centroComputo;
     
     public Computadora() {
     }
+    
 
-    public Computadora(Long id, String estatus, String direccionIP, Integer numeroMaquina, boolean usoAlumno) {
+    public Computadora(Long id, String estatus, String direccionIP, Integer numeroMaquina, boolean usoAlumno, boolean eliminado, CentroComputo centroComputo) {
         this.id = id;
         this.estatus = estatus;
         this.direccionIP = direccionIP;
         this.numeroMaquina = numeroMaquina;
         this.usoAlumno = usoAlumno;
+        this.eliminado = eliminado;
+        this.centroComputo = centroComputo;
     }
 
-    public Computadora(String estatus, String direccionIP, Integer numeroMaquina, boolean usoAlumno, CentroComputo centroComputo) {
+    public Computadora(String estatus, String direccionIP, Integer numeroMaquina, boolean usoAlumno, boolean eliminado, CentroComputo centroComputo) {
         this.estatus = estatus;
         this.direccionIP = direccionIP;
         this.numeroMaquina = numeroMaquina;
         this.usoAlumno = usoAlumno;
+        this.eliminado = eliminado;
         this.centroComputo = centroComputo;
     }
+
+
 
 
     
@@ -117,4 +126,16 @@ public class Computadora implements Serializable {
     public void setCentroComputo(CentroComputo centroComputo) {
         this.centroComputo = centroComputo;
     }
+
+    public boolean isEliminado() {
+        return eliminado;
+    }
+
+    public void setEliminado(boolean eliminado) {
+        this.eliminado = eliminado;
+    }
+    
+    
+    
+    
 }
