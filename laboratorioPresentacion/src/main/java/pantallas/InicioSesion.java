@@ -9,6 +9,7 @@ import negocio.IAlumnoNegocio;
 import negocio.IBloqueoNegocio;
 import negocio.ICarreraNegocio;
 import negocio.ICentroComputoNegocio;
+import negocio.IComputadoraNegocio;
 import negocio.IUnidadNegocio;
 
 /**
@@ -23,16 +24,20 @@ public class InicioSesion extends javax.swing.JFrame {
     private IAlumnoNegocio alumnoNegocio;
     private IBloqueoNegocio bloqueoNegocio;
     private ICentroComputoNegocio centroComputoNegocio;
-
+    private IComputadoraNegocio computadoraNegocio;
+    
     /**
      * Creates new form InicioSesion
      */
-    public InicioSesion(ICarreraNegocio carreraNegocio,IUnidadNegocio unidadNegocio,IAlumnoNegocio alumnoNegocio, IBloqueoNegocio bloqueoNegocio, ICentroComputoNegocio centroComputoNegocio) {
+    public InicioSesion(ICarreraNegocio carreraNegocio,IUnidadNegocio unidadNegocio,IAlumnoNegocio alumnoNegocio, IBloqueoNegocio bloqueoNegocio, ICentroComputoNegocio centroComputoNegocio,
+                        IComputadoraNegocio computadoraNegocio) {
         this.carreraNegocio= carreraNegocio;
         this.unidadNegocio=unidadNegocio;
         this.alumnoNegocio=alumnoNegocio;
         this.bloqueoNegocio = bloqueoNegocio;
         this.centroComputoNegocio = centroComputoNegocio;
+        this.computadoraNegocio = computadoraNegocio;
+        
         initComponents();
     }
 
@@ -114,7 +119,7 @@ public class InicioSesion extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
  this.setVisible(false);
-        Administrador administrador=new Administrador(this, carreraNegocio,unidadNegocio,alumnoNegocio, bloqueoNegocio, centroComputoNegocio);
+        Administrador administrador=new Administrador(this, carreraNegocio,unidadNegocio,alumnoNegocio, bloqueoNegocio, centroComputoNegocio, computadoraNegocio);
 administrador.setVisible(true);
 
 

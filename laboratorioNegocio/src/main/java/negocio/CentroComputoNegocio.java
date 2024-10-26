@@ -95,7 +95,8 @@ public class CentroComputoNegocio implements ICentroComputoNegocio {
     } 
 
     // Método de conversión de DTO a entidad
-    private CentroComputo convertirAEntidad(CentroComputoDTO centroComputoDTO) {
+    @Override
+    public CentroComputo convertirAEntidad(CentroComputoDTO centroComputoDTO) {
         if (centroComputoDTO == null) {
             return null;
         }
@@ -127,7 +128,8 @@ public class CentroComputoNegocio implements ICentroComputoNegocio {
     }
 
     // Método de conversión de entidad a DTO
-    private CentroComputoDTO convertirADto(CentroComputo centroComputo) {
+    @Override
+    public CentroComputoDTO convertirADto(CentroComputo centroComputo) {
         if (centroComputo == null) {
             return null;
         }

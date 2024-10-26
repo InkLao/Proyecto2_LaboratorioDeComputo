@@ -15,14 +15,14 @@ public class ComputadoraDTO {
     private String estatus;
     private Integer numeroMaquina;
     private boolean usoAlumno;
-    private Integer centroLaboratorio;
+    private long centroLaboratorio;
     private boolean eliminado;
 
     
     public ComputadoraDTO() {
     }
 
-    public ComputadoraDTO(long id, String ip, String estatus, Integer numeroMaquina, boolean usoAlumno, Integer centroLaboratorio, boolean eliminado) {
+    public ComputadoraDTO(long id, String ip, String estatus, Integer numeroMaquina, boolean usoAlumno, long centroLaboratorio, boolean eliminado) {
         this.id = id;
         this.ip = ip;
         this.estatus = estatus;
@@ -32,7 +32,7 @@ public class ComputadoraDTO {
         this.eliminado = eliminado;
     }
 
-    public ComputadoraDTO(String ip, String estatus, Integer numeroMaquina, boolean usoAlumno, Integer centroLaboratorio, boolean eliminado) {
+    public ComputadoraDTO(String ip, String estatus, Integer numeroMaquina, boolean usoAlumno, long centroLaboratorio, boolean eliminado) {
         this.ip = ip;
         this.estatus = estatus;
         this.numeroMaquina = numeroMaquina;
@@ -83,11 +83,11 @@ public class ComputadoraDTO {
         this.usoAlumno = usoAlumno;
     }
 
-    public Integer getCentroLaboratorio() {
+    public long getCentroLaboratorio() {
         return centroLaboratorio;
     }
 
-    public void setCentroLaboratorio(Integer centroLaboratorio) {
+    public void setCentroLaboratorio(long centroLaboratorio) {
         this.centroLaboratorio = centroLaboratorio;
     }
 

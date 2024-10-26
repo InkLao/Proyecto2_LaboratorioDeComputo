@@ -11,6 +11,7 @@ import negocio.IAlumnoNegocio;
 import negocio.IBloqueoNegocio;
 import negocio.ICarreraNegocio;
 import negocio.ICentroComputoNegocio;
+import negocio.IComputadoraNegocio;
 import negocio.IUnidadNegocio;
 
 /**
@@ -26,17 +27,19 @@ public class Administrador extends javax.swing.JFrame {
     private IAlumnoNegocio alumnoNegocio;
     private IBloqueoNegocio bloqueoNegocio;
     private ICentroComputoNegocio centroComputoNegocio;
+    private IComputadoraNegocio computadoraNegocio;
 
     /**
      * Creates new form Administrador
      */
     public Administrador(InicioSesion inicioSesion, ICarreraNegocio carreraNegocio, IUnidadNegocio unidadNegocio, IAlumnoNegocio alumnoNegocio,
-                         IBloqueoNegocio bloqueoNegocio, ICentroComputoNegocio centroComputoNegocio) {
+                         IBloqueoNegocio bloqueoNegocio, ICentroComputoNegocio centroComputoNegocio, IComputadoraNegocio computadoraNegocio) {
         this.carreraNegocio = carreraNegocio;
         this.unidadNegocio = unidadNegocio;
         this.alumnoNegocio= alumnoNegocio;
         this.bloqueoNegocio = bloqueoNegocio;
         this.centroComputoNegocio = centroComputoNegocio;
+        this.computadoraNegocio = computadoraNegocio;
         
         this.inicioSesion = inicioSesion;
         
@@ -55,7 +58,7 @@ public class Administrador extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnComputadoras = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         btnBloqueos = new javax.swing.JButton();
@@ -80,10 +83,10 @@ public class Administrador extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setText("Gestionar Computadoras");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnComputadoras.setText("Gestionar Computadoras");
+        btnComputadoras.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnComputadorasActionPerformed(evt);
             }
         });
 
@@ -148,7 +151,7 @@ public class Administrador extends javax.swing.JFrame {
                             .addComponent(btnBloqueos, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(layout.createSequentialGroup()
                             .addGap(40, 40, 40)
-                            .addComponent(jButton3)
+                            .addComponent(btnComputadoras)
                             .addGap(38, 38, 38)
                             .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(59, Short.MAX_VALUE))
@@ -172,7 +175,7 @@ public class Administrador extends javax.swing.JFrame {
                         .addComponent(jButton7))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addComponent(jButton3)))
+                        .addComponent(btnComputadoras)))
                 .addGap(33, 33, 33)
                 .addComponent(btnGestionCentroComputos)
                 .addGap(50, 50, 50)
@@ -243,13 +246,13 @@ public class Administrador extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btnComputadorasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComputadorasActionPerformed
         this.setVisible(false);
-        GestionComputadoras gestionComputadoras = new GestionComputadoras(this);
+        GestionComputadoras gestionComputadoras = new GestionComputadoras(this, computadoraNegocio, centroComputoNegocio);
         gestionComputadoras.setVisible(true);
 
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_btnComputadorasActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         this.setVisible(false);
@@ -285,10 +288,10 @@ public class Administrador extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBloqueos;
+    private javax.swing.JButton btnComputadoras;
     private javax.swing.JButton btnGestionCentroComputos;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton7;

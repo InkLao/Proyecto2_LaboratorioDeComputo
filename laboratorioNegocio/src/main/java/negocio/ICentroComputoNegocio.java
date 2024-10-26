@@ -27,4 +27,8 @@ public interface ICentroComputoNegocio {
     public CentroComputoDTO actualizarCentroComputo(CentroComputoDTO centroComputo) throws NegocioException;
     
     public List<CentroComputoDTO> obtenerTodosLosCentros() throws NegocioException;
+    
+    public CentroComputo convertirAEntidad(CentroComputoDTO centroComputoDTO);
+    
+    public CentroComputoDTO convertirADto(CentroComputo centroComputo);
 }

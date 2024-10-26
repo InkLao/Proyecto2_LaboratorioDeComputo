@@ -48,6 +48,7 @@ public class CentroComputoDAO implements ICentroComputoDAO {
         entityManager.close();
     }
 
+    @Override
     public CentroComputo buscarCentroComputo(Long id) {
         return entityManager.find(CentroComputo.class, id);
     }

@@ -4,6 +4,12 @@
  */
 package pantallas;
 
+import NegocioException.NegocioException;
+import dto.ComputadoraDTO;
+import javax.swing.JOptionPane;
+import negocio.ICentroComputoNegocio;
+import negocio.IComputadoraNegocio;
+
 /**
  *
  * @author Oley
@@ -12,12 +18,17 @@ public class AgregarComputadora extends javax.swing.JFrame {
 
     
     private GestionComputadoras gestionComputadoras;
+    private IComputadoraNegocio computadoraNegocio;
+    private ICentroComputoNegocio centroComputoNegocio;
     
     /**
      * Creates new form AgregarComputadora
      */
-    public AgregarComputadora(GestionComputadoras gestionComputadoras) {
+    public AgregarComputadora(GestionComputadoras gestionComputadoras, IComputadoraNegocio computadoraNegocio, ICentroComputoNegocio centroComputoNegocio) {
         this.gestionComputadoras = gestionComputadoras;
+        this.computadoraNegocio = computadoraNegocio;
+        this.centroComputoNegocio = centroComputoNegocio;
+        
         initComponents();
     }
 
@@ -31,29 +42,45 @@ public class AgregarComputadora extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jblIP = new javax.swing.JLabel();
+        txtIp = new javax.swing.JTextField();
+        jblNumMaquina = new javax.swing.JLabel();
+        txtNumMaquina = new javax.swing.JTextField();
+        btnRegresar = new javax.swing.JButton();
+        btnAgregar = new javax.swing.JButton();
+        jblLaboratorio = new javax.swing.JLabel();
+        txtLaboratorio = new javax.swing.JTextField();
+        jblUsoAlumno = new javax.swing.JLabel();
+        cbUsoAlumno = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Agregar Computadora");
 
         jLabel1.setText("Agregar Computadora");
 
-        jLabel2.setText("Dirrecion IP:");
+        jblIP.setText("Dirrecion IP:");
 
-        jLabel3.setText("Numero de Maquina:");
+        jblNumMaquina.setText("Numero de Maquina:");
 
-        jButton1.setText("Regresar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnRegresar.setText("Regresar");
+        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnRegresarActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Continuar");
+        btnAgregar.setText("Agregar");
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarActionPerformed(evt);
+            }
+        });
+
+        jblLaboratorio.setText("Laboratorio");
+
+        jblUsoAlumno.setText("Uso Alumno");
+
+        cbUsoAlumno.setText("¿El alumno la va a usar?");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -66,19 +93,24 @@ public class AgregarComputadora extends javax.swing.JFrame {
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(17, 17, 17)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton2))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField2))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtIp, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(btnRegresar)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnAgregar))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jblNumMaquina, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jblIP, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jblLaboratorio, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jblUsoAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(txtNumMaquina, javax.swing.GroupLayout.DEFAULT_SIZE, 227, Short.MAX_VALUE)
+                                        .addComponent(txtLaboratorio, javax.swing.GroupLayout.DEFAULT_SIZE, 227, Short.MAX_VALUE)
+                                        .addComponent(cbUsoAlumno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))))
                 .addContainerGap(29, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -86,41 +118,96 @@ public class AgregarComputadora extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
+                .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24)
+                    .addComponent(txtIp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jblIP))
+                .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(txtNumMaquina, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jblNumMaquina))
+                .addGap(29, 29, 29)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jblLaboratorio)
+                    .addComponent(txtLaboratorio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
-                .addContainerGap(21, Short.MAX_VALUE))
+                    .addComponent(jblUsoAlumno)
+                    .addComponent(cbUsoAlumno))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnRegresar)
+                    .addComponent(btnAgregar))
+                .addGap(17, 17, 17))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-this.setVisible(false);
-gestionComputadoras.setVisible(true);
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+       
+        this.dispose();
+        gestionComputadoras.setVisible(true);
 
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnRegresarActionPerformed
+
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+        // TODO add your handling code here:
+        
+        try{
+        
+        ComputadoraDTO compu = new ComputadoraDTO();
+        
+        boolean usoAlumno;
+        
+        if(cbUsoAlumno.isSelected()){
+            usoAlumno = true;
+        }
+        
+        else{
+            usoAlumno = false;
+        }
+        
+        compu.setCentroLaboratorio(Long.valueOf(txtLaboratorio.getText()));
+        compu.setEliminado(false);
+        compu.setEstatus("Disponible");
+        compu.setIp(txtIp.getText());
+        compu.setNumeroMaquina(Integer.valueOf(txtNumMaquina.getText()));
+        compu.setUsoAlumno(usoAlumno);
+        
+        System.out.println(compu.toString());
+        
+        ComputadoraDTO compuGuardada = computadoraNegocio.guardarComputadora(compu);
+        
+        JOptionPane.showMessageDialog(this, "La computadora con ip: " + compuGuardada.getIp() + " ha sido guardad");
+        
+        this.dispose();
+        
+        gestionComputadoras.setVisible(true);
+        
+        }
+        
+        catch(NegocioException e){
+            System.out.println(e.getMessage());
+        }
+        
+    }//GEN-LAST:event_btnAgregarActionPerformed
 
    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btnAgregar;
+    private javax.swing.JButton btnRegresar;
+    private javax.swing.JCheckBox cbUsoAlumno;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JLabel jblIP;
+    private javax.swing.JLabel jblLaboratorio;
+    private javax.swing.JLabel jblNumMaquina;
+    private javax.swing.JLabel jblUsoAlumno;
+    private javax.swing.JTextField txtIp;
+    private javax.swing.JTextField txtLaboratorio;
+    private javax.swing.JTextField txtNumMaquina;
     // End of variables declaration//GEN-END:variables
 }

@@ -4,35 +4,159 @@
  */
 package persistencia;
 
+import Excepciones.PersistenciaException;
 import entidades.Computadora;
-import entidades.UnidadAcademica;
+import java.util.List;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 
 /**
  *
  * @author Oley
  */
-public class ComputadoraDAO {
-    private EntityManager entityManager;
+public class ComputadoraDAO implements IComputadoraDAO{
 
-    public ComputadoraDAO(EntityManager entityManager) {
-        this.entityManager = entityManager;
+    
+    private EntityManagerFactory emf = Persistence.createEntityManagerFactory("laboratorioComputo");
+
+
+    
+    public ComputadoraDAO(EntityManager entityManager, EntityManagerFactory emf) {
+        //this.entityManager = entityManager;
+    }
+    
+    
+    @Override
+    public List<Computadora> obtenerTodos() throws PersistenciaException {
+        EntityManager em = emf.createEntityManager();
+        List<Computadora> bloqueos = em.createQuery("SELECT c FROM Computadora c", Computadora.class).getResultList();
+        em.close();
+        return bloqueos;
+    }
+    
+    @Override
+    public Computadora agregarComputadora(Computadora computadora) {
+        
+        EntityManager entityManager = emf.createEntityManager();
+
+        entityManager.getTransaction().begin();
+        entityManager.persist(computadora);
+        entityManager.getTransaction().commit();
+        entityManager.close();
+        
+        return computadora;
+    }  
+    
+
+    @Override
+    public Computadora editarComputadora(Computadora computadora) {
+
+        EntityManager entityManager = emf.createEntityManager();
+
+        
+        System.out.println("editar " + computadora.toString());
+        entityManager.getTransaction().begin();
+        entityManager.merge(computadora);
+        entityManager.getTransaction().commit();
+        entityManager.close();
+        
+        return computadora;
+        
+    }
+
+    @Override
+    public Computadora buscarComputadora(Long id) throws PersistenciaException{
+        
+        try{
+        EntityManager entityManager = emf.createEntityManager();
+  
+        Computadora computadora = entityManager.find(Computadora.class, id);
+        
+        entityManager.close();
+        
+        return computadora;
+        }
+        
+        catch(Exception e){
+            System.out.println(e.getMessage());
+            System.out.println("error en buscarComputadora id persistencia");
+        }
+        
+        return null;
     }
 
     
-    
-    public void agregarComputadora(Computadora  computadora){
-        EntityTransaction transaction = entityManager.getTransaction();
-        try {
-            transaction.begin();
-            entityManager.persist(computadora);
-            transaction.commit();
-        } catch (Exception e) {
-            if (transaction.isActive()) {
-                transaction.rollback();
-            }
-            e.printStackTrace(); 
+    @Override
+    public List<Computadora> buscarComputadoras(String ip) throws PersistenciaException{
+       
+        try{
+        EntityManager em = emf.createEntityManager();
+
+        String consultaJPQL = """
+                                    SELECT c from Computadora c
+                                    WHERE c.ip = :ip
+                                
+                                """;
+            TypedQuery<Computadora> query = em.createQuery(consultaJPQL, Computadora.class);
+            query.setParameter("motivo", ip);
+            
+            List<Computadora> computadora = query.getResultList();
+            
+            return computadora;
+            
         }
-    }  
+        
+        catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+          
+        return null;
+    }
+    
+    
+    @Override
+    public List<Computadora> buscarComputadorasPorEstatus(String estatus) throws PersistenciaException{
+       
+        try{
+        EntityManager em = emf.createEntityManager();
+
+        String consultaJPQL = """
+                                    SELECT c from Computadora c
+                                    WHERE c.estatus = :estatus
+                                
+                                """;
+            TypedQuery<Computadora> query = em.createQuery(consultaJPQL, Computadora.class);
+            query.setParameter("estatus", estatus);
+            
+            List<Computadora> computadora = query.getResultList();
+            
+            return computadora;
+            
+        }
+        
+        catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+          
+        return null;
+    }    
+    
+    
+    @Override
+    public Computadora eliminarComputadora(Computadora computadora) {
+
+        EntityManager entityManager = emf.createEntityManager();
+
+        
+        entityManager.getTransaction().begin();
+        entityManager.merge(computadora);
+        entityManager.getTransaction().commit();
+        entityManager.close();
+        
+        
+        return computadora;
+
+    }
 }

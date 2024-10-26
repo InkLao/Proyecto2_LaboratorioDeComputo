@@ -4,25 +4,41 @@
  */
 package pantallas;
 
-import negocio.IAlumnoNegocio;
-import negocio.ICarreraNegocio;
-import negocio.IUnidadNegocio;
+import NegocioException.NegocioException;
+import dto.ComputadoraDTO;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
+import negocio.ICentroComputoNegocio;
+import negocio.IComputadoraNegocio;
+import utilerias.JButtonCellEditor;
+import utilerias.JButtonRenderer;
+
 
 /**
  *
  * @author Oley
  */
 public class GestionComputadoras extends javax.swing.JFrame {
-private ICarreraNegocio carreraNegocio;
-private IUnidadNegocio unidadNegocio;
-private IAlumnoNegocio alumnoNegocio;
-private Administrador administrador;
+    
+    
+    private IComputadoraNegocio computadoraNegocio;
+    private Administrador administrador;
+    private ICentroComputoNegocio centroComputoNegocio;
 
     /**
      * Creates new form GestionComputadoras
      */
-    public GestionComputadoras(Administrador administrador) {
+    public GestionComputadoras(Administrador administrador, IComputadoraNegocio computadoraNegocio, ICentroComputoNegocio centroComputoNegocio) {
+        this.computadoraNegocio = computadoraNegocio;
         this.administrador = administrador;
+        this.centroComputoNegocio = centroComputoNegocio;
+        
         initComponents();
         
         cargarMetodosIniciales();
@@ -39,12 +55,16 @@ private Administrador administrador;
         
     private void editarComputadoraTabla(ComputadoraDTO computadora) {
         try {
-            System.out.println(bloqueo.toString() + "editar bloqueo id");
-            BloqueoDTO bloqueoActualizado = bloqueoNegocio.actualizarBloqueo(bloqueo);
-            System.out.println(bloqueoActualizado.getId());
+            
+            System.out.println(computadora.toString() + "editar bloqueo id");
+            
+            ComputadoraDTO compuActualizada = computadoraNegocio.actualizarComputadora(computadora);
+            
+            System.out.println(compuActualizada.getId());
+            
             JOptionPane.showMessageDialog(this, "Bloqueo editado");
-            this.cargarBloqueosEnTabla();
-            System.out.println(bloqueoActualizado.getId() + "22");
+            
+            this.cargarComputadorasEnTabla();
 
             
         } catch (NegocioException ex) {
@@ -54,7 +74,23 @@ private Administrador administrador;
     }
     
     
-    private void cargarConfiguracionInicialTablaBloqueos() {
+        
+    private void eliminarComputadoraTabla(ComputadoraDTO compu) {
+        try {
+            this.computadoraNegocio.eliminarComputadora(compu);
+            JOptionPane.showMessageDialog(this, "Computadora Eliminado");
+            this.cargarComputadorasEnTabla();
+            
+        } 
+        
+        catch (NegocioException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Información", JOptionPane.ERROR_MESSAGE);
+        }
+
+    }
+    
+    
+    private void cargarConfiguracionInicialTablaComputadoras() {
         ActionListener onEditarClickListener = new ActionListener() {
             final int columnaId = 0;
 
@@ -66,8 +102,8 @@ private Administrador administrador;
             }
         };
 
-        int indiceColumnaEditar = 6;
-        TableColumnModel modeloColumnas = this.tblBloqueos.getColumnModel();
+        int indiceColumnaEditar = 7;
+        TableColumnModel modeloColumnas = this.tblComputadoras.getColumnModel();
         modeloColumnas.getColumn(indiceColumnaEditar)
                 .setCellRenderer(new JButtonRenderer("Editar"));
         modeloColumnas.getColumn(indiceColumnaEditar)
@@ -87,8 +123,8 @@ private Administrador administrador;
                 }
             }
         };
-        int indiceColumnaEliminar = 7;
-        modeloColumnas = this.tblBloqueos.getColumnModel();
+        int indiceColumnaEliminar = 8;
+        modeloColumnas = this.tblComputadoras.getColumnModel();
         modeloColumnas.getColumn(indiceColumnaEliminar)
                 .setCellRenderer(new JButtonRenderer("Eliminar"));
         modeloColumnas.getColumn(indiceColumnaEliminar)
@@ -97,45 +133,105 @@ private Administrador administrador;
 
     }
 
-    private long getIdSeleccionadoTablaBloqueo() {
-        int indiceFilaSeleccionada = this.tblBloqueos.getSelectedRow();
+    private long getIdSeleccionadoTablaComputadoras() {
+        int indiceFilaSeleccionada = this.tblComputadoras.getSelectedRow();
         if (indiceFilaSeleccionada != -1) {
-            DefaultTableModel modelo = (DefaultTableModel) this.tblBloqueos.getModel();
+            DefaultTableModel modelo = (DefaultTableModel) this.tblComputadoras.getModel();
             int indiceColumnaId = 0;
-            long idBloqueoSeleccionado = (long) modelo.getValueAt(indiceFilaSeleccionada,
+            long idCompuSeleccionado = (long) modelo.getValueAt(indiceFilaSeleccionada,
                     indiceColumnaId);
-            return idBloqueoSeleccionado;
+            return idCompuSeleccionado;
         } else {
             return 0;
         }
     }
-
     
-    private boolean getEliminadoSeleccionadoTablaBloqueo() {
-        int indiceFilaSeleccionada = this.tblBloqueos.getSelectedRow();
+    
+    private String getEstatusSeleccionadoTablaComputadoras() {
+        int indiceFilaSeleccionada = this.tblComputadoras.getSelectedRow();
         if (indiceFilaSeleccionada != -1) {
-            DefaultTableModel modelo = (DefaultTableModel) this.tblBloqueos.getModel();
-            int indiceColumnaId = 5;
-            boolean eliminadoBloqueoSeleccionado = (boolean) modelo.getValueAt(indiceFilaSeleccionada,
+            DefaultTableModel modelo = (DefaultTableModel) this.tblComputadoras.getModel();
+            int indiceColumnaId = 1;
+            String estatusCompuSeleccionado = (String) modelo.getValueAt(indiceFilaSeleccionada,
                     indiceColumnaId);
-            return eliminadoBloqueoSeleccionado;
+            return estatusCompuSeleccionado;
+        } else {
+            return null;
+        }
+    }
+        
+        
+    private String getIpSeleccionadoTablaComputadoras() {
+        int indiceFilaSeleccionada = this.tblComputadoras.getSelectedRow();
+        if (indiceFilaSeleccionada != -1) {
+            DefaultTableModel modelo = (DefaultTableModel) this.tblComputadoras.getModel();
+            int indiceColumnaId = 2;
+            String ipCompuSeleccionado = (String) modelo.getValueAt(indiceFilaSeleccionada,
+                    indiceColumnaId);
+            return ipCompuSeleccionado;
+        } else {
+            return null;
+        }
+    }
+            
+            
+            
+            
+    private Integer getNumeroMaquiaSeleccionadoTablaComputadoras() {
+        int indiceFilaSeleccionada = this.tblComputadoras.getSelectedRow();
+        if (indiceFilaSeleccionada != -1) {
+            DefaultTableModel modelo = (DefaultTableModel) this.tblComputadoras.getModel();
+            int indiceColumnaId = 3;
+            Integer numeroMaquinaCompuSeleccionado = (Integer) modelo.getValueAt(indiceFilaSeleccionada,
+                    indiceColumnaId);
+            return numeroMaquinaCompuSeleccionado;
+        } else {
+            return null;
+        }
+    }
+                
+           
+    private boolean getUsoAlumnoSeleccionadoTablaComputadoras() {
+        int indiceFilaSeleccionada = this.tblComputadoras.getSelectedRow();
+        if (indiceFilaSeleccionada != -1) {
+            DefaultTableModel modelo = (DefaultTableModel) this.tblComputadoras.getModel();
+            int indiceColumnaId = 4;
+            boolean usoAlumnoCompuSeleccionado = (boolean) modelo.getValueAt(indiceFilaSeleccionada,
+                    indiceColumnaId);
+            return usoAlumnoCompuSeleccionado;
         } else {
             return false;
         }
     }
     
-    private String getMotivoSeleccionadoTablaBloqueo() {
-        int indiceFilaSeleccionada = this.tblBloqueos.getSelectedRow();
+    
+    private long getLaboratorioSeleccionadoTablaComputadoras() {
+        int indiceFilaSeleccionada = this.tblComputadoras.getSelectedRow();
         if (indiceFilaSeleccionada != -1) {
-            DefaultTableModel modelo = (DefaultTableModel) this.tblBloqueos.getModel();
-            int indiceColumnaId = 1;
-            String motivoBloqueoSeleccionado = (String) modelo.getValueAt(indiceFilaSeleccionada,
+            DefaultTableModel modelo = (DefaultTableModel) this.tblComputadoras.getModel();
+            int indiceColumnaId = 5;
+            long laboratorioCompuSeleccionado = (long) modelo.getValueAt(indiceFilaSeleccionada,
                     indiceColumnaId);
-            return motivoBloqueoSeleccionado;
+            return laboratorioCompuSeleccionado;
         } else {
-            return null;
+            return 0;
         }
-    }    
+    }
+                
+                
+    private boolean getEliminadoSeleccionadoTablaComputadoras() {
+        int indiceFilaSeleccionada = this.tblComputadoras.getSelectedRow();
+        if (indiceFilaSeleccionada != -1) {
+            DefaultTableModel modelo = (DefaultTableModel) this.tblComputadoras.getModel();
+            int indiceColumnaId = 6;
+            boolean usoAlumnoCompuSeleccionado = (boolean) modelo.getValueAt(indiceFilaSeleccionada,
+                    indiceColumnaId);
+            return usoAlumnoCompuSeleccionado;
+        } else {
+            return false;
+        }
+    } 
+  
 
 
     private void editar() {
@@ -143,15 +239,22 @@ private Administrador administrador;
 
         try{
 
-        BloqueoDTO bloqueo = new BloqueoDTO();
+        ComputadoraDTO compu = new ComputadoraDTO();
 
-        bloqueo = bloqueoNegocio.obtenerPorId(getIdSeleccionadoTablaBloqueo());
+        compu = computadoraNegocio.obtenerPorId(getIdSeleccionadoTablaComputadoras());
 
-        System.out.println(bloqueo.getId() + " si busco");
-        bloqueo.setMotivo(getMotivoSeleccionadoTablaBloqueo());
-        editarBloqueoTabla(bloqueo);
+        System.out.println(compu.getId() + " si busco");
         
-        cargarBloqueosEnTabla();
+        compu.setCentroLaboratorio(this.getLaboratorioSeleccionadoTablaComputadoras());
+        compu.setEstatus(this.getEstatusSeleccionadoTablaComputadoras());
+        compu.setId(this.getIdSeleccionadoTablaComputadoras());
+        compu.setIp(this.getIpSeleccionadoTablaComputadoras());
+        compu.setNumeroMaquina(this.getNumeroMaquiaSeleccionadoTablaComputadoras());
+        compu.setUsoAlumno(this.getUsoAlumnoSeleccionadoTablaComputadoras());
+        
+        editarComputadoraTabla(compu);
+        
+        cargarComputadorasEnTabla();
         }
         
         catch(NegocioException e ){
@@ -162,21 +265,21 @@ private Administrador administrador;
     private void eliminar() throws NegocioException {
         //Metodo para regresar el beneficiario seleccionado
         
-        BloqueoDTO eliminado = new BloqueoDTO();
+        ComputadoraDTO eliminado = new ComputadoraDTO();
         
-        eliminado = bloqueoNegocio.obtenerPorId(getIdSeleccionadoTablaBloqueo());
+        eliminado = computadoraNegocio.obtenerPorId(getIdSeleccionadoTablaComputadoras());
 
         System.out.println("Preparando el id: " + eliminado.getId() + " para borrar");
         
         eliminado.setEliminado(true);
         
-        eliminarBloqueoTabla(eliminado);
-        cargarBloqueosEnTabla();
+        eliminarComputadoraTabla(eliminado);
+        cargarComputadorasEnTabla();
 
     }
 
-    private void llenarTablaBloqueos(List<BloqueoDTO> bloqueosLista) {
-        DefaultTableModel modeloTabla = (DefaultTableModel) this.tblBloqueos.getModel();
+    private void llenarTablaComputadoras(List<ComputadoraDTO> computadorasLista) {
+        DefaultTableModel modeloTabla = (DefaultTableModel) this.tblComputadoras.getModel();
 
         if (modeloTabla.getRowCount() > 0) {
             for (int i = modeloTabla.getRowCount() - 1; i > -1; i--) {
@@ -184,66 +287,56 @@ private Administrador administrador;
             }
         }
 
-        if (bloqueosLista != null) {
-            bloqueosLista.forEach(row -> {
-                Object[] fila = new Object[6];
+        if (computadorasLista != null) {
+            computadorasLista.forEach(row -> {
+                Object[] fila = new Object[7];
                 fila[0] = row.getId();
-                fila[1] = row.getMotivo();
-                fila[2] = row.getFechaBloqueo().getTime().toString();
-                fila[3] = row.getFechaLiberacion().getTime().toString();
-                fila[4] = row.getAlumno();
-                fila[5] = row.isEliminado();
+                fila[1] = row.getEstatus();
+                fila[2] = row.getIp();
+                fila[3] = row.getNumeroMaquina();
+                fila[4] = row.isUsoAlumno();
+                fila[5] = row.getCentroLaboratorio();
+                fila[6] = row.isEliminado();
                 modeloTabla.addRow(fila);
             });
         }
     }
 
-    private void cargarBloqueosEnTabla() {
+    private void cargarComputadorasEnTabla() {
         try {
-            List<BloqueoDTO> bloqueos = this.bloqueoNegocio.buscarBloqueosTabla();
-            this.llenarTablaBloqueos(bloqueos);
+            List<ComputadoraDTO> computadoras = this.computadoraNegocio.buscarComputadorasTabla();
+            this.llenarTablaComputadoras(computadoras);
         } catch (NegocioException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Información", JOptionPane.ERROR_MESSAGE);
         }
     }    
     
     
-    private void cargarBloqueosEnTablaPorMotivo(String motivo) {
+    private void cargarBloqueosEnTablaPorMotivo(String ip) {
         try {
             
-            System.out.println(motivo);
-            List<BloqueoDTO> bloqueos = this.bloqueoNegocio.buscarBloqueosTabla(motivo);
+            System.out.println(ip);
+            List<ComputadoraDTO> computadoras = this.computadoraNegocio.buscarBloqueosTabla(ip);
             
-            if(bloqueos.size() > 0){
+            if(computadoras.size() > 0){
             
-            this.llenarTablaBloqueos(bloqueos);
+            this.llenarTablaComputadoras(computadoras);
             
             }
             
             else{
                JOptionPane.showMessageDialog(this, "No se encontraron registros con los datos especificados, se mostraran todos los datos", "Informacion", JOptionPane.ERROR_MESSAGE); 
-                cargarBloqueosEnTabla();
+                cargarComputadorasEnTabla();
             }
             
             
         } catch (NegocioException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Información", JOptionPane.ERROR_MESSAGE);
-            cargarBloqueosEnTabla();
+            cargarComputadorasEnTabla();
         }
     }         
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
     
 
     /**
@@ -256,46 +349,54 @@ private Administrador administrador;
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        txtBuscar = new javax.swing.JTextField();
+        btnAgregar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        tblComputadoras = new javax.swing.JTable();
+        btnRegresar = new javax.swing.JButton();
+        btnBuscar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Gestionar Computadoras");
 
         jLabel1.setText("Gestion de Computadoras");
 
-        jButton1.setText("Agregar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnAgregar.setText("Agregar");
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnAgregarActionPerformed(evt);
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblComputadoras.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "idComputadoras", "Estatus", "Dirrecion ip", "Numero Maquina", "Software", "Ocupante", "Editar", "Eliminar"
+                "idComputadoras", "Estatus", "Dirrecion ip", "Numero Maquina", "UsoAlumno", "Laboratorio", "Eliminado", "Editar", "Eliminar"
             }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                true, true, true, true, true, true, false, true, true
+            };
 
-        jButton2.setText("Regresar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tblComputadoras);
+
+        btnRegresar.setText("Regresar");
+        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnRegresarActionPerformed(evt);
             }
         });
 
-        jButton3.setText("Buscar");
+        btnBuscar.setText("Buscar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -306,18 +407,18 @@ private Administrador administrador;
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 690, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 690, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20)
-                .addComponent(jButton3))
+                .addComponent(btnBuscar))
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(jButton1))
+                .addComponent(btnAgregar))
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 790, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(jButton2))
+                .addComponent(btnRegresar))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -326,46 +427,46 @@ private Administrador administrador;
                 .addComponent(jLabel1)
                 .addGap(14, 14, 14)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3))
+                    .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBuscar))
                 .addGap(17, 17, 17)
-                .addComponent(jButton1)
+                .addComponent(btnAgregar)
                 .addGap(7, 7, 7)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20)
-                .addComponent(jButton2))
+                .addComponent(btnRegresar))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
 this.setVisible(false);
 administrador.setVisible(true);
 
 
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnRegresarActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-this.setVisible(false);
-AgregarComputadora agregarComputadora=new AgregarComputadora(this);
-agregarComputadora.setVisible(true);
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+        this.setVisible(false);
+        AgregarComputadora agregarComputadora=new AgregarComputadora(this, computadoraNegocio, centroComputoNegocio);
+        agregarComputadora.setVisible(true);
 
 
 
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnAgregarActionPerformed
 
    
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton btnAgregar;
+    private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnRegresar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTable tblComputadoras;
+    private javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables
 }
