@@ -53,20 +53,22 @@ public class CentroComputo implements Serializable {
     public CentroComputo() {
     }
 
-    public CentroComputo(Long id, String nombre, Calendar horaInicio, Calendar horaFinal, String contraseñaMaestra, UnidadAcademica unidadAcademica) {
+    public CentroComputo(Long id, String nombre, Calendar horaInicio, Calendar horaFinal, String contraseñaMaestra, boolean eliminado, UnidadAcademica unidadAcademica) {
         this.id = id;
         this.nombre = nombre;
         this.horaInicio = horaInicio;
         this.horaFinal = horaFinal;
         this.contraseñaMaestra = contraseñaMaestra;
+        this.eliminado = eliminado;
         this.unidadAcademica = unidadAcademica;
     }
 
-    public CentroComputo(String nombre, Calendar horaInicio, Calendar horaFinal, String contraseñaMaestra, UnidadAcademica unidadAcademica) {
+    public CentroComputo(String nombre, Calendar horaInicio, Calendar horaFinal, String contraseñaMaestra, boolean eliminado, UnidadAcademica unidadAcademica) {
         this.nombre = nombre;
         this.horaInicio = horaInicio;
         this.horaFinal = horaFinal;
         this.contraseñaMaestra = contraseñaMaestra;
+        this.eliminado = eliminado;
         this.unidadAcademica = unidadAcademica;
     }
 
@@ -118,4 +120,11 @@ public class CentroComputo implements Serializable {
         this.unidadAcademica = unidadAcademica;
     }
 
+    public boolean isEliminado() {
+        return eliminado;
+    }
+
+    public void setEliminado(boolean eliminado) {
+        this.eliminado = eliminado;
+    }
 }

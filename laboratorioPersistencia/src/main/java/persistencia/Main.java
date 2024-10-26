@@ -15,6 +15,8 @@ import entidades.UnidadAcademica;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -87,22 +89,23 @@ public class Main {
 //    BloqueoDAO bloqueoDAO=new BloqueoDAO(em);
 //    Bloqueo bloqueo=new Bloqueo("Se acabo el tiempo", LocalDate.of(2023, 6, 10));
 //    bloqueoDAO.agregarBloqueo(bloqueo);
-
         PruebaDAO pruebaDAO = new PruebaDAO();
 // Agregar un nuevo Centro de Cómputo
-            pruebaDAO.agregarCentroComputo();
+        UnidadAcademica unidad = new UnidadAcademica("Unidad Prueba: Recargada");
+        CentroComputo centroComputo = new CentroComputo("Test", Calendar.getInstance(), Calendar.getInstance(), "HolaSoyAl", false, unidad);
+        pruebaDAO.agregarCentroComputo();
 
         //Buscar el Centro de Cómputo agregado
-        Long idCentro = (long) 2; // Cambia a la ID obtenida del Centro de Cómputo agregado
+        Long idCentro = (long) 1; // Cambia a la ID obtenida del Centro de Cómputo agregado
         pruebaDAO.buscarCentroComputo(idCentro);
 
-//        // Editar el Centro de Cómputo
-//        pruebaDAO.editarCentroComputo(idCentro);
+        // Editar el Centro de Cómputo
+        pruebaDAO.editarCentroComputo(idCentro);
+
+        // Eliminar el Centro de Cómputo
+        pruebaDAO.eliminarCentroComputo(centroComputo);
 //
-//        // Eliminar el Centro de Cómputo
-//        pruebaDAO.eliminarCentroComputo(idCentro);
-////
-////        // Cerrar conexiones
-//        pruebaDAO.cerrar();
+//        // Cerrar conexiones
+        pruebaDAO.cerrar();
     }
 }
