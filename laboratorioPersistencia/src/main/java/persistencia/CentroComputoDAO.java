@@ -4,7 +4,9 @@
  */
 package persistencia;
 
+import Excepciones.PersistenciaException;
 import entidades.CentroComputo;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
@@ -67,4 +69,13 @@ public class CentroComputoDAO implements ICentroComputoDAO{
             e.printStackTrace();
         }
     }
+    
+    public List<CentroComputo> obtenerTodos() throws PersistenciaException {
+    try {
+        return entityManager.createQuery("SELECT c FROM CentroComputo c", CentroComputo.class).getResultList();
+    } catch (Exception e) {
+        throw new PersistenciaException("Error al obtener todos los centros de cómputo", e);
+    }
+}
+
 }
