@@ -160,30 +160,94 @@ public class GestionAlumnos extends javax.swing.JFrame {
             return false;
         }
     }
-    
-    private String getMotivoSeleccionadoTablaBloqueo() {
-        int indiceFilaSeleccionada = this.tblAlumnos.getSelectedRow();
-        if (indiceFilaSeleccionada != -1) {
-            DefaultTableModel modelo = (DefaultTableModel) this.tblAlumnos.getModel();
-            int indiceColumnaId = 1;
-            String motivoBloqueoSeleccionado = (String) modelo.getValueAt(indiceFilaSeleccionada,
-                    indiceColumnaId);
-            return motivoBloqueoSeleccionado;
-        } else {
-            return null;
-        }
-    }    
+//    
+//    private String getMotivoSeleccionadoTablaBloqueo() {
+//        int indiceFilaSeleccionada = this.tblAlumnos.getSelectedRow();
+//        if (indiceFilaSeleccionada != -1) {
+//            DefaultTableModel modelo = (DefaultTableModel) this.tblAlumnos.getModel();
+//            int indiceColumnaId = 1;
+//            String motivoBloqueoSeleccionado = (String) modelo.getValueAt(indiceFilaSeleccionada,
+//                    indiceColumnaId);
+//            return motivoBloqueoSeleccionado;
+//        } else {
+//            return null;
+//        }
+//    }    
+private String getNombreSeleccionadoTabla() {
+    int indiceFilaSeleccionada = this.tblAlumnos.getSelectedRow();
+    if (indiceFilaSeleccionada != -1) {
+        DefaultTableModel modelo = (DefaultTableModel) this.tblAlumnos.getModel();
+        return (String) modelo.getValueAt(indiceFilaSeleccionada, 1); // Suponiendo que "nombre" está en la columna 1
+    }
+    return null;
+}
+
+private String getApellidoPaternoSeleccionadoTabla() {
+    int indiceFilaSeleccionada = this.tblAlumnos.getSelectedRow();
+    if (indiceFilaSeleccionada != -1) {
+        DefaultTableModel modelo = (DefaultTableModel) this.tblAlumnos.getModel();
+        return (String) modelo.getValueAt(indiceFilaSeleccionada, 2); // Suponiendo que "apellido paterno" está en la columna 2
+    }
+    return null;
+}
+
+private String getApellidoMaternoSeleccionadoTabla() {
+    int indiceFilaSeleccionada = this.tblAlumnos.getSelectedRow();
+    if (indiceFilaSeleccionada != -1) {
+        DefaultTableModel modelo = (DefaultTableModel) this.tblAlumnos.getModel();
+        return (String) modelo.getValueAt(indiceFilaSeleccionada, 3); // Suponiendo que "apellido materno" está en la columna 3
+    }
+    return null;
+}
 
 
     private void editar() {
-           AlumnoDTO bloqueo = alumnoNegocio.obtenerPorId(getIdSeleccionadoTablaBloqueo());
-    
-    if (bloqueo != null) {
-        bloqueo.setApellidoMaterno(getMotivoSeleccionadoTablaBloqueo());
-        editarBloqueoTabla(bloqueo);
+         int selectedRow = tblAlumnos.getSelectedRow();
+    if (selectedRow != -1) {
+        DefaultTableModel model = (DefaultTableModel) tblAlumnos.getModel();
+        long id = (long) model.getValueAt(selectedRow, 0); // Suponiendo que el ID está en la primera columna
+
+        try {
+            AlumnoDTO bloqueo = alumnoNegocio.obtenerPorId(id);
+            if (bloqueo != null) {
+                // Actualiza los campos deseados en el objeto bloqueo
+                bloqueo.setNombres(getNombreSeleccionadoTabla());
+                bloqueo.setApellidoPaterno(getApellidoPaternoSeleccionadoTabla());
+                bloqueo.setApellidoMaterno(getApellidoMaternoSeleccionadoTabla());
+                // ... otros campos según sea necesario
+
+                // Actualiza el alumno en la base de datos
+                AlumnoDTO updatedBloqueo = alumnoNegocio.actualizarAlumnos(bloqueo);
+
+                // Actualiza la tabla con los datos actualizados
+                model.setValueAt(updatedBloqueo.getId(), selectedRow, 0);
+                model.setValueAt(updatedBloqueo.getNombres(), selectedRow, 1);
+                model.setValueAt(updatedBloqueo.getApellidoPaterno(), selectedRow, 2);
+                model.setValueAt(updatedBloqueo.getApellidoMaterno(), selectedRow, 3);
+                model.setValueAt(updatedBloqueo.isEstaEliminado(), selectedRow, 4);
+                // ... actualizar otras columnas según sea necesario
+
+                JOptionPane.showMessageDialog(this, "Bloqueo editado exitosamente");
+
+                // Refrescar otros componentes si es necesario
+                // ...
+            } else {
+                JOptionPane.showMessageDialog(this, "No se encontró el alumno seleccionado", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Ocurrió un error inesperado: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
     } else {
-        JOptionPane.showMessageDialog(this, "No se encontró el alumno seleccionado", "Error", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Por favor, seleccione un alumno para editar.", "Información", JOptionPane.INFORMATION_MESSAGE);
     }
+//           AlumnoDTO bloqueo = alumnoNegocio.obtenerPorId(getIdSeleccionadoTablaBloqueo());
+//    
+//    if (bloqueo != null) {
+//        bloqueo.setApellidoMaterno(getMotivoSeleccionadoTablaBloqueo());
+//        editarBloqueoTabla(bloqueo);
+//    } else {
+//        JOptionPane.showMessageDialog(this, "No se encontró el alumno seleccionado", "Error", JOptionPane.ERROR_MESSAGE);
+//    }
         }
         
         
@@ -272,6 +336,11 @@ public class GestionAlumnos extends javax.swing.JFrame {
         jLabel1.setText("Gestion Alumnos");
 
         jButton1.setText("Buscar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Agregar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -359,6 +428,14 @@ agregarAlumno.setVisible(true);
 
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
+this.cargarBloqueosEnTablaPorMotivo(jTextField1.getText());
+
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
    
 

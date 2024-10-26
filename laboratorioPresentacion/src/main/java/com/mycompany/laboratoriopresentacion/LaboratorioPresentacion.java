@@ -18,6 +18,7 @@ import negocio.ICentroComputoNegocio;
 import negocio.IComputadoraNegocio;
 import negocio.IUnidadNegocio;
 import negocio.UnidadNegocio;
+import pantallas.Inicio;
 import pantallas.InicioSesion;
 import persistencia.AlumnoDAO;
 import persistencia.BloqueoDAO;
@@ -58,7 +59,7 @@ public class LaboratorioPresentacion {
         ICentroComputoNegocio centroComputoNegocio = new CentroComputoNegocio(centroComputoDAO);
         IComputadoraNegocio computadoraNegocio = new ComputadoraNegocio(computadoraDAO, centroComputoNegocio);
         
-        InicioSesion inicio = new InicioSesion(carreraNegocio, unidadNegocio, alumnoNegocio, bloqueoNegocio, centroComputoNegocio, computadoraNegocio);
+        Inicio inicio = new Inicio(carreraNegocio, unidadNegocio, alumnoNegocio, bloqueoNegocio, centroComputoNegocio, computadoraNegocio);
         inicio.setVisible(true);
     }
 }

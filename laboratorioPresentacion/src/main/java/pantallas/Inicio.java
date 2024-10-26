@@ -4,16 +4,36 @@
  */
 package pantallas;
 
+import negocio.IAlumnoNegocio;
+import negocio.IBloqueoNegocio;
+import negocio.ICarreraNegocio;
+import negocio.ICentroComputoNegocio;
+import negocio.IComputadoraNegocio;
+import negocio.IUnidadNegocio;
+
 /**
  *
  * @author Arturo ITSON
  */
 public class Inicio extends javax.swing.JFrame {
-
+private InicioSesion inicioSesion;
+    private ICarreraNegocio carreraNegocio;
+    private IUnidadNegocio unidadNegocio;
+    private IAlumnoNegocio alumnoNegocio;
+    private IBloqueoNegocio bloqueoNegocio;
+    private ICentroComputoNegocio centroComputoNegocio;
+    private IComputadoraNegocio computadoraNegocio;
     /**
      * Creates new form Inicio
      */
-    public Inicio() {
+    public Inicio( ICarreraNegocio carreraNegocio, IUnidadNegocio unidadNegocio, IAlumnoNegocio alumnoNegocio,
+                         IBloqueoNegocio bloqueoNegocio, ICentroComputoNegocio centroComputoNegocio, IComputadoraNegocio computadoraNegocio) {
+        this.carreraNegocio = carreraNegocio;
+        this.unidadNegocio = unidadNegocio;
+        this.alumnoNegocio= alumnoNegocio;
+        this.bloqueoNegocio = bloqueoNegocio;
+        this.centroComputoNegocio = centroComputoNegocio;
+        this.computadoraNegocio = computadoraNegocio;
         initComponents();
     }
 
@@ -41,6 +61,11 @@ public class Inicio extends javax.swing.JFrame {
 
         btnAdmin.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnAdmin.setText("Administrador");
+        btnAdmin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdminActionPerformed(evt);
+            }
+        });
 
         btnAlumno.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnAlumno.setText("Alumno");
@@ -94,40 +119,54 @@ public class Inicio extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void btnAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdminActionPerformed
+ this.setVisible(false);
+ InicioSesion administrador=new InicioSesion( carreraNegocio, unidadNegocio, alumnoNegocio, bloqueoNegocio, centroComputoNegocio, computadoraNegocio);
+administrador.setVisible(true);
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Inicio().setVisible(true);
-            }
-        });
-    }
+
+
+
+
+
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAdminActionPerformed
+
+//    /**
+//     * @param args the command line arguments
+//     */
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(Inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(Inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(Inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(Inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new Inicio().setVisible(true);
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdmin;

@@ -7,6 +7,7 @@ package persistencia;
 import Excepciones.PersistenciaException;
 import entidades.Alumno;
 import entidades.Bloqueo;
+import entidades.Carrera;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -28,14 +29,24 @@ public class AlumnoDAO implements  IAlumnoDAO{
     
     @Override
     public Alumno agregarAlumno(Alumno alumno) {
-EntityManager entityManager = emf.createEntityManager();
+      EntityManager em = emf.createEntityManager();
+   CarreraDAO carreraDAO=  new CarreraDAO(em);
+      em.getTransaction().begin();
 
-        entityManager.getTransaction().begin();
-        entityManager.persist(alumno);
-        entityManager.getTransaction().commit();
-        entityManager.close();
-        
-        return alumno;
+    Carrera carrera = carreraDAO.obtenerCarreraPorNombre(alumno.getCarrera().getNombre());
+
+    if (carrera == null) {
+        throw new RuntimeException("Carrera not found");
+    }
+
+    alumno.setCarrera(carrera);
+
+    em.persist(alumno);
+
+    em.getTransaction().commit();
+    em.close();
+
+    return alumno;
     }
 
     @Override

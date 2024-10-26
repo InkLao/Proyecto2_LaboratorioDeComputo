@@ -24,7 +24,8 @@ public class AlumnoPrueba {
 
         // Crea una instancia de CarreraDAO
         CarreraDAO carreraDAO = new CarreraDAO(em);
-
+Carrera carrera2=new Carrera("isw", 6);
+carreraDAO.agregarCarrera(carrera2);
         // Prueba el método obtenerCarreraPorNombre
         String nombreCarrera = "isw"; // Cambia esto al nombre que desees buscar
         Carrera carrera = carreraDAO.obtenerCarreraPorNombre(nombreCarrera);
@@ -35,22 +36,21 @@ public class AlumnoPrueba {
             System.out.println("No se encontró la carrera con el nombre: " + nombreCarrera);
         }
 
-//        // 1. Agregar un nuevo alumno
-//        Carrera carrera = new Carrera("ISW", 7);
-//        Alumno nuevoAlumno = new Alumno(1L, "orla", "ley", "fon", "1233444", false, carrera);
-//        alumnoDAO.agregarAlumno(nuevoAlumno);
-//        System.out.println("Alumno agregado: " + nuevoAlumno);
+        // 1. Agregar un nuevo alumno
+        Alumno nuevoAlumno = new Alumno(1L, "orla", "ley", "fon", "1233444", false, carrera);
+        alumnoDAO.agregarAlumno(nuevoAlumno);
+        System.out.println("Alumno agregado: " + nuevoAlumno);
 //
-//        // 2. Buscar un alumno por ID
-//        Alumno encontrado = alumnoDAO.buscarAlumno(nuevoAlumno.getId());
-//        System.out.println("Alumno encontrado: " + (encontrado != null ? encontrado : "No encontrado"));
+        // 2. Buscar un alumno por ID
+        Alumno encontrado = alumnoDAO.buscarAlumno(nuevoAlumno.getId());
+        System.out.println("Alumno encontrado: " + (encontrado != null ? encontrado : "No encontrado"));
 //
-//        // 3. Editar un alumno
-//        if (encontrado != null) {
-//            encontrado.setNombres("Juanito");
-//            Alumno alumnoEditado = alumnoDAO.editarAlumno(encontrado);
-//            System.out.println("Alumno editado: " + alumnoEditado);
-//        }
+        // 3. Editar un alumno
+        if (encontrado != null) {
+            encontrado.setNombres("Juanito");
+            Alumno alumnoEditado = alumnoDAO.editarAlumno(encontrado);
+            System.out.println("Alumno editado: " + alumnoEditado);
+        }
 //
 //        // 4. Obtener todos los alumnos
 //        List<Alumno> todosLosAlumnos = alumnoDAO.obtenerTodos();
