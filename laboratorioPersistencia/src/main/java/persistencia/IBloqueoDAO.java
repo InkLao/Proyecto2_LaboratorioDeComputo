@@ -23,4 +23,6 @@ public interface IBloqueoDAO {
        public Bloqueo eliminarBloqueo(Bloqueo bloqueo);
        
        public List<Bloqueo> obtenerTodos() throws PersistenciaException;
+       
+       public List<Bloqueo> buscarBloqueo(String motivo) throws PersistenciaException;
 }

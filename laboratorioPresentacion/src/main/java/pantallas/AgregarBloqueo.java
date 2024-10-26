@@ -32,10 +32,11 @@ public class AgregarBloqueo extends javax.swing.JFrame {
     /**
      * Creates new form AgregarBloqueo
      */
-    public AgregarBloqueo(GestionBloqueos gestion, IAlumnoNegocio alumnoNegocio, IBloqueoNegocio bloqueoNegocio) {
-        this.gestionBloqueos = gestionBloqueos;
+    public AgregarBloqueo(GestionBloqueos gestion, IAlumnoNegocio alumnoNegocio, IBloqueoNegocio bloqueoNegocio, IAlumnoNegocio alumnoNegocio1) {
+        this.gestionBloqueos = gestion;
         this.alumnoNegocio = alumnoNegocio;
         this.bloqueoNegocio = bloqueoNegocio;
+        this.alumnoNegocio = alumnoNegocio;
         
         initComponents();
     }
@@ -159,7 +160,9 @@ public class AgregarBloqueo extends javax.swing.JFrame {
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         // TODO add your handling code here:
         
-        BloqueoDTO bloqueo = new BloqueoDTO();   
+        try{
+
+        BloqueoDTO bloqueo = new BloqueoDTO();
              
         bloqueo.setAlumno(Long.valueOf((String) cbcAlumnos.getSelectedItem()));
         bloqueo.setEliminado(false);
@@ -181,14 +184,18 @@ public class AgregarBloqueo extends javax.swing.JFrame {
         bloqueo.setFechaLiberacion(calendar2);
         bloqueo.setMotivo(txtMotivo.getText());
 
-        try {
+        
             System.out.println(bloqueo.toString());
             BloqueoDTO exito = new BloqueoDTO();
             
             exito = bloqueoNegocio.guardarBloqueo(bloqueo);
             System.out.println(exito.toString());
             JOptionPane.showMessageDialog(this, "El bloqueo se ha guardado");
-        } catch (NegocioException ex) {
+            
+            
+        } 
+        
+        catch (NegocioException ex) {
             System.out.println("nose pudo agreagar bloqueo");
             Logger.getLogger(AgregarBloqueo.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -196,7 +203,7 @@ public class AgregarBloqueo extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        this.setVisible(false);
+        this.dispose();
         gestionBloqueos.setVisible(true);
 
 

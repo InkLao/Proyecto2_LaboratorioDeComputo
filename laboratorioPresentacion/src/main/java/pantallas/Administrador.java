@@ -251,7 +251,7 @@ public class Administrador extends javax.swing.JFrame {
 
     private void btnBloqueosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBloqueosActionPerformed
         this.setVisible(false);
-        GestionBloqueos gestionBloqueos = new GestionBloqueos(this, bloqueoNegocio);
+        GestionBloqueos gestionBloqueos = new GestionBloqueos(this, bloqueoNegocio, alumnoNegocio);
         gestionBloqueos.setVisible(true);
 
         // TODO add your handling code here:
