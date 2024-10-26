@@ -43,6 +43,9 @@ public class CentroComputo implements Serializable {
 
     @Column(name = "contraMaestra", length = 25, nullable = false)
     private String contraseñaMaestra;
+    
+    @Column(name = "Eliminado")
+    private boolean eliminado;
 
     @OneToOne(cascade = CascadeType.PERSIST)
     UnidadAcademica unidadAcademica;

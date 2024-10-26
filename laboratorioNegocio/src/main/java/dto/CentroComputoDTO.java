@@ -14,15 +14,10 @@ import java.util.Calendar;
 public class CentroComputoDTO {
 
     private Long id;
-
     private String nombre;
-
     private Calendar horaInicio;
-
     private Calendar horaFinal;
-
-    private String contraseñaMaestra;
-    
+    private String contraseñaMaestra; 
     UnidadAcademicaDTO unidadAcademica;
 
     public CentroComputoDTO() {

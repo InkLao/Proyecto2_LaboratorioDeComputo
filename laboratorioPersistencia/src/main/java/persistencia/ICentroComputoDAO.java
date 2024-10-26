@@ -4,7 +4,9 @@
  */
 package persistencia;
 
+import Excepciones.PersistenciaException;
 import entidades.CentroComputo;
+import java.util.List;
 
 /**
  *
@@ -19,4 +21,6 @@ public interface ICentroComputoDAO {
     CentroComputo buscarCentroComputo(Long id);
 
     void eliminarCentroComputo(Long id);
+    
+    public List<CentroComputo> obtenerTodos() throws PersistenciaException;
 }
