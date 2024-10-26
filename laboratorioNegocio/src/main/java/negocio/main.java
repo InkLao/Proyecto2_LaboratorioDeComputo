@@ -24,43 +24,44 @@ import persistencia.UnidadAcademicaDAO;
  */
 public class main {
     public static void main(String[] args) {
-    EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("laboratorioComputo");
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
+//    EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("laboratorioComputo");
+//        EntityManager entityManager = entityManagerFactory.createEntityManager();
+//
+//        try {
+//            IAlumnoDAO alumnoDAO = new AlumnoDAO(entityManager);
+//            AlumnoNegocio alumnoNegocio = new AlumnoNegocio(alumnoDAO);
+//            ICarreraDAO carreraDAO=new CarreraDAO(entityManager);
+//ICarreraNegocio carreraNegocio=new CarreraNegocio(carreraDAO);
+//  
+//            CarreraDTO carreraDTO = new CarreraDTO();
+//            carreraDTO.setNombre("Ingeniería en Software");
+//            carreraDTO.setTiempoMaxUsoDiario(240);
+//            carreraNegocio.agregarCarrera(carreraDTO);
+//            AlumnoDTO alumnoDTO = new AlumnoDTO(
+//                "Juan",
+//                "Pérez",
+//                "García",
+//                "contraseña123",
+//                carreraDTO
+//            );
+//
+//            System.out.println("\n--- Agregando alumno ---");
+//            alumnoNegocio.agregarAlumno(alumnoDTO);
+//
+//        } catch (Exception e) {
+//            System.out.println("Error: " + e.getMessage());
+//            e.printStackTrace();
+//        } finally {
+//            if (entityManager != null && entityManager.isOpen()) {
+//                entityManager.close();
+//            }
+//            if (entityManagerFactory != null && entityManagerFactory.isOpen()) {
+//                entityManagerFactory.close();
+//            }
+//        }
+//    }
 
-        try {
-            IAlumnoDAO alumnoDAO = new AlumnoDAO(entityManager);
-            AlumnoNegocio alumnoNegocio = new AlumnoNegocio(alumnoDAO);
-            ICarreraDAO carreraDAO=new CarreraDAO(entityManager);
-ICarreraNegocio carreraNegocio=new CarreraNegocio(carreraDAO);
-  
-            CarreraDTO carreraDTO = new CarreraDTO();
-            carreraDTO.setNombre("Ingeniería en Software");
-            carreraDTO.setTiempoMaxUsoDiario(240);
-            carreraNegocio.agregarCarrera(carreraDTO);
-            AlumnoDTO alumnoDTO = new AlumnoDTO(
-                "Juan",
-                "Pérez",
-                "García",
-                "contraseña123",
-                carreraDTO
-            );
-
-            System.out.println("\n--- Agregando alumno ---");
-            alumnoNegocio.agregarAlumno(alumnoDTO);
-
-        } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
-            e.printStackTrace();
-        } finally {
-            if (entityManager != null && entityManager.isOpen()) {
-                entityManager.close();
-            }
-            if (entityManagerFactory != null && entityManagerFactory.isOpen()) {
-                entityManagerFactory.close();
-            }
-        }
     }
-
 }
 
      

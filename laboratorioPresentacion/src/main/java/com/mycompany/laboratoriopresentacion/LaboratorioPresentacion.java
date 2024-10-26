@@ -38,7 +38,7 @@ public class LaboratorioPresentacion {
         
         IUnidadAcademicaDAO unidadAcademicaDAO = new UnidadAcademicaDAO(entityManager);
         ICarreraDAO carreraDAO = new CarreraDAO(entityManager);
-        IAlumnoDAO alumnoDAO = new AlumnoDAO(entityManager);
+        IAlumnoDAO alumnoDAO = new AlumnoDAO(entityManagerFactory);
         IBloqueoDAO bloqueoDAO = new BloqueoDAO(entityManager, entityManagerFactory);
         
         IUnidadNegocio unidadNegocio = new UnidadNegocio(unidadAcademicaDAO);

@@ -5,16 +5,17 @@
     <class>entidades.Carrera</class>
     <class>entidades.Software</class>
     <class>entidades.UnidadAcademica</class>
-    <class>entidades.CentroComputo</class>
+    <class>entidades.CentroLaboratorio</class>
     <class>entidades.Computadora</class>
     <class>entidades.Alumno</class>
     <class>entidades.Bloqueo</class>
+    <class>entidades.CentroComputo</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/laboratorioComputo?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
-      <property name="javax.persistence.jdbc.password" value="root"/>
-      <property name="javax.persistence.schema-generation.database.action" value="create"/>
+      <property name="javax.persistence.jdbc.password" value="sonic0910"/>
+      <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
     </properties>
   </persistence-unit>
 </persistence>

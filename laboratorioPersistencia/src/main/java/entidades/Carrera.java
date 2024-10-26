@@ -20,10 +20,9 @@ import javax.persistence.Table;
 @Table(name = "tblCarrera")
 public class Carrera implements Serializable {
 
-    private static final long serialVersionUID = 1L;
     @Id
     @Column(name = "idCarrera")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "nombreCarrera",nullable = false)

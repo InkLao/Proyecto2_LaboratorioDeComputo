@@ -29,46 +29,73 @@ public class Alumno implements Serializable {
 
     @Column(name = "nombres", length = 50, nullable = false)
     private String nombres;
-    
+
     @Column(name = "apellidoPaterno", length = 50, nullable = false)
     private String apellidoPaterno;
-    
+
     @Column(name = "apellidoMaterno", length = 50, nullable = false)
     private String apellidoMaterno;
-    
+
     @Column(name = "contraseña", length = 50, nullable = false)
     private String contraseña;
+    @Column(name = "estaEliminado", nullable = false)
+    private boolean estaEliminado;
 
-    
     @OneToOne(cascade = CascadeType.PERSIST)
     private Carrera carrera;
 
     public Alumno() {
     }
 
-    public Alumno(Long id, String nombres, String apellidoPaterno, String apellidoMaterno, String contraseña, Carrera carrera) {
+    public Alumno(Long id, String nombres, String apellidoPaterno, String apellidoMaterno, String contraseña, boolean estaEliminado, Carrera carrera) {
         this.id = id;
         this.nombres = nombres;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
         this.contraseña = contraseña;
+        this.estaEliminado = estaEliminado;
         this.carrera = carrera;
     }
 
+   
     
-    
-    
-    public Alumno(String nombres, String apellidoPaterno, String apellidoMaterno, String contraseña, Carrera carrera) {
-        this.nombres = nombres;
-        this.apellidoPaterno = apellidoPaterno;
-        this.apellidoMaterno = apellidoMaterno;
-        this.contraseña = contraseña;
-        this.carrera = carrera;
-    }
-    
-    
-    
-    
+
+//    public Alumno(Long id, String nombres, String apellidoPaterno, String apellidoMaterno, String contraseña, Carrera carrera) {
+//        this.id = id;
+//        this.nombres = nombres;
+//        this.apellidoPaterno = apellidoPaterno;
+//        this.apellidoMaterno = apellidoMaterno;
+//        this.contraseña = contraseña;
+//        this.carrera = carrera;
+//    }
+//
+//    public Alumno(String nombres, String apellidoPaterno, String apellidoMaterno, String contraseña, boolean estaEliminado, Carrera carrera) {
+//        this.nombres = nombres;
+//        this.apellidoPaterno = apellidoPaterno;
+//        this.apellidoMaterno = apellidoMaterno;
+//        this.contraseña = contraseña;
+//        this.estaEliminado = estaEliminado;
+//        this.carrera = carrera;
+//    }
+//
+//    public Alumno(Long id, String nombres, String apellidoPaterno, String apellidoMaterno, String contraseña, boolean estaEliminado, Carrera carrera) {
+//        this.id = id;
+//        this.nombres = nombres;
+//        this.apellidoPaterno = apellidoPaterno;
+//        this.apellidoMaterno = apellidoMaterno;
+//        this.contraseña = contraseña;
+//        this.estaEliminado = estaEliminado;
+//        this.carrera = carrera;
+//    }
+//
+//    public Alumno(String nombres, String apellidoPaterno, String apellidoMaterno, String contraseña, Carrera carrera) {
+//        this.nombres = nombres;
+//        this.apellidoPaterno = apellidoPaterno;
+//        this.apellidoMaterno = apellidoMaterno;
+//        this.contraseña = contraseña;
+//        this.carrera = carrera;
+//    }
+
     public Long getId() {
         return id;
     }
@@ -117,6 +144,12 @@ public class Alumno implements Serializable {
         this.carrera = carrera;
     }
 
+    public boolean isEstaEliminado() {
+        return estaEliminado;
+    }
 
+    public void setEstaEliminado(boolean estaEliminado) {
+        this.estaEliminado = estaEliminado;
+    }
 
 }

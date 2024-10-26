@@ -4,67 +4,132 @@
  */
 package persistencia;
 
+import Excepciones.PersistenciaException;
 import entidades.Alumno;
+import entidades.Bloqueo;
+import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 
 /**
  *
  * @author Oley
  */
 public class AlumnoDAO implements  IAlumnoDAO{
-    private EntityManager entityManager;
+    private EntityManagerFactory emf;
 
-    public AlumnoDAO(EntityManager entityManager) {
-        this.entityManager = entityManager;
+    public AlumnoDAO(EntityManagerFactory emf) {
+        this.emf = emf;
     }
 
-    public void agregarAlumno(Alumno alumno) {
-        EntityTransaction transaction = entityManager.getTransaction();
-        try {
-            transaction.begin();
-            entityManager.persist(alumno);
-            transaction.commit();
-        } catch (Exception e) {
-            if (transaction.isActive()) {
-                transaction.rollback();
-            }
-            e.printStackTrace();
-        }
+    
+    @Override
+    public Alumno agregarAlumno(Alumno alumno) {
+EntityManager entityManager = emf.createEntityManager();
+
+        entityManager.getTransaction().begin();
+        entityManager.persist(alumno);
+        entityManager.getTransaction().commit();
+        entityManager.close();
+        
+        return alumno;
     }
 
-    public void editarAlumno(Alumno alumno) {
-        EntityTransaction transaction = entityManager.getTransaction();
-        try {
-            transaction.begin();
-            entityManager.merge(alumno);
-            transaction.commit();
-        } catch (Exception e) {
-            if (transaction.isActive()) {
-                transaction.rollback();
-            }
-            e.printStackTrace();
-        }
+    @Override
+    public Alumno editarAlumno(Alumno alumno) {
+ EntityManager entityManager = emf.createEntityManager();
+
+        
+        System.out.println("alumno a editar " + alumno.toString());
+        entityManager.getTransaction().begin();
+        entityManager.merge(alumno);
+        entityManager.getTransaction().commit();
+        entityManager.close();
+        
+        return alumno;
     }
 
+    @Override
     public Alumno buscarAlumno(Long id) {
-        return entityManager.find(Alumno.class, id);
+ try{
+        EntityManager entityManager = emf.createEntityManager();
+  
+        Alumno alumno = entityManager.find(Alumno.class, id);
+        
+        entityManager.close();
+        
+        return alumno;
+        }
+        
+        catch(Exception e){
+            System.out.println(e.getMessage());
+            System.out.println("error en buscar alumno id persistencia");
+        }
+        
+        return null;
     }
 
-    public void eliminarAlumno(Long id) {
-        EntityTransaction transaction = entityManager.getTransaction();
-        try {
-            transaction.begin();
-            Alumno alumno = buscarAlumno(id);
-            if (alumno != null) {
-                entityManager.remove(alumno);
-            }
-            transaction.commit();
-        } catch (Exception e) {
-            if (transaction.isActive()) {
-                transaction.rollback();
-            }
-            e.printStackTrace();
-        }
+    @Override
+    public Alumno eliminarAlumno(Alumno alumno) {
+
+        EntityManager entityManager = emf.createEntityManager();
+
+        
+        entityManager.getTransaction().begin();
+        entityManager.merge(alumno);
+        entityManager.getTransaction().commit();
+        entityManager.close();
+        
+        
+        return alumno;
+        
+
+
     }
+
+    @Override
+    public List<Alumno> obtenerTodos() {
+EntityManager em = emf.createEntityManager();
+List<Alumno> alumnos = em.createQuery("SELECT b FROM Alumno b", Alumno.class).getResultList();
+        em.close();
+        return alumnos;
+
+    }
+
+    @Override
+    public List<Alumno> buscarAlumno(String nombre) {
+ 
+        try{
+        EntityManager em = emf.createEntityManager();
+
+       String consultaJPQL = """
+                        SELECT b FROM Alumno b
+                        WHERE b.nombres = :nombres
+                        """;
+
+            TypedQuery<Alumno> query = em.createQuery(consultaJPQL, Alumno.class);
+            query.setParameter("nombres", nombre);
+            
+            List<Alumno> alumnos = query.getResultList();
+            
+            return alumnos;
+            
+        }
+        
+        catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+          
+        return null;
+    }
+
+
+    
+    
+    
+    
+
 }

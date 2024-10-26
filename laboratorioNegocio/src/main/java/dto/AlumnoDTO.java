@@ -15,6 +15,7 @@ public class AlumnoDTO {
     private String apellidoMaterno;
     private String contraseña;
     private CarreraDTO carrera;
+    private boolean estaEliminado;
 
     public AlumnoDTO() {
     }
@@ -25,6 +26,16 @@ public class AlumnoDTO {
         this.apellidoMaterno = apellidoMaterno;
         this.contraseña = contraseña;
         this.carrera = carrera;
+    }
+
+    public AlumnoDTO(Long id, String nombres, String apellidoPaterno, String apellidoMaterno, String contraseña, CarreraDTO carrera, boolean estaEliminado) {
+        this.id = id;
+        this.nombres = nombres;
+        this.apellidoPaterno = apellidoPaterno;
+        this.apellidoMaterno = apellidoMaterno;
+        this.contraseña = contraseña;
+        this.carrera = carrera;
+        this.estaEliminado = estaEliminado;
     }
 
     public Long getId() {
@@ -74,4 +85,13 @@ public class AlumnoDTO {
     public void setCarrera(CarreraDTO carrera) {
         this.carrera = carrera;
     }
+
+    public boolean isEstaEliminado() {
+        return estaEliminado;
+    }
+
+    public void setEstaEliminado(boolean estaEliminado) {
+        this.estaEliminado = estaEliminado;
+    }
+    
 }

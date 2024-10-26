@@ -5,14 +5,17 @@
 package persistencia;
 
 import entidades.Alumno;
+import java.util.List;
 
 /**
  *
  * @author Oley
  */
 public interface IAlumnoDAO {
-      void agregarAlumno(Alumno alumno);
-       void editarAlumno(Alumno alumno);
+    Alumno agregarAlumno(Alumno alumno);
+       Alumno editarAlumno(Alumno alumno);
          Alumno buscarAlumno(Long id);
-            void eliminarAlumno(Long id);
+            Alumno eliminarAlumno(Alumno alumno);
+            List<Alumno> obtenerTodos();
+            List<Alumno> buscarAlumno(String nombre);
 }
