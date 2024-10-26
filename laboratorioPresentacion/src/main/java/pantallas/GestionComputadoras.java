@@ -56,13 +56,13 @@ public class GestionComputadoras extends javax.swing.JFrame {
     private void editarComputadoraTabla(ComputadoraDTO computadora) {
         try {
             
-            System.out.println(computadora.toString() + "editar bloqueo id");
+            System.out.println(computadora.toString() + "editar computadora id");
             
             ComputadoraDTO compuActualizada = computadoraNegocio.actualizarComputadora(computadora);
             
             System.out.println(compuActualizada.getId());
             
-            JOptionPane.showMessageDialog(this, "Bloqueo editado");
+            JOptionPane.showMessageDialog(this, "Computadora editada");
             
             this.cargarComputadorasEnTabla();
 

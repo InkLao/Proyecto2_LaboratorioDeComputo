@@ -13,6 +13,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -48,9 +50,11 @@ public class Bloqueo implements Serializable {
     @Column(name = "Eliminado", nullable = false)
     private boolean eliminado;
     
-    @OneToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne()
+    @JoinColumn(name = "alumno")
     private Alumno alumno;
     
+   
     
     public Bloqueo() {
     }
@@ -123,6 +127,9 @@ public class Bloqueo implements Serializable {
     public void setEliminado(boolean eliminado) {
         this.eliminado = eliminado;
     }
+    
+    
+    
 
     @Override
     public String toString() {

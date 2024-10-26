@@ -67,7 +67,7 @@ public class ComputadoraNegocio implements IComputadoraNegocio{
 
            
            
-           System.out.println(centro.getNombre());
+           System.out.println(centro.toString());
            compu.setDireccionIP(computadora.getIp());
            compu.setEliminado(false);
            compu.setEstatus("Disponible");

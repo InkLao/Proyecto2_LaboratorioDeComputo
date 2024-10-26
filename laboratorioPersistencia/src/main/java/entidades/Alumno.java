@@ -5,12 +5,14 @@
 package entidades;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -43,6 +45,9 @@ public class Alumno implements Serializable {
 
     @OneToOne(cascade = CascadeType.PERSIST)
     private Carrera carrera;
+    
+    @OneToMany(mappedBy = "alumno")
+    private List<Bloqueo> bloqueos;
 
     public Alumno() {
     }
@@ -151,5 +156,15 @@ public class Alumno implements Serializable {
     public void setEstaEliminado(boolean estaEliminado) {
         this.estaEliminado = estaEliminado;
     }
+
+    public List<Bloqueo> getBloqueos() {
+        return bloqueos;
+    }
+
+    public void setBloqueos(List<Bloqueo> bloqueos) {
+        this.bloqueos = bloqueos;
+    }
+    
+    
 
 }

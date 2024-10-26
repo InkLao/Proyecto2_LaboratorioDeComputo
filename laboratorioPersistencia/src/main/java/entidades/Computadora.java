@@ -45,7 +45,7 @@ public class Computadora implements Serializable {
     private boolean eliminado;
     
 
-    @OneToOne(cascade = CascadeType.PERSIST)
+    @OneToOne()
     private CentroComputo centroComputo;
     
     public Computadora() {
@@ -133,6 +133,11 @@ public class Computadora implements Serializable {
 
     public void setEliminado(boolean eliminado) {
         this.eliminado = eliminado;
+    }
+
+    @Override
+    public String toString() {
+        return "Computadora{" + "id=" + id + ", estatus=" + estatus + ", direccionIP=" + direccionIP + ", numeroMaquina=" + numeroMaquina + ", usoAlumno=" + usoAlumno + ", eliminado=" + eliminado + ", centroComputo=" + centroComputo + '}';
     }
     
     
