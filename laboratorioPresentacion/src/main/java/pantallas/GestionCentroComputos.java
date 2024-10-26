@@ -9,7 +9,8 @@ import negocio.ICarreraNegocio;
 import negocio.IUnidadNegocio;
 
 /**
- *
+ * Aqui se muestran todos los centros de cómputo asignados a cada unidad académica, 
+ * con la opción de agregar, editar y elminar
  * @author eduar
  */
 public class GestionCentroComputos extends javax.swing.JFrame {
@@ -131,8 +132,8 @@ public class GestionCentroComputos extends javax.swing.JFrame {
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
 
         this.setVisible(false);
-        Administrador administrador = new Administrador(carreraNegocio, unidadNegocio, alumnoNegocio);
-        administrador.setVisible(true);
+        //Administrador administrador = new Administrador(carreraNegocio, unidadNegocio, alumnoNegocio);
+//        administrador.setVisible(true);
 
         // TODO add your handling code here:
     }//GEN-LAST:event_btnRegresarActionPerformed
