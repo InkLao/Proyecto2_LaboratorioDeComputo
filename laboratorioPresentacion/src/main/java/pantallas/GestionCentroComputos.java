@@ -9,8 +9,7 @@ import negocio.ICarreraNegocio;
 import negocio.IUnidadNegocio;
 
 /**
- * Aqui se muestran todos los centros de cómputo asignados a cada unidad académica, 
- * con la opción de agregar, editar y elminar
+ *
  * @author eduar
  */
 public class GestionCentroComputos extends javax.swing.JFrame {
@@ -18,11 +17,17 @@ public class GestionCentroComputos extends javax.swing.JFrame {
     private ICarreraNegocio carreraNegocio;
     private IUnidadNegocio unidadNegocio;
     private IAlumnoNegocio alumnoNegocio;
+    private Administrador administrador;
 
     /**
      * Creates new form GestionCentroComputos
      */
-    public GestionCentroComputos() {
+    public GestionCentroComputos(Administrador administrador, ICarreraNegocio carreraNegocio, IUnidadNegocio unidadNegocio, IAlumnoNegocio alumnoNegocio) {
+        this.alumnoNegocio = alumnoNegocio;
+        this.unidadNegocio = unidadNegocio;
+        this.carreraNegocio = carreraNegocio;
+        this.administrador = administrador;
+        
         initComponents();
     }
 
@@ -123,7 +128,7 @@ public class GestionCentroComputos extends javax.swing.JFrame {
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         this.setVisible(false);
-        AgregarCentroComputos agregarCentroComputos = new AgregarCentroComputos();
+        AgregarCentroComputos agregarCentroComputos = new AgregarCentroComputos(this, alumnoNegocio, carreraNegocio, unidadNegocio);
         agregarCentroComputos.setVisible(true);
 
         // TODO add your handling code here:
@@ -132,8 +137,7 @@ public class GestionCentroComputos extends javax.swing.JFrame {
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
 
         this.setVisible(false);
-        //Administrador administrador = new Administrador(carreraNegocio, unidadNegocio, alumnoNegocio);
-//        administrador.setVisible(true);
+        administrador.setVisible(true);
 
         // TODO add your handling code here:
     }//GEN-LAST:event_btnRegresarActionPerformed

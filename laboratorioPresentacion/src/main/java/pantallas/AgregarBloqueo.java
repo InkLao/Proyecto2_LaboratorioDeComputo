@@ -39,6 +39,7 @@ public class AgregarBloqueo extends javax.swing.JFrame {
         this.alumnoNegocio = alumnoNegocio;
         
         initComponents();
+        
     }
 
     /**
@@ -58,9 +59,9 @@ public class AgregarBloqueo extends javax.swing.JFrame {
         btnRegresar = new javax.swing.JButton();
         btnAgregar = new javax.swing.JButton();
         jblFechaLiberacion1 = new javax.swing.JLabel();
-        cbcAlumnos = new javax.swing.JComboBox<>();
         datePickerBloqueo = new com.github.lgooddatepicker.components.DatePicker();
         datePickerLiberacion = new com.github.lgooddatepicker.components.DatePicker();
+        txtIdAlumno = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -88,8 +89,6 @@ public class AgregarBloqueo extends javax.swing.JFrame {
 
         jblFechaLiberacion1.setText("Fecha Liberacion:");
 
-        cbcAlumnos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1" }));
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -104,24 +103,21 @@ public class AgregarBloqueo extends javax.swing.JFrame {
                                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(132, 132, 132))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(jblFechaLiberacion1)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jblFechaLiberacion1)
+                                    .addComponent(jLabel4))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(datePickerLiberacion, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(cbcAlumnos, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addGap(62, 62, 62)
-                                .addComponent(txtMotivo, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(btnRegresar)
-                                .addGap(185, 185, 185)
-                                .addComponent(btnAgregar))
-                            .addComponent(jblFechaLiberacion, javax.swing.GroupLayout.Alignment.LEADING))))
-                .addGap(0, 97, Short.MAX_VALUE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtIdAlumno)
+                                    .addComponent(datePickerLiberacion, javax.swing.GroupLayout.DEFAULT_SIZE, 252, Short.MAX_VALUE)
+                                    .addComponent(txtMotivo, javax.swing.GroupLayout.Alignment.TRAILING))))
+                        .addComponent(jLabel3)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(btnRegresar)
+                            .addGap(185, 185, 185)
+                            .addComponent(btnAgregar))
+                        .addComponent(jblFechaLiberacion)))
+                .addGap(0, 24, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -136,11 +132,10 @@ public class AgregarBloqueo extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jblFechaLiberacion1)
                     .addComponent(datePickerLiberacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(38, 38, 38)
+                .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(cbcAlumnos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
+                        .addGap(0, 71, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
                             .addComponent(txtMotivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -150,11 +145,14 @@ public class AgregarBloqueo extends javax.swing.JFrame {
                             .addComponent(btnAgregar))
                         .addGap(39, 39, 39))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(txtIdAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
@@ -164,7 +162,7 @@ public class AgregarBloqueo extends javax.swing.JFrame {
 
         BloqueoDTO bloqueo = new BloqueoDTO();
              
-        bloqueo.setAlumno(Long.valueOf((String) cbcAlumnos.getSelectedItem()));
+        bloqueo.setAlumno(Long.valueOf(txtIdAlumno.getText()));
         bloqueo.setEliminado(false);
         
         LocalDate localDate = datePickerBloqueo.getDate();
@@ -191,7 +189,8 @@ public class AgregarBloqueo extends javax.swing.JFrame {
             exito = bloqueoNegocio.guardarBloqueo(bloqueo);
             System.out.println(exito.toString());
             JOptionPane.showMessageDialog(this, "El bloqueo se ha guardado");
-            
+            gestionBloqueos.setVisible(true);
+            this.dispose();
             
         } 
         
@@ -215,7 +214,6 @@ public class AgregarBloqueo extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnRegresar;
-    private javax.swing.JComboBox<String> cbcAlumnos;
     private com.github.lgooddatepicker.components.DatePicker datePickerBloqueo;
     private com.github.lgooddatepicker.components.DatePicker datePickerLiberacion;
     private javax.swing.JLabel jLabel1;
@@ -223,6 +221,7 @@ public class AgregarBloqueo extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jblFechaLiberacion;
     private javax.swing.JLabel jblFechaLiberacion1;
+    private javax.swing.JTextField txtIdAlumno;
     private javax.swing.JTextField txtMotivo;
     // End of variables declaration//GEN-END:variables
 }

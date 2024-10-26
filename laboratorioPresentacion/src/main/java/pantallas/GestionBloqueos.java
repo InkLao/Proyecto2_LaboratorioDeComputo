@@ -99,7 +99,7 @@ public class GestionBloqueos extends javax.swing.JFrame {
             }
         };
 
-        int indiceColumnaEditar = 5;
+        int indiceColumnaEditar = 6;
         TableColumnModel modeloColumnas = this.tblBloqueos.getColumnModel();
         modeloColumnas.getColumn(indiceColumnaEditar)
                 .setCellRenderer(new JButtonRenderer("Editar"));
@@ -120,7 +120,7 @@ public class GestionBloqueos extends javax.swing.JFrame {
                 }
             }
         };
-        int indiceColumnaEliminar = 6;
+        int indiceColumnaEliminar = 7;
         modeloColumnas = this.tblBloqueos.getColumnModel();
         modeloColumnas.getColumn(indiceColumnaEliminar)
                 .setCellRenderer(new JButtonRenderer("Eliminar"));
@@ -148,7 +148,7 @@ public class GestionBloqueos extends javax.swing.JFrame {
         int indiceFilaSeleccionada = this.tblBloqueos.getSelectedRow();
         if (indiceFilaSeleccionada != -1) {
             DefaultTableModel modelo = (DefaultTableModel) this.tblBloqueos.getModel();
-            int indiceColumnaId = 4;
+            int indiceColumnaId = 5;
             boolean eliminadoBloqueoSeleccionado = (boolean) modelo.getValueAt(indiceFilaSeleccionada,
                     indiceColumnaId);
             return eliminadoBloqueoSeleccionado;
@@ -219,12 +219,13 @@ public class GestionBloqueos extends javax.swing.JFrame {
 
         if (bloqueosLista != null) {
             bloqueosLista.forEach(row -> {
-                Object[] fila = new Object[5];
+                Object[] fila = new Object[6];
                 fila[0] = row.getId();
                 fila[1] = row.getMotivo();
                 fila[2] = row.getFechaBloqueo().getTime().toString();
                 fila[3] = row.getFechaLiberacion().getTime().toString();
-                fila[4] = row.isEliminado();
+                fila[4] = row.getAlumno();
+                fila[5] = row.isEliminado();
                 modeloTabla.addRow(fila);
             });
         }
@@ -281,6 +282,7 @@ public class GestionBloqueos extends javax.swing.JFrame {
         btnAgregar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Gestion Bloqueos");
 
         jLabel1.setText("Gestion Bloqueos");
 
@@ -293,17 +295,17 @@ public class GestionBloqueos extends javax.swing.JFrame {
 
         tblBloqueos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "idBloqueo", "Motivo", "Fecha Bloqueo", "Fecha Liberacion", "Eliminado", "Editar", "Eliminar"
+                "idBloqueo", "Motivo", "Fecha Bloqueo", "Fecha Liberacion", "IdAlumno", "Eliminado", "Editar", "Eliminar"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, true, true, true, false, true, true
+                false, true, false, false, true, false, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -331,22 +333,25 @@ public class GestionBloqueos extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(230, 230, 230)
-                .addComponent(jLabel1))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addComponent(btnBuscar))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(btnAgregar))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(btnRegresar))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(230, 230, 230)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(btnAgregar))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(btnRegresar))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtBuscar)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnBuscar))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 630, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -354,7 +359,7 @@ public class GestionBloqueos extends javax.swing.JFrame {
                 .addGap(20, 20, 20)
                 .addComponent(jLabel1)
                 .addGap(14, 14, 14)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBuscar))
                 .addGap(7, 7, 7)
@@ -366,6 +371,7 @@ public class GestionBloqueos extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
