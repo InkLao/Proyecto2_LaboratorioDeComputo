@@ -407,9 +407,7 @@ carreraNegocio.agregarCarrera(carrera33);
 
         }
 
-        this.setVisible(false);
-        InsertarUnidades insertarUnidades = new InsertarUnidades(this);
-        insertarUnidades.setVisible(true);
+      
 
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
