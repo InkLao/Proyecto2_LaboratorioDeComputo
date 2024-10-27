@@ -4,8 +4,12 @@
  */
 package negocio;
 
+import Excepciones.PersistenciaException;
+import NegocioException.NegocioException;
 import dto.CarreraDTO;
 import entidades.Carrera;
+import java.util.List;
+import java.util.stream.Collectors;
 import persistencia.ICarreraDAO;
 
 /**
@@ -31,6 +35,23 @@ public class CarreraNegocio implements ICarreraNegocio{
  Carrera carrera = carreraDAO.obtenerCarreraPorNombre(nombre);
         return carrera != null ? convertirACarreraDTO(carrera) : null;
     }
+    
+    @Override
+    public List<CarreraDTO> obtenerTodos() throws NegocioException {
+        
+        try {
+            return carreraDAO.obtenerTodos().stream()
+                    .map(entidad -> new CarreraDTO(entidad.getId(), entidad.getNombre(), entidad.getTiempoMaxUsoDiario()))
+                    .collect(Collectors.toList());
+        } 
+        
+        catch (PersistenciaException e) {
+            System.out.println(e.getMessage());
+        }
+        
+        return null;
+    }
+    
      private CarreraDTO convertirACarreraDTO(Carrera carrera) {
         CarreraDTO carreraDTO = new CarreraDTO();
         carreraDTO.setId(carrera.getId());

@@ -23,4 +23,8 @@ public interface ICentroComputoDAO {
     CentroComputo eliminarCentroComputo(CentroComputo centroComputo);
     
     public List<CentroComputo> obtenerTodos() throws PersistenciaException;
+    
+    public CentroComputo obtenerPorCentroNombre(String nombre) throws PersistenciaException;
+    
+    public List<CentroComputo> obtenerTodosLosQueEstanActivos() throws PersistenciaException;
 }

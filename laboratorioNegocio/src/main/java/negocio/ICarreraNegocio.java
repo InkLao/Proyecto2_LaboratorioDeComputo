@@ -4,7 +4,9 @@
  */
 package negocio;
 
+import NegocioException.NegocioException;
 import dto.CarreraDTO;
+import java.util.List;
 
 /**
  *
@@ -13,5 +15,7 @@ import dto.CarreraDTO;
 public interface ICarreraNegocio {
       void agregarCarrera(CarreraDTO carreraDTO);
           CarreraDTO obtenerCarreraPorNombre(String nombre);
+          
+          public List<CarreraDTO> obtenerTodos() throws NegocioException;
 
 }

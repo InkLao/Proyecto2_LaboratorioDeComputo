@@ -4,10 +4,13 @@
  */
 package persistencia;
 
+import Excepciones.PersistenciaException;
 import entidades.Carrera;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 
 /**
@@ -15,10 +18,13 @@ import javax.persistence.EntityTransaction;
  * @author Oley
  */
 public class CarreraDAO implements ICarreraDAO{
-       private EntityManager entityManager;
+       
+    private EntityManager entityManager;
+    private EntityManagerFactory entityManagerFactory;   
 
-    public CarreraDAO(EntityManager entityManager) {
+    public CarreraDAO(EntityManager entityManager, EntityManagerFactory entityManagerFactory) {
         this.entityManager = entityManager;
+        this.entityManagerFactory = entityManagerFactory;
     }
     
     public void agregarCarrera(Carrera carrera){
@@ -45,5 +51,18 @@ public class CarreraDAO implements ICarreraDAO{
             e.printStackTrace(); 
             return null; 
         }
+    }
+    
+    
+    @Override
+    public List<Carrera> obtenerTodos() throws PersistenciaException {
+        
+        EntityManager em = entityManagerFactory.createEntityManager();
+        
+        List<Carrera> carreras = em.createQuery("SELECT c FROM Carrera c", Carrera.class).getResultList();
+        
+        em.close();
+        
+        return carreras;
     }
 }

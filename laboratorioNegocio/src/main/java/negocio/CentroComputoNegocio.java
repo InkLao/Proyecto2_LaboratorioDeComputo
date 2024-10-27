@@ -27,11 +27,13 @@ public class CentroComputoNegocio implements ICentroComputoNegocio {
         this.centroComputoDAO = centroComputoDAO;
     }
 
+    @Override
     public void agregarCentroComputo(CentroComputoDTO centroComputoDTO) {
         CentroComputo centroComputo = convertirAEntidad(centroComputoDTO);
         centroComputoDAO.agregarCentroComputo(centroComputo);
     }
 
+    @Override
     public void editarCentroComputo(CentroComputoDTO centroComputoDTO) {
         CentroComputo centroComputo = convertirAEntidad(centroComputoDTO);
         centroComputoDAO.editarCentroComputo(centroComputo);
@@ -43,6 +45,7 @@ public class CentroComputoNegocio implements ICentroComputoNegocio {
         return convertirADto(centroComputo);
     }
 
+    @Override
     public void eliminarCentroComputo(CentroComputoDTO centroComputo) throws NegocioException {
         try {
 
@@ -126,6 +129,41 @@ public class CentroComputoNegocio implements ICentroComputoNegocio {
             throw new NegocioException("Error al obtener todos los centros de cómputo.");
         }
     }
+    
+    
+    @Override
+    public List<CentroComputoDTO> obtenerTodosLosCentrosActivos() throws NegocioException {
+        try {
+            List<CentroComputo> centros = centroComputoDAO.obtenerTodosLosQueEstanActivos();  // Método DAO para obtener todos los registros
+            return centros.stream()
+                    .map(this::convertirADto) // Usa el método existente de conversión
+                    .collect(Collectors.toList());
+        } catch (PersistenciaException e) {
+            System.out.println(e.getMessage());
+            throw new NegocioException("Error al obtener todos los centros de cómputo.");
+        }
+    }   
+    
+    
+    @Override
+    public CentroComputoDTO obtenerPorCentroNombre(String nombre) throws NegocioException {
+        
+        try {
+            System.out.println("nombre busca " + nombre);
+            CentroComputo entidad = centroComputoDAO.obtenerPorCentroNombre(nombre);
+            if (entidad == null) {
+                throw new NegocioException("centro no encontrado");
+            }
+            
+            System.out.println("encontro este id " + entidad.getId());
+            
+            return new CentroComputoDTO(entidad.getId(), entidad.getNombre(), entidad.getHoraInicio(), entidad.getHoraFinal(), entidad.getContraseñaMaestra(), entidad.isEliminado(), this.convertirADTO(entidad.getUnidadAcademica()));
+        } 
+        
+        catch (Exception e) {
+            throw new NegocioException("Error al obtener los bloqueos por id");
+        }    
+    }
 
     // Método de conversión de entidad a DTO
     @Override
@@ -146,6 +184,14 @@ public class CentroComputoNegocio implements ICentroComputoNegocio {
                 centroComputo.isEliminado(),
                 unidadAcademicaDTO
         );
+    }
+    
+    private UnidadAcademicaDTO convertirADTO(UnidadAcademica unidad){
+        if (unidad == null) {
+            return null;
+        }
+        
+        return new UnidadAcademicaDTO(unidad.getId(), unidad.getNombre());
     }
 
 }
