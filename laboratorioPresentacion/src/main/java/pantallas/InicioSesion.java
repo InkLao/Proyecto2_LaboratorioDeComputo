@@ -4,6 +4,7 @@
  */
 package pantallas;
 
+import javax.swing.JOptionPane;
 import negocio.CarreraNegocio;
 import negocio.IAlumnoNegocio;
 import negocio.IBloqueoNegocio;
@@ -118,10 +119,16 @@ public class InicioSesion extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
- this.setVisible(false);
-        Administrador administrador=new Administrador(this, carreraNegocio,unidadNegocio,alumnoNegocio, bloqueoNegocio, centroComputoNegocio, computadoraNegocio);
-administrador.setVisible(true);
+ String nombre = jTextField1.getText();
+    String contraseña = jTextField2.getText();
 
+    if (nombre.equals("admin") && contraseña.equals("admin")) {
+        this.setVisible(false);
+        Administrador administrador = new Administrador(this, carreraNegocio, unidadNegocio, alumnoNegocio, bloqueoNegocio, centroComputoNegocio, computadoraNegocio);
+        administrador.setVisible(true);
+    } else {
+        JOptionPane.showMessageDialog(this, "Nombre de usuario o contraseña incorrectos.", "Error de autenticación", JOptionPane.ERROR_MESSAGE);
+    }
 
 
 

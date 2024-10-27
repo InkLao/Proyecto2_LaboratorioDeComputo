@@ -37,6 +37,7 @@ public class GestionCentroComputos extends javax.swing.JFrame {
     private ICentroComputoNegocio centroComputoNegocio;
 
     public GestionCentroComputos(Administrador administrador, ICentroComputoNegocio centroComputoNegocio) {
+        this.administrador=administrador;
         this.centroComputoNegocio = centroComputoNegocio;
         initComponents();
         cargarConfiguracionInicialTabla();
