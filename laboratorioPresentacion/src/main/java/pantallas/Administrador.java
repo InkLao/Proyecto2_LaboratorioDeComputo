@@ -225,12 +225,30 @@ public class Administrador extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         try {
-            UnidadAcademicaDTO academicaDTO = new UnidadAcademicaDTO(" Medicina");
+            UnidadAcademicaDTO academicaDTO = new UnidadAcademicaDTO(" Obregón. Centro");
             unidadNegocio.agregarUnidadAcademica(academicaDTO);
 
-            UnidadAcademicaDTO academicaDTO1 = new UnidadAcademicaDTO("Los");
+            UnidadAcademicaDTO academicaDTO1 = new UnidadAcademicaDTO("Obregón. Náinari");
             unidadNegocio.agregarUnidadAcademica(academicaDTO1);
 
+             UnidadAcademicaDTO academicaDTO2 = new UnidadAcademicaDTO("Guaymas");
+            unidadNegocio.agregarUnidadAcademica(academicaDTO2);
+
+             UnidadAcademicaDTO academicaDTO3 = new UnidadAcademicaDTO("Empalme");
+            unidadNegocio.agregarUnidadAcademica(academicaDTO3);
+
+             UnidadAcademicaDTO academicaDTO4 = new UnidadAcademicaDTO("Navojoa. Centro");
+            unidadNegocio.agregarUnidadAcademica(academicaDTO4);
+
+             UnidadAcademicaDTO academicaDTO5 = new UnidadAcademicaDTO("Navojoa. Sur");
+            unidadNegocio.agregarUnidadAcademica(academicaDTO5);
+            
+            
+            
+            
+            
+            
+            
             this.setVisible(false);
             InsertarUnidades insertarUnidades = new InsertarUnidades(this);
             insertarUnidades.setVisible(true);
