@@ -28,7 +28,7 @@ import utilerias.JButtonRenderer;
  * @author eduar
  */
 public class GestionCentroComputos extends javax.swing.JFrame {
-
+    
     private ICarreraNegocio carreraNegocio;
     private IUnidadNegocio unidadNegocio;
     private IAlumnoNegocio alumnoNegocio;
@@ -36,7 +36,8 @@ public class GestionCentroComputos extends javax.swing.JFrame {
 
     private ICentroComputoNegocio centroComputoNegocio;
 
-    public GestionCentroComputos(Administrador administrador, ICentroComputoNegocio centroComputoNegocio) {
+    public GestionCentroComputos(IUnidadNegocio unidadNegocio, Administrador administrador, ICentroComputoNegocio centroComputoNegocio) {
+        this.unidadNegocio=unidadNegocio;
         this.administrador=administrador;
         this.centroComputoNegocio = centroComputoNegocio;
         initComponents();
@@ -73,7 +74,7 @@ public class GestionCentroComputos extends javax.swing.JFrame {
         modeloColumnas.getColumn(indiceColumnaEliminar).setCellEditor(new JButtonCellEditor("Eliminar", onEliminarClickListener));
     }
 
-    private void cargarCentrosEnTabla() {
+    public void cargarCentrosEnTabla() {
         try {
             List<CentroComputoDTO> centros = centroComputoNegocio.obtenerTodosLosCentros();  // Método que lista todos los centros
             llenarTablaCentros(centros);
@@ -302,7 +303,7 @@ public class GestionCentroComputos extends javax.swing.JFrame {
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         this.setVisible(false);
-        AgregarCentroComputos agregarCentroComputos = new AgregarCentroComputos();
+        AgregarCentroComputos agregarCentroComputos = new AgregarCentroComputos(this, unidadNegocio, centroComputoNegocio);
         agregarCentroComputos.setVisible(true);
 
         // TODO add your handling code here:

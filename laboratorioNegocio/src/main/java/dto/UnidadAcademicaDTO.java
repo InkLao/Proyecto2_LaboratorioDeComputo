@@ -18,6 +18,11 @@ public class UnidadAcademicaDTO {
     public UnidadAcademicaDTO( String nombre) {
         this.nombre = nombre;
     }
+    
+    public UnidadAcademicaDTO(Long id, String nombre) {
+        this.id = id;
+        this.nombre = nombre;
+    }
 
     public Long getId() {
         return id;

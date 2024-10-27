@@ -4,8 +4,20 @@
  */
 package pantallas;
 
+import NegocioException.NegocioException;
+import dto.CentroComputoDTO;
+import dto.UnidadAcademicaDTO;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import negocio.IAlumnoNegocio;
 import negocio.ICarreraNegocio;
+import negocio.ICentroComputoNegocio;
+import negocio.IUnidadNegocio;
 
 /**
  *
@@ -13,14 +25,44 @@ import negocio.ICarreraNegocio;
  */
 public class AgregarCentroComputos extends javax.swing.JFrame {
     
+    private GestionCentroComputos gcp;
     private IAlumnoNegocio alumnoNegocio;
     private ICarreraNegocio carreraNegocio;
+    private IUnidadNegocio unidadNegocio;
+    private ICentroComputoNegocio centroComputoNegocio;
+    
+    private Map<String, Integer> unidadMap;
 
     /**
      * Creates new form AgregarCentroComputos
      */
-    public AgregarCentroComputos() {
+    public AgregarCentroComputos(GestionCentroComputos gcp, IUnidadNegocio unidadNegocio, ICentroComputoNegocio centroComputoNegocio) {
         initComponents();
+        this.gcp=gcp;
+        this.unidadNegocio = unidadNegocio;
+        this.centroComputoNegocio = centroComputoNegocio;
+        this.unidadMap = new HashMap<>();
+        
+        // Cargar las unidades académicas
+        try {
+            cargarUnidadesAcademicas();
+        } catch (NegocioException ex) {
+            Logger.getLogger(AgregarCentroComputos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    private void cargarUnidadesAcademicas() throws NegocioException {
+        List<UnidadAcademicaDTO> unidades = unidadNegocio.obtenerUnidadesDTO();
+        cmbUnidad.removeAllItems();
+        
+        for (UnidadAcademicaDTO unidad : unidades) {
+            String nombre = unidad.getNombre();
+            long unidadId = unidad.getId();
+            int a = (int) unidadId;
+            
+            cmbUnidad.addItem(nombre);
+            unidadMap.put(nombre, a);
+        }
     }
 
     /**
@@ -32,17 +74,19 @@ public class AgregarCentroComputos extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
+        txtNombre = new javax.swing.JTextField();
         btnRegresar = new javax.swing.JButton();
-        btnContinuar = new javax.swing.JButton();
+        btnAgregar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cmbUnidad = new javax.swing.JComboBox<>();
+        timePickerHoraFinal = new com.github.lgooddatepicker.components.TimePicker();
+        timePickerHoraInicio = new com.github.lgooddatepicker.components.TimePicker();
+        jLabel6 = new javax.swing.JLabel();
+        txtContraseñaMaestra = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -53,9 +97,15 @@ public class AgregarCentroComputos extends javax.swing.JFrame {
             }
         });
 
-        btnContinuar.setText("Continuar");
+        btnAgregar.setText("Agregar");
+        btnAgregar.setBackground(new java.awt.Color(102, 255, 102));
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarActionPerformed(evt);
+            }
+        });
 
-        jLabel1.setText("Agregar Alumno");
+        jLabel1.setText("Agregar Centro Computo");
 
         jLabel2.setText("Nombre:");
 
@@ -64,6 +114,12 @@ public class AgregarCentroComputos extends javax.swing.JFrame {
         jLabel4.setText("Hora final:");
 
         jLabel5.setText("Unidad académica:");
+
+        timePickerHoraFinal.setBackground(new java.awt.Color(136, 201, 239));
+
+        timePickerHoraInicio.setBackground(new java.awt.Color(136, 201, 239));
+
+        jLabel6.setText("Contraseña maestra:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -75,29 +131,34 @@ public class AgregarCentroComputos extends javax.swing.JFrame {
                         .addGap(152, 152, 152)
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGap(15, 15, 15)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
                                 .addComponent(btnRegresar)
-                                .addGap(196, 196, 196)
-                                .addComponent(btnContinuar))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addGap(62, 62, 62)
-                                .addComponent(jTextField3))
-                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnAgregar))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(jLabel5)
-                                .addGap(18, 18, 18)
-                                .addComponent(jComboBox1, 0, 241, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(cmbUnidad, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel3)
-                                    .addComponent(jLabel2))
-                                .addGap(56, 56, 56)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
-                                    .addComponent(jTextField1))))))
-                .addContainerGap(31, Short.MAX_VALUE))
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel6))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(timePickerHoraInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(timePickerHoraFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(0, 1, Short.MAX_VALUE))
+                                    .addComponent(txtContraseñaMaestra))))))
+                .addGap(34, 34, 34))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -107,23 +168,27 @@ public class AgregarCentroComputos extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(23, 23, 23)
+                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(timePickerHoraInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(timePickerHoraFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(23, 23, 23)
+                    .addComponent(jLabel6)
+                    .addComponent(txtContraseñaMaestra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                    .addComponent(cmbUnidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnRegresar)
-                    .addComponent(btnContinuar))
+                    .addComponent(btnAgregar))
                 .addGap(16, 16, 16))
         );
 
@@ -132,21 +197,71 @@ public class AgregarCentroComputos extends javax.swing.JFrame {
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         this.setVisible(false);
-        //GestionAlumnos gestionAlumnos = new GestionAlumnos(alumnoNegocio, carreraNegocio);
-       // gestionAlumnos.setVisible(true);
+        gcp.setVisible(true);
     }//GEN-LAST:event_btnRegresarActionPerformed
 
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+        try {
+            // Validar que todos los campos requeridos estén llenos
+            if (txtNombre.getText().isEmpty() || timePickerHoraInicio.getTime() == null || timePickerHoraFinal.getTime() == null || txtContraseñaMaestra.getText().isEmpty() || cmbUnidad.getSelectedItem() == null) {
+                JOptionPane.showMessageDialog(this, "Por favor, completa todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            
+            // Obtener los datos del formulario
+            String nombre = txtNombre.getText();
+            Calendar horaInicio = Calendar.getInstance();
+            horaInicio.set(Calendar.HOUR_OF_DAY, timePickerHoraInicio.getTime().getHour());
+            horaInicio.set(Calendar.MINUTE, timePickerHoraInicio.getTime().getMinute());
+            
+            Calendar horaFinal = Calendar.getInstance();
+            horaFinal.set(Calendar.HOUR_OF_DAY, timePickerHoraFinal.getTime().getHour());
+            horaFinal.set(Calendar.MINUTE, timePickerHoraFinal.getTime().getMinute());
+            
+            String contraseñaMaestra = txtContraseñaMaestra.getText();
+
+            // Obtener ID de la unidad seleccionada
+            String unidadSeleccionada = (String) cmbUnidad.getSelectedItem();
+            int unidadId = unidadMap.get(unidadSeleccionada);
+            long a = (long) unidadId;
+            UnidadAcademicaDTO unidadDTO = new UnidadAcademicaDTO(a, unidadSeleccionada);
+
+            // Crear el DTO de Centro de Cómputo
+            CentroComputoDTO nuevoCentro = new CentroComputoDTO(
+                nombre,
+                horaInicio,
+                horaFinal,
+                contraseñaMaestra,
+                false,  // Asumimos que un nuevo centro no estará eliminado
+                unidadDTO
+            );
+
+            // Llamar al negocio para agregar el centro
+            centroComputoNegocio.agregarCentroComputo(nuevoCentro);
+            JOptionPane.showMessageDialog(this, "Centro de cómputo agregado con éxito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+
+            // Cerrar la ventana después de agregar
+            this.dispose();
+            gcp.cargarCentrosEnTabla();
+            gcp.setVisible(true);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al agregar el centro de cómputo: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnAgregarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnContinuar;
+    private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnRegresar;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> cmbUnidad;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JLabel jLabel6;
+    private com.github.lgooddatepicker.components.TimePicker timePickerHoraFinal;
+    private com.github.lgooddatepicker.components.TimePicker timePickerHoraInicio;
+    private javax.swing.JTextField txtContraseñaMaestra;
+    private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
 }

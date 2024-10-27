@@ -299,7 +299,7 @@ public class Administrador extends javax.swing.JFrame {
     private void btnGestionCentroComputosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionCentroComputosActionPerformed
         // TODO add your handling code here:
         this.setVisible(false);
-        GestionCentroComputos gcp = new GestionCentroComputos(this, centroComputoNegocio);
+        GestionCentroComputos gcp = new GestionCentroComputos(unidadNegocio, this, centroComputoNegocio);
         gcp.setVisible(true);
     }//GEN-LAST:event_btnGestionCentroComputosActionPerformed
 
