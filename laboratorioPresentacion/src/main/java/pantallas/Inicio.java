@@ -4,36 +4,47 @@
  */
 package pantallas;
 
+import dto.AlumnoDTO;
 import negocio.IAlumnoNegocio;
 import negocio.IBloqueoNegocio;
 import negocio.ICarreraNegocio;
 import negocio.ICentroComputoNegocio;
 import negocio.IComputadoraNegocio;
+import negocio.IPrestamoComputadoraNegocio;
 import negocio.IUnidadNegocio;
+import pantallas.Alumno.IniciarSesionAlumno;
 
 /**
  *
  * @author Arturo ITSON
  */
 public class Inicio extends javax.swing.JFrame {
-private InicioSesion inicioSesion;
+    
+    private InicioSesion inicioSesion;
     private ICarreraNegocio carreraNegocio;
     private IUnidadNegocio unidadNegocio;
     private IAlumnoNegocio alumnoNegocio;
     private IBloqueoNegocio bloqueoNegocio;
     private ICentroComputoNegocio centroComputoNegocio;
     private IComputadoraNegocio computadoraNegocio;
+    private IPrestamoComputadoraNegocio prestamoComputadoraNegocio;
+    private AlumnoDTO alumnoDTO;
+    
     /**
      * Creates new form Inicio
      */
     public Inicio( ICarreraNegocio carreraNegocio, IUnidadNegocio unidadNegocio, IAlumnoNegocio alumnoNegocio,
-                         IBloqueoNegocio bloqueoNegocio, ICentroComputoNegocio centroComputoNegocio, IComputadoraNegocio computadoraNegocio) {
+                         IBloqueoNegocio bloqueoNegocio, ICentroComputoNegocio centroComputoNegocio, IComputadoraNegocio computadoraNegocio,
+                         IPrestamoComputadoraNegocio prestamoComputadoraNegocio) {
+        
         this.carreraNegocio = carreraNegocio;
         this.unidadNegocio = unidadNegocio;
         this.alumnoNegocio= alumnoNegocio;
         this.bloqueoNegocio = bloqueoNegocio;
         this.centroComputoNegocio = centroComputoNegocio;
         this.computadoraNegocio = computadoraNegocio;
+        this.prestamoComputadoraNegocio = prestamoComputadoraNegocio;
+        
         initComponents();
     }
 
@@ -69,6 +80,11 @@ private InicioSesion inicioSesion;
 
         btnAlumno.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnAlumno.setText("Alumno");
+        btnAlumno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlumnoActionPerformed(evt);
+            }
+        });
 
         btnMaquina.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnMaquina.setText("Maquina");
@@ -120,9 +136,10 @@ private InicioSesion inicioSesion;
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdminActionPerformed
- this.setVisible(false);
- InicioSesion administrador=new InicioSesion( carreraNegocio, unidadNegocio, alumnoNegocio, bloqueoNegocio, centroComputoNegocio, computadoraNegocio);
-administrador.setVisible(true);
+        this.setVisible(false);
+        InicioSesion administrador=new InicioSesion( carreraNegocio, unidadNegocio, alumnoNegocio, bloqueoNegocio, centroComputoNegocio, computadoraNegocio
+                                                   );
+       administrador.setVisible(true);
 
 
 
@@ -132,6 +149,18 @@ administrador.setVisible(true);
 
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAdminActionPerformed
+
+    private void btnAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlumnoActionPerformed
+        // TODO add your handling code here:
+        
+        
+        
+        IniciarSesionAlumno iniAlumno = new IniciarSesionAlumno(prestamoComputadoraNegocio, alumnoNegocio, computadoraNegocio, centroComputoNegocio,
+                                                                alumnoDTO);
+        this.setVisible(false);
+        iniAlumno.setVisible(true);
+        
+    }//GEN-LAST:event_btnAlumnoActionPerformed
 
 //    /**
 //     * @param args the command line arguments

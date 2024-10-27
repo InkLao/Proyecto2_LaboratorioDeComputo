@@ -23,6 +23,8 @@ public interface IComputadoraDAO {
             
     public Computadora buscarComputadora(Long id) throws PersistenciaException;
     
+    public Computadora buscarComputadorasPorNumMaquina(Integer numMaquina) throws PersistenciaException;
+    
     public List<Computadora> buscarComputadoras(String ip) throws PersistenciaException;
     
     public Computadora eliminarComputadora(Computadora computadora);

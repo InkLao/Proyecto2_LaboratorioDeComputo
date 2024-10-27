@@ -15,6 +15,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -50,6 +51,9 @@ public class Computadora implements Serializable {
     @ManyToOne()
     @JoinColumn(name = "centroComputo")
     private CentroComputo centroComputo;
+    
+    @OneToMany(mappedBy = "computadora")
+    private List<PrestamoComputadora> prestamoComputadoras;
     
     public Computadora() {
     }
@@ -138,6 +142,17 @@ public class Computadora implements Serializable {
         this.eliminado = eliminado;
     }
 
+    public List<PrestamoComputadora> getPrestamoComputadoras() {
+        return prestamoComputadoras;
+    }
+
+    public void setPrestamoComputadoras(List<PrestamoComputadora> prestamoComputadoras) {
+        this.prestamoComputadoras = prestamoComputadoras;
+    }
+
+    
+    
+    
     @Override
     public String toString() {
         return "Computadora{" + "id=" + id + ", estatus=" + estatus + ", direccionIP=" + direccionIP + ", numeroMaquina=" + numeroMaquina + ", usoAlumno=" + usoAlumno + ", eliminado=" + eliminado + ", centroComputo=" + centroComputo + '}';

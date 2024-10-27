@@ -49,7 +49,7 @@ public class CentroComputo implements Serializable {
     @Column(name = "Eliminado")
     private boolean eliminado;
 
-    @OneToOne(cascade = CascadeType.PERSIST)
+    @OneToOne()
     UnidadAcademica unidadAcademica;
     
     @OneToMany(mappedBy = "centroComputo")

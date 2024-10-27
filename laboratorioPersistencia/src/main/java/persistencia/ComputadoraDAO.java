@@ -87,6 +87,32 @@ public class ComputadoraDAO implements IComputadoraDAO{
         return null;
     }
 
+    @Override
+    public Computadora buscarComputadorasPorNumMaquina(Integer numMaquina) throws PersistenciaException{
+       
+        try{
+        EntityManager em = emf.createEntityManager();
+
+        String consultaJPQL = """
+                                    SELECT c from Computadora c
+                                    WHERE c.numeroMaquina = :numeroMaquina
+                                
+                                """;
+            TypedQuery<Computadora> query = em.createQuery(consultaJPQL, Computadora.class);
+            query.setParameter("numeroMaquina", numMaquina);
+            
+            Computadora computadora = query.getSingleResult();
+            
+            return computadora;
+            
+        }
+        
+        catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+          
+        return null;
+    }
     
     @Override
     public List<Computadora> buscarComputadoras(String ip) throws PersistenciaException{

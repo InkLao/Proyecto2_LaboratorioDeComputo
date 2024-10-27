@@ -24,6 +24,10 @@ public interface IComputadoraNegocio {
     
     public List<ComputadoraDTO> buscarBloqueosTabla(String ip) throws NegocioException;
     
+    public List<ComputadoraDTO> buscarBloqueosPorEstatusTabla(String estatus) throws NegocioException;
+    
+    public ComputadoraDTO buscarComputadorasPorNumMaquina(Integer numMaquina) throws NegocioException;
+    
     public List<ComputadoraDTO> obtenerTodos() throws NegocioException;
     
     public ComputadoraDTO actualizarComputadora(ComputadoraDTO computadora) throws NegocioException;
