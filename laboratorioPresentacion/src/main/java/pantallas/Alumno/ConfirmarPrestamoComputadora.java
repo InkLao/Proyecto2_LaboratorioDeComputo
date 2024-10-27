@@ -161,14 +161,14 @@ public class ConfirmarPrestamoComputadora extends javax.swing.JFrame implements 
             }
         });
 
-        btnMenosMinutos.setText("<");
+        btnMenosMinutos.setText("-");
         btnMenosMinutos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMenosMinutosActionPerformed(evt);
             }
         });
 
-        btnMasMinutos.setText(">");
+        btnMasMinutos.setText("+");
         btnMasMinutos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMasMinutosActionPerformed(evt);

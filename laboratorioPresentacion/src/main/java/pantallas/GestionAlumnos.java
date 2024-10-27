@@ -103,7 +103,7 @@ public class GestionAlumnos extends javax.swing.JFrame {
             }
         };
 
-        int indiceColumnaEditar = 5;
+        int indiceColumnaEditar = 6;
         TableColumnModel modeloColumnas = this.tblAlumnos.getColumnModel();
         modeloColumnas.getColumn(indiceColumnaEditar)
                 .setCellRenderer(new JButtonRenderer("Editar"));
@@ -124,7 +124,7 @@ public class GestionAlumnos extends javax.swing.JFrame {
                 }
             }
         };
-        int indiceColumnaEliminar = 6;
+        int indiceColumnaEliminar = 7;
         modeloColumnas = this.tblAlumnos.getColumnModel();
         modeloColumnas.getColumn(indiceColumnaEliminar)
                 .setCellRenderer(new JButtonRenderer("Eliminar"));
@@ -152,7 +152,7 @@ public class GestionAlumnos extends javax.swing.JFrame {
         int indiceFilaSeleccionada = this.tblAlumnos.getSelectedRow();
         if (indiceFilaSeleccionada != -1) {
             DefaultTableModel modelo = (DefaultTableModel) this.tblAlumnos.getModel();
-            int indiceColumnaId = 4;
+            int indiceColumnaId = 5;
             boolean eliminadoBloqueoSeleccionado = (boolean) modelo.getValueAt(indiceFilaSeleccionada,
                     indiceColumnaId);
             return eliminadoBloqueoSeleccionado;
@@ -280,12 +280,13 @@ private String getApellidoMaternoSeleccionadoTabla() {
 
         if (bloqueosLista != null) {
             bloqueosLista.forEach(row -> {
-                Object[] fila = new Object[5];
+                Object[] fila = new Object[6];
                 fila[0] = row.getId();
                 fila[1] = row.getNombres();
                 fila[2] = row.getApellidoPaterno();
                 fila[3] = row.getApellidoMaterno();
-                fila[4] = row.isEstaEliminado();
+                fila[4] = row.getCarrera().getNombre();
+                fila[5] = row.isEstaEliminado();
                 modeloTabla.addRow(fila);
             });
         }
@@ -332,6 +333,7 @@ private String getApellidoMaternoSeleccionadoTabla() {
         jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Gestion Alumnos");
 
         jLabel1.setText("Gestion Alumnos");
 
@@ -351,15 +353,23 @@ private String getApellidoMaternoSeleccionadoTabla() {
 
         tblAlumnos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "idAlumno", "Nombre", "ApellidoP", "ApellidoM", "Estatus", "Editar", "Eliminar"
+                "idAlumno", "Nombre", "ApellidoP", "ApellidoM", "Carrera", "Estatus", "Editar", "Eliminar"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                true, true, true, true, false, true, true, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(tblAlumnos);
 
         jButton3.setText("Regresar");
@@ -374,22 +384,25 @@ private String getApellidoMaternoSeleccionadoTabla() {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(160, 160, 160)
-                .addComponent(jLabel1))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addComponent(jButton1))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(jButton2))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(jButton3))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(160, 160, 160)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jButton2))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jButton3))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jTextField1)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton1))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 631, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -397,7 +410,7 @@ private String getApellidoMaternoSeleccionadoTabla() {
                 .addGap(10, 10, 10)
                 .addComponent(jLabel1)
                 .addGap(14, 14, 14)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1))
                 .addGap(7, 7, 7)
@@ -409,6 +422,7 @@ private String getApellidoMaternoSeleccionadoTabla() {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed

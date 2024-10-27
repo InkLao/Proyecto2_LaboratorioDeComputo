@@ -134,8 +134,14 @@ public class PrestamoComputadora extends javax.swing.JFrame {
         prestamoCompu.setNombres(alumnoDTO.getNombres());
        // prestamoCompu.setIdComputadora();
 
-
+       if(this.getEstatusSeleccionadoTablaBloqueo().equals("Apartada")){
+          JOptionPane.showMessageDialog(this, "No puede apartar una computadora que esta en uso", "Informacion", JOptionPane.ERROR_MESSAGE); 
+          return;
+       }
+           
+       else{
         seleccionarPrestamoComputadoraTabla(prestamoCompu);
+       }
                 
     }
 
@@ -161,7 +167,7 @@ public class PrestamoComputadora extends javax.swing.JFrame {
 
     private void cargarPrestamosComputadorasEnTabla() {
         try {
-            List<ComputadoraDTO> computadoras = this.computadoraNegocio.buscarComputadorasTabla();
+            List<ComputadoraDTO> computadoras = this.computadoraNegocio.buscarComputadorasUsoAlumnoTabla();
             this.llenarTablaPrestamosComputadoras(computadoras);
         } catch (NegocioException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Información", JOptionPane.ERROR_MESSAGE);
@@ -248,6 +254,11 @@ public class PrestamoComputadora extends javax.swing.JFrame {
         jblTitulo.setText("Prestamo de computadoras");
 
         btnRegresar.setText("Regresar");
+        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegresarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -301,6 +312,12 @@ public class PrestamoComputadora extends javax.swing.JFrame {
         this.cargarComputadorasPrestamosEnTablaPorEstatus(txtBuscar.getText());
         
     }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+        // TODO add your handling code here:
+        iniciarSesionAlumno.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnRegresarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
