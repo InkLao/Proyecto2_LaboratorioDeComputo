@@ -28,6 +28,10 @@ public interface ICentroComputoNegocio {
     
     public List<CentroComputoDTO> obtenerTodosLosCentros() throws NegocioException;
     
+    public List<CentroComputoDTO> obtenerTodosLosCentrosActivos() throws NegocioException;
+     
+    public CentroComputoDTO obtenerPorCentroNombre(String nombre) throws NegocioException;
+    
     public CentroComputo convertirAEntidad(CentroComputoDTO centroComputoDTO);
     
     public CentroComputoDTO convertirADto(CentroComputo centroComputo);

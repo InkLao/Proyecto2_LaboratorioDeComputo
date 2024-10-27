@@ -20,17 +20,21 @@ import javax.persistence.TypedQuery;
  * @author Oley
  */
 public class AlumnoDAO implements  IAlumnoDAO{
+    
+    
     private EntityManagerFactory emf;
+    private EntityManager entityManager;
 
-    public AlumnoDAO(EntityManagerFactory emf) {
+    public AlumnoDAO(EntityManagerFactory emf, EntityManager entityManager) {
         this.emf = emf;
+        this.entityManager = entityManager;
     }
 
     
     @Override
     public Alumno agregarAlumno(Alumno alumno) {
       EntityManager em = emf.createEntityManager();
-   CarreraDAO carreraDAO=  new CarreraDAO(em);
+   CarreraDAO carreraDAO=  new CarreraDAO(entityManager ,emf);
       em.getTransaction().begin();
 
     Carrera carrera = carreraDAO.obtenerCarreraPorNombre(alumno.getCarrera().getNombre());

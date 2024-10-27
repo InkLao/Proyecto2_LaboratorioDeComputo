@@ -4,7 +4,9 @@
  */
 package persistencia;
 
+import Excepciones.PersistenciaException;
 import entidades.Carrera;
+import java.util.List;
 
 /**
  *
@@ -13,5 +15,7 @@ import entidades.Carrera;
 public interface ICarreraDAO {
       void agregarCarrera(Carrera carrera);
           Carrera obtenerCarreraPorNombre(String nombre);
+          
+          public List<Carrera> obtenerTodos() throws PersistenciaException;
 
 }

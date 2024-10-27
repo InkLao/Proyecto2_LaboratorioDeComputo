@@ -44,7 +44,7 @@ public class Alumno implements Serializable {
     @Column(name = "estaEliminado", nullable = false)
     private boolean estaEliminado;
 
-    @OneToOne(cascade = CascadeType.PERSIST)
+    @OneToOne()
     private Carrera carrera;
     
     @OneToMany(mappedBy = "alumno")

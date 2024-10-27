@@ -5,7 +5,11 @@
 package pantallas;
 
 import NegocioException.NegocioException;
+import dto.CentroComputoDTO;
 import dto.ComputadoraDTO;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import negocio.ICentroComputoNegocio;
 import negocio.IComputadoraNegocio;
@@ -30,6 +34,27 @@ public class AgregarComputadora extends javax.swing.JFrame {
         this.centroComputoNegocio = centroComputoNegocio;
         
         initComponents();
+        
+        try {
+            cargarCentrosComputos();
+        } catch (NegocioException ex) {
+            Logger.getLogger(AgregarComputadora.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    
+    
+    private void cargarCentrosComputos() throws NegocioException {
+            
+        try {
+            cbcLaboratorios.removeAllItems();
+            List<CentroComputoDTO> centroComputoDTOs = centroComputoNegocio.obtenerTodosLosCentrosActivos();
+            for (CentroComputoDTO centro : centroComputoDTOs) {
+                cbcLaboratorios.addItem(centro.getNombre());
+            }
+        } catch (NegocioException ex) {
+            JOptionPane.showMessageDialog(this, "Error al cargar los centros " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     /**
@@ -49,9 +74,9 @@ public class AgregarComputadora extends javax.swing.JFrame {
         btnRegresar = new javax.swing.JButton();
         btnAgregar = new javax.swing.JButton();
         jblLaboratorio = new javax.swing.JLabel();
-        txtLaboratorio = new javax.swing.JTextField();
         jblUsoAlumno = new javax.swing.JLabel();
         cbUsoAlumno = new javax.swing.JCheckBox();
+        cbcLaboratorios = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Agregar Computadora");
@@ -109,8 +134,8 @@ public class AgregarComputadora extends javax.swing.JFrame {
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(txtNumMaquina, javax.swing.GroupLayout.DEFAULT_SIZE, 227, Short.MAX_VALUE)
-                                        .addComponent(txtLaboratorio, javax.swing.GroupLayout.DEFAULT_SIZE, 227, Short.MAX_VALUE)
-                                        .addComponent(cbUsoAlumno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))))
+                                        .addComponent(cbUsoAlumno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(cbcLaboratorios, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))))
                 .addContainerGap(29, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -126,11 +151,11 @@ public class AgregarComputadora extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtNumMaquina, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jblNumMaquina))
-                .addGap(29, 29, 29)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(32, 32, 32)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jblLaboratorio)
-                    .addComponent(txtLaboratorio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(33, 33, 33)
+                    .addComponent(cbcLaboratorios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jblUsoAlumno)
                     .addComponent(cbUsoAlumno))
@@ -170,7 +195,10 @@ public class AgregarComputadora extends javax.swing.JFrame {
             usoAlumno = false;
         }
         
-        compu.setCentroLaboratorio(Long.valueOf(txtLaboratorio.getText()));
+        
+        
+        
+        compu.setCentroLaboratorio(centroComputoNegocio.obtenerPorCentroNombre((String)cbcLaboratorios.getSelectedItem()).getId());
         compu.setEliminado(false);
         compu.setEstatus("Disponible");
         compu.setIp(txtIp.getText());
@@ -201,13 +229,13 @@ public class AgregarComputadora extends javax.swing.JFrame {
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnRegresar;
     private javax.swing.JCheckBox cbUsoAlumno;
+    private javax.swing.JComboBox<String> cbcLaboratorios;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jblIP;
     private javax.swing.JLabel jblLaboratorio;
     private javax.swing.JLabel jblNumMaquina;
     private javax.swing.JLabel jblUsoAlumno;
     private javax.swing.JTextField txtIp;
-    private javax.swing.JTextField txtLaboratorio;
     private javax.swing.JTextField txtNumMaquina;
     // End of variables declaration//GEN-END:variables
 }

@@ -28,6 +28,8 @@ public interface IComputadoraNegocio {
     
     public ComputadoraDTO buscarComputadorasPorNumMaquina(Integer numMaquina) throws NegocioException;
     
+    public List<ComputadoraDTO> buscarComputadorasUsoAlumnoTabla() throws NegocioException;
+    
     public List<ComputadoraDTO> obtenerTodos() throws NegocioException;
     
     public ComputadoraDTO actualizarComputadora(ComputadoraDTO computadora) throws NegocioException;

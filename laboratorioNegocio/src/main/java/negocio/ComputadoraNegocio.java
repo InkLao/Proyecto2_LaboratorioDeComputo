@@ -163,8 +163,24 @@ public class ComputadoraNegocio implements IComputadoraNegocio{
         catch (Exception e) {
             throw new NegocioException("Error al obtener las computadoras por id");
         } 
-    }      
+    } 
     
+    
+    @Override
+    public List<ComputadoraDTO> buscarComputadorasUsoAlumnoTabla() throws NegocioException {
+        
+        try {
+            List<Computadora> computadoras = this.computadoraDAO.buscarComputadorasUsoAlumno();
+            return this.convertirComputadoraDTO(computadoras);
+        } 
+        
+        catch (PersistenciaException ex) {
+            System.out.println(ex.getMessage());
+            throw new NegocioException(ex.getMessage());
+        }    
+    }     
+    
+       
     @Override
     public List<ComputadoraDTO> buscarBloqueosPorEstatusTabla(String estatus) throws NegocioException {
         

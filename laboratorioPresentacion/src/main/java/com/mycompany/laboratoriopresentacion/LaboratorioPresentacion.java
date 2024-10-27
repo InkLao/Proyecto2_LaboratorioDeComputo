@@ -50,8 +50,8 @@ public class LaboratorioPresentacion {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         
         IUnidadAcademicaDAO unidadAcademicaDAO = new UnidadAcademicaDAO(entityManager);
-        ICarreraDAO carreraDAO = new CarreraDAO(entityManager);
-        IAlumnoDAO alumnoDAO = new AlumnoDAO(entityManagerFactory);
+        ICarreraDAO carreraDAO = new CarreraDAO(entityManager, entityManagerFactory);
+        IAlumnoDAO alumnoDAO = new AlumnoDAO(entityManagerFactory, entityManager);
         IBloqueoDAO bloqueoDAO = new BloqueoDAO(entityManager, entityManagerFactory);
         ICentroComputoDAO centroComputoDAO = new CentroComputoDAO(entityManager);
         IComputadoraDAO computadoraDAO = new ComputadoraDAO(entityManager, entityManagerFactory);
