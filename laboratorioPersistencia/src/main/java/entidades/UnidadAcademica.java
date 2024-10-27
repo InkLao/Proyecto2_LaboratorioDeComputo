@@ -5,11 +5,14 @@
 package entidades;
 
 import java.io.Serializable;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -29,6 +32,9 @@ public class UnidadAcademica implements Serializable {
     @Column(name="nombre",nullable = false,length = 75)
     private String nombre;
 
+    @OneToMany(mappedBy = "unidadAcademica")
+    private List<CentroComputo> centroComputo;
+    
     
     public UnidadAcademica() {
     }
@@ -36,6 +42,8 @@ public class UnidadAcademica implements Serializable {
     public UnidadAcademica(String nombre) {
         this.nombre = nombre;
     }
+    
+    
 
     public Long getId() {
         return id;
@@ -51,6 +59,14 @@ public class UnidadAcademica implements Serializable {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public List<CentroComputo> getCentroComputo() {
+        return centroComputo;
+    }
+
+    public void setCentroComputo(List<CentroComputo> centroComputo) {
+        this.centroComputo = centroComputo;
     }
     
     

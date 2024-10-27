@@ -4,16 +4,38 @@
  */
 package pantallas.Alumno;
 
+import dto.AlumnoDTO;
+import negocio.IAlumnoNegocio;
+import negocio.ICentroComputoNegocio;
+import negocio.IComputadoraNegocio;
+import negocio.IPrestamoComputadoraNegocio;
+
 /**
  *
  * @author Arturo ITSON
  */
 public class IniciarSesionAlumno extends javax.swing.JFrame {
 
+    
+    private IPrestamoComputadoraNegocio prestamoComputadoraNegocio;
+    private IAlumnoNegocio alumnoNegocio;
+    private IComputadoraNegocio computadoraNegocio;
+    private ICentroComputoNegocio centroComputoNegocio;
+    
+    private AlumnoDTO alumnoDTO;
+    
+    
     /**
      * Creates new form IniciarSesionAlumno
      */
-    public IniciarSesionAlumno() {
+    public IniciarSesionAlumno(IPrestamoComputadoraNegocio prestamoComputadoraNegocio, IAlumnoNegocio alumnoNegocio, IComputadoraNegocio computadoraNegocio, ICentroComputoNegocio centroComputoNegocio, AlumnoDTO alumnoDTO) {
+       this.centroComputoNegocio = centroComputoNegocio;
+       this.computadoraNegocio = computadoraNegocio;
+       this.alumnoNegocio = alumnoNegocio;
+       this.prestamoComputadoraNegocio = prestamoComputadoraNegocio;
+       this.alumnoDTO = alumnoDTO;
+        
+        
         initComponents();
     }
 
@@ -33,6 +55,7 @@ public class IniciarSesionAlumno extends javax.swing.JFrame {
         btnContinuar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Iniciar Sesion Alumno");
 
         jblTitulo.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -43,6 +66,11 @@ public class IniciarSesionAlumno extends javax.swing.JFrame {
         jblTitulo1.setText("ID Alumno");
 
         btnContinuar.setText("Continuar");
+        btnContinuar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnContinuarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -54,11 +82,11 @@ public class IniciarSesionAlumno extends javax.swing.JFrame {
                         .addContainerGap()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jblTitulo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jblTitulo1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 538, Short.MAX_VALUE)))
+                            .addComponent(jblTitulo1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(111, 111, 111)
                         .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 332, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 101, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
@@ -83,50 +111,29 @@ public class IniciarSesionAlumno extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(IniciarSesionAlumno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(IniciarSesionAlumno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(IniciarSesionAlumno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(IniciarSesionAlumno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void btnContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContinuarActionPerformed
+        // TODO add your handling code here:
+        
+        alumnoDTO = alumnoNegocio.buscarAlumno((long) 1);
+        
+        
+        PrestamoComputadora prestamoComputadora = new PrestamoComputadora(this, computadoraNegocio, alumnoNegocio, prestamoComputadoraNegocio, alumnoDTO );
+        prestamoComputadora.setVisible(true);
+        this.setVisible(false);
+        
+    }//GEN-LAST:event_btnContinuarActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new IniciarSesionAlumno().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnContinuar;

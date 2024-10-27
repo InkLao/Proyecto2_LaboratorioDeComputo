@@ -4,18 +4,197 @@
  */
 package pantallas.Alumno;
 
+import NegocioException.NegocioException;
+import dto.AlumnoDTO;
+import dto.ComputadoraDTO;
+import dto.PrestamoComputadoraDTO;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
+import negocio.IAlumnoNegocio;
+import negocio.IComputadoraNegocio;
+import negocio.IPrestamoComputadoraNegocio;
+import utilerias.JButtonCellEditor;
+import utilerias.JButtonRenderer;
+
 /**
  *
  * @author Arturo ITSON
  */
 public class PrestamoComputadora extends javax.swing.JFrame {
 
+    
+    private IComputadoraNegocio computadoraNegocio;
+    private AlumnoDTO alumnoDTO;
+    private IniciarSesionAlumno iniciarSesionAlumno;
+    private IAlumnoNegocio alumnoNegocio;
+    private IPrestamoComputadoraNegocio prestamoComputadoraNegocio;
+    
+    
     /**
      * Creates new form PrestamoComputadora
      */
-    public PrestamoComputadora() {
+    public PrestamoComputadora(IniciarSesionAlumno iniciarSesionAlumno, IComputadoraNegocio computadoraNegocio, IAlumnoNegocio alumnoNegocio, 
+                               IPrestamoComputadoraNegocio prestamoComputadoraNegocio, AlumnoDTO alumnoDTO ) {
+        this.computadoraNegocio = computadoraNegocio;
+        this.alumnoDTO = alumnoDTO;
+        this.iniciarSesionAlumno = iniciarSesionAlumno;
+        this.alumnoNegocio = alumnoNegocio;
+        this.prestamoComputadoraNegocio = prestamoComputadoraNegocio;
+        
         initComponents();
+        
+        
+        cargarMetodosIniciales();
     }
+    
+    
+    
+    private void cargarMetodosIniciales() {
+        this.cargarConfiguracionInicialTablaPrestamosComputadoras();
+        this.cargarPrestamosComputadorasEnTabla();
+
+    }
+    
+    
+    
+    private void seleccionarPrestamoComputadoraTabla(PrestamoComputadoraDTO prestamoCompu) {
+
+        ConfirmarPrestamoComputadora confirmarPrestamoComputadora = new ConfirmarPrestamoComputadora(this, iniciarSesionAlumno, alumnoNegocio, computadoraNegocio, prestamoCompu, alumnoDTO, prestamoComputadoraNegocio);
+        confirmarPrestamoComputadora.setVisible(true);
+        this.setVisible(false);
+        
+    }
+    
+    
+    private void cargarConfiguracionInicialTablaPrestamosComputadoras() {
+        ActionListener onEditarClickListener = new ActionListener() {
+            final int columnaId = 0;
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                seleccionar();
+
+            }
+        };
+
+        int indiceColumnaEditar = 2;
+        TableColumnModel modeloColumnas = this.tblComputadoras.getColumnModel();
+        modeloColumnas.getColumn(indiceColumnaEditar)
+                .setCellRenderer(new JButtonRenderer("Seleccionar"));
+        modeloColumnas.getColumn(indiceColumnaEditar)
+                .setCellEditor(new JButtonCellEditor("Seleccionar",
+                        onEditarClickListener));
+
+    }
+    
+    
+
+    private Integer getNumeroMaquinaSeleccionadoTablaBloqueo() {
+        int indiceFilaSeleccionada = this.tblComputadoras.getSelectedRow();
+        if (indiceFilaSeleccionada != -1) {
+            DefaultTableModel modelo = (DefaultTableModel) this.tblComputadoras.getModel();
+            int indiceColumnaId = 1;
+            Integer numeroMaquinaSeleccionada = (Integer) modelo.getValueAt(indiceFilaSeleccionada,
+                    indiceColumnaId);
+            return numeroMaquinaSeleccionada;
+        } else {
+            return null;
+        }
+    }
+
+    
+    private String getEstatusSeleccionadoTablaBloqueo() {
+        int indiceFilaSeleccionada = this.tblComputadoras.getSelectedRow();
+        if (indiceFilaSeleccionada != -1) {
+            DefaultTableModel modelo = (DefaultTableModel) this.tblComputadoras.getModel();
+            int indiceColumnaId = 0;
+            String estatusSeleccionado = (String) modelo.getValueAt(indiceFilaSeleccionada,
+                    indiceColumnaId);
+            return estatusSeleccionado;
+        } else {
+            return null;
+        }
+    }
+    
+
+    private void seleccionar() {
+
+        PrestamoComputadoraDTO prestamoCompu = new PrestamoComputadoraDTO();
+        prestamoCompu.setIdAlumno(alumnoDTO.getId());
+        prestamoCompu.setNumMaquina(this.getNumeroMaquinaSeleccionadoTablaBloqueo());
+        prestamoCompu.setApellidoMaterno(alumnoDTO.getApellidoMaterno());
+        prestamoCompu.setApellidoPaterno(alumnoDTO.getApellidoPaterno());
+        prestamoCompu.setNombres(alumnoDTO.getNombres());
+       // prestamoCompu.setIdComputadora();
+
+
+        seleccionarPrestamoComputadoraTabla(prestamoCompu);
+                
+    }
+
+
+    private void llenarTablaPrestamosComputadoras(List<ComputadoraDTO> computadorasLista) {
+        DefaultTableModel modeloTabla = (DefaultTableModel) this.tblComputadoras.getModel();
+
+        if (modeloTabla.getRowCount() > 0) {
+            for (int i = modeloTabla.getRowCount() - 1; i > -1; i--) {
+                modeloTabla.removeRow(i);
+            }
+        }
+
+        if (computadorasLista != null) {
+            computadorasLista.forEach(row -> {
+                Object[] fila = new Object[2];
+                fila[0] = row.getEstatus();
+                fila[1] = row.getNumeroMaquina();
+                modeloTabla.addRow(fila);
+            });
+        }
+    }
+
+    private void cargarPrestamosComputadorasEnTabla() {
+        try {
+            List<ComputadoraDTO> computadoras = this.computadoraNegocio.buscarComputadorasTabla();
+            this.llenarTablaPrestamosComputadoras(computadoras);
+        } catch (NegocioException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Información", JOptionPane.ERROR_MESSAGE);
+        }
+    }    
+    
+    
+    private void cargarComputadorasPrestamosEnTablaPorEstatus(String estatus) {
+        try {
+            
+            System.out.println(estatus);
+            List<ComputadoraDTO> computadoras = this.computadoraNegocio.buscarBloqueosPorEstatusTabla(estatus);
+            
+            if(computadoras.size() > 0){
+            
+            this.llenarTablaPrestamosComputadoras(computadoras);
+            
+            }
+            
+            else{
+               JOptionPane.showMessageDialog(this, "No se encontraron registros con los datos especificados, se mostraran todos los datos", "Informacion", JOptionPane.ERROR_MESSAGE); 
+                cargarPrestamosComputadorasEnTabla();
+            }
+            
+            
+        } catch (NegocioException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Información", JOptionPane.ERROR_MESSAGE);
+            cargarPrestamosComputadorasEnTabla();
+        }
+    }
+    
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -58,6 +237,11 @@ public class PrestamoComputadora extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tblComputadoras);
 
         btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
 
         jblTitulo.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         jblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -112,40 +296,12 @@ public class PrestamoComputadora extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PrestamoComputadora.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PrestamoComputadora.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PrestamoComputadora.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PrestamoComputadora.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        // TODO add your handling code here:
+        this.cargarComputadorasPrestamosEnTablaPorEstatus(txtBuscar.getText());
+        
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new PrestamoComputadora().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;

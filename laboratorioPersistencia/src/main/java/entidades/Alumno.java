@@ -40,6 +40,7 @@ public class Alumno implements Serializable {
 
     @Column(name = "contraseña", length = 50, nullable = false)
     private String contraseña;
+    
     @Column(name = "estaEliminado", nullable = false)
     private boolean estaEliminado;
 
@@ -48,6 +49,9 @@ public class Alumno implements Serializable {
     
     @OneToMany(mappedBy = "alumno")
     private List<Bloqueo> bloqueos;
+    
+    @OneToMany(mappedBy = "alumno")
+    private List<PrestamoComputadora> prestamoComputadoras;
 
     public Alumno() {
     }
@@ -163,6 +167,14 @@ public class Alumno implements Serializable {
 
     public void setBloqueos(List<Bloqueo> bloqueos) {
         this.bloqueos = bloqueos;
+    }
+
+    public List<PrestamoComputadora> getPrestamoComputadoras() {
+        return prestamoComputadoras;
+    }
+
+    public void setPrestamoComputadoras(List<PrestamoComputadora> prestamoComputadoras) {
+        this.prestamoComputadoras = prestamoComputadoras;
     }
     
     

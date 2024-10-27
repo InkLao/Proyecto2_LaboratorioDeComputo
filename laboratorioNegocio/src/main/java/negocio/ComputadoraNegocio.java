@@ -146,6 +146,41 @@ public class ComputadoraNegocio implements IComputadoraNegocio{
 
     
     @Override
+    public ComputadoraDTO buscarComputadorasPorNumMaquina(Integer numMaquina) throws NegocioException {
+        
+        try {
+            
+            Computadora entidad = computadoraDAO.buscarComputadorasPorNumMaquina(numMaquina);
+            if (entidad == null) {
+                throw new NegocioException("compu no encontrada");
+            }
+            
+            System.out.println("encontro este id " + entidad.getId());
+            
+            return new ComputadoraDTO(entidad.getId(), entidad.getDireccionIP(), entidad.getEstatus(), entidad.getNumeroMaquina(), entidad.isUsoAlumno(), entidad.getCentroComputo().getId(), entidad.isEliminado());
+        } 
+        
+        catch (Exception e) {
+            throw new NegocioException("Error al obtener las computadoras por id");
+        } 
+    }      
+    
+    @Override
+    public List<ComputadoraDTO> buscarBloqueosPorEstatusTabla(String estatus) throws NegocioException {
+        
+        try {
+            List<Computadora> computadoras = this.computadoraDAO.buscarComputadorasPorEstatus(estatus);
+            return this.convertirComputadoraDTO(computadoras);
+        } 
+        
+        catch (PersistenciaException ex) {
+            System.out.println(ex.getMessage());
+            throw new NegocioException(ex.getMessage());
+        }    
+    }    
+    
+    
+    @Override
     public List<ComputadoraDTO> obtenerTodos() throws NegocioException {
         
         try {
@@ -247,7 +282,7 @@ public class ComputadoraNegocio implements IComputadoraNegocio{
     }  
     
     
-    private ComputadoraDTO convertirComputadoraDTO(Computadora computadora) throws NegocioException {
+    public ComputadoraDTO convertirComputadoraDTO(Computadora computadora) throws NegocioException {
         if (computadora == null) {
             throw new NegocioException("No se pudo obtener el bloqueo.");
         }
