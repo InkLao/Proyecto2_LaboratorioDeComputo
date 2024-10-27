@@ -194,20 +194,170 @@ public class Administrador extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
-            CarreraDTO carrera1 = new CarreraDTO();
-            carrera1.setNombre("Ingeniería en Sistemas Computacionales");
-            carrera1.setTiempoMaxUsoDiario(7);
-            carreraNegocio.agregarCarrera(carrera1);
+          CarreraDTO carrera1 = new CarreraDTO();
+carrera1.setNombre("Licenciatura en Administración");
+carrera1.setTiempoMaxUsoDiario(4);
+carreraNegocio.agregarCarrera(carrera1);
 
-            CarreraDTO carrera2 = new CarreraDTO();
-            carrera2.setNombre("Ingeniería Industrial");
-            carrera2.setTiempoMaxUsoDiario(4);
-            carreraNegocio.agregarCarrera(carrera2);
+CarreraDTO carrera2 = new CarreraDTO();
+carrera2.setNombre("Licenciatura en Administración de Empresas Turísticas");
+carrera2.setTiempoMaxUsoDiario(4);
+carreraNegocio.agregarCarrera(carrera2);
 
-            CarreraDTO carrera3 = new CarreraDTO();
-            carrera3.setNombre("Ingeniería civil");
-            carrera3.setTiempoMaxUsoDiario(5);
-            carreraNegocio.agregarCarrera(carrera3);
+CarreraDTO carrera3 = new CarreraDTO();
+carrera3.setNombre("Licenciatura en Administración Estratégica");
+carrera3.setTiempoMaxUsoDiario(4);
+carreraNegocio.agregarCarrera(carrera3);
+
+CarreraDTO carrera4 = new CarreraDTO();
+carrera4.setNombre("Licenciatura en Arquitectura");
+carrera4.setTiempoMaxUsoDiario(3);
+carreraNegocio.agregarCarrera(carrera4);
+
+CarreraDTO carrera5 = new CarreraDTO();
+carrera5.setNombre("Licenciatura en Ciencias de la Educación");
+carrera5.setTiempoMaxUsoDiario(4);
+carreraNegocio.agregarCarrera(carrera5);
+
+CarreraDTO carrera6 = new CarreraDTO();
+carrera6.setNombre("Licenciatura en Ciencias del Ejercicio Físico");
+carrera6.setTiempoMaxUsoDiario(4);
+carreraNegocio.agregarCarrera(carrera6);
+
+CarreraDTO carrera7 = new CarreraDTO();
+carrera7.setNombre("Licenciatura en Contaduría Pública");
+carrera7.setTiempoMaxUsoDiario(4);
+carreraNegocio.agregarCarrera(carrera7);
+
+CarreraDTO carrera8 = new CarreraDTO();
+carrera8.setNombre("Licenciatura en Dirección de la Cultura Física y el Deporte");
+carrera8.setTiempoMaxUsoDiario(4);
+carreraNegocio.agregarCarrera(carrera8);
+
+CarreraDTO carrera9 = new CarreraDTO();
+carrera9.setNombre("Licenciatura en Diseño Gráfico");
+carrera9.setTiempoMaxUsoDiario(1);
+carreraNegocio.agregarCarrera(carrera9);
+
+CarreraDTO carrera10 = new CarreraDTO();
+carrera10.setNombre("Licenciatura en Derecho");
+carrera10.setTiempoMaxUsoDiario(5);
+carreraNegocio.agregarCarrera(carrera10);
+
+CarreraDTO carrera11 = new CarreraDTO();
+carrera11.setNombre("Licenciatura en Economía y Finanzas");
+carrera11.setTiempoMaxUsoDiario(1);
+carreraNegocio.agregarCarrera(carrera11);
+
+CarreraDTO carrera12 = new CarreraDTO();
+carrera12.setNombre("Licenciatura en Educación Artística y Gestión Cultural");
+carrera12.setTiempoMaxUsoDiario(1);
+carreraNegocio.agregarCarrera(carrera12);
+
+CarreraDTO carrera13 = new CarreraDTO();
+carrera13.setNombre("Licenciatura en Educación Infantil");
+carrera13.setTiempoMaxUsoDiario(3);
+carreraNegocio.agregarCarrera(carrera13);
+
+CarreraDTO carrera14 = new CarreraDTO();
+carrera14.setNombre("Licenciatura en Educación Inicial y Gestión de Instituciones");
+carrera14.setTiempoMaxUsoDiario(4);
+carreraNegocio.agregarCarrera(carrera14);
+
+CarreraDTO carrera15 = new CarreraDTO();
+carrera15.setNombre("Licenciatura en Emprendimiento e Innovación");
+carrera15.setTiempoMaxUsoDiario(4);
+carreraNegocio.agregarCarrera(carrera15);
+
+CarreraDTO carrera16 = new CarreraDTO();
+carrera16.setNombre("Licenciatura en Enfermería");
+carrera16.setTiempoMaxUsoDiario(7);
+carreraNegocio.agregarCarrera(carrera16);
+
+CarreraDTO carrera17 = new CarreraDTO();
+carrera17.setNombre("Licenciatura en Gastronomía");
+carrera17.setTiempoMaxUsoDiario(1);
+carreraNegocio.agregarCarrera(carrera17);
+
+CarreraDTO carrera18 = new CarreraDTO();
+carrera18.setNombre("Licenciatura en Mercadotecnia");
+carrera18.setTiempoMaxUsoDiario(1);
+carreraNegocio.agregarCarrera(carrera18);
+
+CarreraDTO carrera19 = new CarreraDTO();
+carrera19.setNombre("Licenciatura en Psicología");
+carrera19.setTiempoMaxUsoDiario(2);
+carreraNegocio.agregarCarrera(carrera19);
+
+CarreraDTO carrera20 = new CarreraDTO();
+carrera20.setNombre("Licenciatura en Tecnología de Alimentos");
+carrera20.setTiempoMaxUsoDiario(1);
+carreraNegocio.agregarCarrera(carrera20);
+
+CarreraDTO carrera21 = new CarreraDTO();
+carrera21.setNombre("Ingeniería en Biosistemas");
+carrera21.setTiempoMaxUsoDiario(6);
+carreraNegocio.agregarCarrera(carrera21);
+
+CarreraDTO carrera22 = new CarreraDTO();
+carrera22.setNombre("Ingeniería en Biotecnología");
+carrera22.setTiempoMaxUsoDiario(6);
+carreraNegocio.agregarCarrera(carrera22);
+
+CarreraDTO carrera23 = new CarreraDTO();
+carrera23.setNombre("Ingeniería en Ciencias Ambientales");
+carrera23.setTiempoMaxUsoDiario(1);
+carreraNegocio.agregarCarrera(carrera23);
+
+CarreraDTO carrera24 = new CarreraDTO();
+carrera24.setNombre("Ingeniería Civil");
+carrera24.setTiempoMaxUsoDiario(5);
+carreraNegocio.agregarCarrera(carrera24);
+
+CarreraDTO carrera25 = new CarreraDTO();
+carrera25.setNombre("Ingeniería Electromecánica");
+carrera25.setTiempoMaxUsoDiario(6);
+carreraNegocio.agregarCarrera(carrera25);
+
+CarreraDTO carrera26 = new CarreraDTO();
+carrera26.setNombre("Ingeniería en Electrónica");
+carrera26.setTiempoMaxUsoDiario(3);
+carreraNegocio.agregarCarrera(carrera26);
+
+CarreraDTO carrera27 = new CarreraDTO();
+carrera27.setNombre("Ingeniería Industrial y de Sistemas");
+carrera27.setTiempoMaxUsoDiario(3);
+carreraNegocio.agregarCarrera(carrera27);
+
+CarreraDTO carrera28 = new CarreraDTO();
+carrera28.setNombre("Ingeniería en Logística");
+carrera28.setTiempoMaxUsoDiario(1);
+carreraNegocio.agregarCarrera(carrera28);
+
+CarreraDTO carrera29 = new CarreraDTO();
+carrera29.setNombre("Ingeniería en Manufactura");
+carrera29.setTiempoMaxUsoDiario(2);
+carreraNegocio.agregarCarrera(carrera29);
+
+CarreraDTO carrera30 = new CarreraDTO();
+carrera30.setNombre("Ingeniería en Mecatrónica");
+carrera30.setTiempoMaxUsoDiario(6);
+carreraNegocio.agregarCarrera(carrera30);
+
+CarreraDTO carrera31 = new CarreraDTO();
+carrera31.setNombre("Ingeniería Química");
+carrera31.setTiempoMaxUsoDiario(2);
+carreraNegocio.agregarCarrera(carrera31);
+
+CarreraDTO carrera32 = new CarreraDTO();
+carrera32.setNombre("Ingeniería en Software");
+carrera32.setTiempoMaxUsoDiario(7);
+carreraNegocio.agregarCarrera(carrera32);
+
+CarreraDTO carrera33 = new CarreraDTO();
+carrera33.setNombre("Medicina Veterinaria y Zootecnia");
+carrera33.setTiempoMaxUsoDiario(6);
+carreraNegocio.agregarCarrera(carrera33);
 
 //    JOptionPane.showMessageDialog(this, "Carreras agregadas exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
             this.setVisible(false);
