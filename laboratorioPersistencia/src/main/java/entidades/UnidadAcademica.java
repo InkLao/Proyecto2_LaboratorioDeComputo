@@ -22,7 +22,7 @@ public class UnidadAcademica implements Serializable {
 
     @Id
     @Column(name = "idUnidadAcademica")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
     

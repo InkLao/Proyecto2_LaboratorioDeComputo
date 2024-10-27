@@ -6,6 +6,7 @@ package persistencia;
 
 import entidades.Carrera;
 import entidades.UnidadAcademica;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
@@ -32,5 +33,10 @@ public class UnidadAcademicaDAO implements IUnidadAcademicaDAO{
             }
             e.printStackTrace(); 
         }
-    }  
+    }
+    
+    @Override
+    public List<UnidadAcademica> obtenerTodas() {
+        return entityManager.createQuery("SELECT u FROM UnidadAcademica u", UnidadAcademica.class).getResultList();
+    }
 }

@@ -5,6 +5,7 @@
 package persistencia;
 
 import entidades.UnidadAcademica;
+import java.util.List;
 
 /**
  *
@@ -12,4 +13,5 @@ import entidades.UnidadAcademica;
  */
 public interface IUnidadAcademicaDAO {
     void agregarUnidadAcademica(UnidadAcademica  unidadAcademica);
+    List<UnidadAcademica> obtenerTodas();
 }

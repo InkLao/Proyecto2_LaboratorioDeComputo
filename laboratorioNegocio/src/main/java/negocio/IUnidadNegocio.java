@@ -6,6 +6,7 @@ package negocio;
 
 import dto.UnidadAcademicaDTO;
 import entidades.UnidadAcademica;
+import java.util.List;
 
 /**
  *
@@ -13,6 +14,7 @@ import entidades.UnidadAcademica;
  */
 public interface IUnidadNegocio {
     void agregarUnidadAcademica(UnidadAcademicaDTO  unidadAcademicaDTO);
+    List<UnidadAcademicaDTO> obtenerUnidadesDTO();
 }
 
 

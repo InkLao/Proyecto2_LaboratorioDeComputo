@@ -6,6 +6,8 @@ package negocio;
 
 import dto.UnidadAcademicaDTO;
 import entidades.UnidadAcademica;
+import java.util.List;
+import java.util.stream.Collectors;
 import persistencia.IUnidadAcademicaDAO;
 
 /**
@@ -25,7 +27,13 @@ UnidadAcademica unidadAcademica=new UnidadAcademica(unidadAcademicaDTO.getNombre
   unidadAcademicaDAO.agregarUnidadAcademica(unidadAcademica);
     }
     
-    
+    @Override
+    public List<UnidadAcademicaDTO> obtenerUnidadesDTO() {
+        List<UnidadAcademica> entidades = unidadAcademicaDAO.obtenerTodas();
+        return entidades.stream()
+                .map(entidad -> new UnidadAcademicaDTO(entidad.getId(), entidad.getNombre()))
+                .collect(Collectors.toList());
+    }
     
     
     

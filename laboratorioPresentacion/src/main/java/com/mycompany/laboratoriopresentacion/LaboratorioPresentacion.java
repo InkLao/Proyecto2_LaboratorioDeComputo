@@ -51,6 +51,7 @@ public class LaboratorioPresentacion {
         IBloqueoDAO bloqueoDAO = new BloqueoDAO(entityManager, entityManagerFactory);
         ICentroComputoDAO centroComputoDAO = new CentroComputoDAO(entityManager);
         IComputadoraDAO computadoraDAO = new ComputadoraDAO(entityManager, entityManagerFactory);
+        IUnidadAcademicaDAO unidadDAO = new UnidadAcademicaDAO(entityManager);
         
         IUnidadNegocio unidadNegocio = new UnidadNegocio(unidadAcademicaDAO);
         ICarreraNegocio carreraNegocio = new CarreraNegocio(carreraDAO);
@@ -58,6 +59,7 @@ public class LaboratorioPresentacion {
         IBloqueoNegocio bloqueoNegocio = new BloqueoNegocio(bloqueoDAO, alumnoNegocio);
         ICentroComputoNegocio centroComputoNegocio = new CentroComputoNegocio(centroComputoDAO);
         IComputadoraNegocio computadoraNegocio = new ComputadoraNegocio(computadoraDAO, centroComputoNegocio);
+        ICentroComputoDAO centroDAO = new CentroComputoDAO(entityManager);
         
         Inicio inicio = new Inicio(carreraNegocio, unidadNegocio, alumnoNegocio, bloqueoNegocio, centroComputoNegocio, computadoraNegocio);
         inicio.setVisible(true);
