@@ -69,6 +69,11 @@ private InicioSesion inicioSesion;
 
         btnAlumno.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnAlumno.setText("Alumno");
+        btnAlumno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlumnoActionPerformed(evt);
+            }
+        });
 
         btnMaquina.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnMaquina.setText("Maquina");
@@ -132,6 +137,18 @@ administrador.setVisible(true);
 
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAdminActionPerformed
+
+    private void btnAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlumnoActionPerformed
+
+        this.setVisible(false);
+        InicioSesionAlumno inicioSesionAlumno=new InicioSesionAlumno(alumnoNegocio);
+        inicioSesionAlumno.setVisible(true);
+
+
+
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAlumnoActionPerformed
 
 //    /**
 //     * @param args the command line arguments
