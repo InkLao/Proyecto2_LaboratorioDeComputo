@@ -171,7 +171,12 @@ public class ComputadoraNegocio implements IComputadoraNegocio{
                 throw new NegocioException("bloqueo no encontrado");
             }
             
-            entidad.setCentroComputo(centroComputoNegocio.convertirAEntidad(centroComputoNegocio.buscarCentroComputo(computadora.getCentroLaboratorio())));
+//            CentroComputoDTO centroComputo = new CentroComputoDTO();
+//            centroComputo = centroComputoNegocio.buscarCentroComputo(computadora.getCentroLaboratorio());
+//            
+//            System.out.println(centroComputo.toString());
+//            
+//            entidad.setCentroComputo(centroComputoNegocio.convertirAEntidad(centroComputo));
             entidad.setDireccionIP(computadora.getIp());
             entidad.setEstatus(computadora.getEstatus());
             entidad.setId(computadora.getId());

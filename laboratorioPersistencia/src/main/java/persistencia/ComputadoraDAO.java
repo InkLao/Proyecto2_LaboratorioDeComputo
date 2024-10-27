@@ -96,11 +96,11 @@ public class ComputadoraDAO implements IComputadoraDAO{
 
         String consultaJPQL = """
                                     SELECT c from Computadora c
-                                    WHERE c.ip = :ip
+                                    WHERE c.direccionIP = :direccionIP
                                 
                                 """;
             TypedQuery<Computadora> query = em.createQuery(consultaJPQL, Computadora.class);
-            query.setParameter("motivo", ip);
+            query.setParameter("direccionIP", ip);
             
             List<Computadora> computadora = query.getResultList();
             

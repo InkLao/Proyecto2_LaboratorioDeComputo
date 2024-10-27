@@ -1,3 +1,4 @@
 /laboratorioPersistencia/target/
 /laboratorioPresentacion/target/
 /laboratorioNegocio/target/
+laboratorioPersistencia/src/main/resources/META-INF/persistence.xml

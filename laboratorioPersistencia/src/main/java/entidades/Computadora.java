@@ -13,6 +13,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -32,7 +34,7 @@ public class Computadora implements Serializable {
     @Column(name = "estatus", nullable = false)
     private String estatus;
     
-    @Column(name = "ip", nullable = false, unique = true)
+    @Column(name = "direccionIP", nullable = false, unique = true)
     private String direccionIP;
     
     @Column(name = "numeroMaquina", nullable = false)
@@ -45,7 +47,8 @@ public class Computadora implements Serializable {
     private boolean eliminado;
     
 
-    @OneToOne()
+    @ManyToOne()
+    @JoinColumn(name = "centroComputo")
     private CentroComputo centroComputo;
     
     public Computadora() {

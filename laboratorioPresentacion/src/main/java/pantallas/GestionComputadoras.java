@@ -380,7 +380,7 @@ public class GestionComputadoras extends javax.swing.JFrame {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                true, true, true, true, true, true, false, true, true
+                true, true, true, true, true, false, false, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -397,6 +397,11 @@ public class GestionComputadoras extends javax.swing.JFrame {
         });
 
         btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -458,6 +463,12 @@ administrador.setVisible(true);
 
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAgregarActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        // TODO add your handling code here:
+        
+        this.cargarBloqueosEnTablaPorMotivo(txtBuscar.getText());
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
    
     // Variables declaration - do not modify//GEN-BEGIN:variables
