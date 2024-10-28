@@ -21,9 +21,10 @@ import persistencia.AlumnoDAO;
 import persistencia.IAlumnoDAO;
 
 /**
- * Clase que representa la lógica de negocio para la gestión de alumnos.
- * Esta clase proporciona métodos para realizar operaciones CRUD sobre objetos Alumno.
- * 
+ * Clase que representa la lógica de negocio para la gestión de alumnos. Esta
+ * clase proporciona métodos para realizar operaciones CRUD sobre objetos
+ * Alumno.
+ *
  * @autor Oley
  */
 public class AlumnoNegocio implements IAlumnoNegocio {
@@ -35,8 +36,9 @@ public class AlumnoNegocio implements IAlumnoNegocio {
 
     /**
      * Constructor de la clase AlumnoNegocio que recibe un IAlumnoDAO.
-     * 
-     * @param alumnoDAO DAO para realizar operaciones de persistencia sobre Alumno.
+     *
+     * @param alumnoDAO DAO para realizar operaciones de persistencia sobre
+     * Alumno.
      */
     public AlumnoNegocio(IAlumnoDAO alumnoDAO) {
         this.alumnoDAO = alumnoDAO;
@@ -44,9 +46,10 @@ public class AlumnoNegocio implements IAlumnoNegocio {
 
     /**
      * Busca un alumno por su ID y lo convierte en un DTO.
-     * 
+     *
      * @param id Identificador del alumno a buscar.
-     * @return AlumnoDTO con la información del alumno, o null si no se encuentra.
+     * @return AlumnoDTO con la información del alumno, o null si no se
+     * encuentra.
      */
     @Override
     public AlumnoDTO buscarAlumno(Long id) {
@@ -56,7 +59,7 @@ public class AlumnoNegocio implements IAlumnoNegocio {
 
     /**
      * Obtiene una lista de todos los alumnos para la tabla de visualización.
-     * 
+     *
      * @return Lista de AlumnoDTO con la información de todos los alumnos.
      */
     @Override
@@ -72,7 +75,7 @@ public class AlumnoNegocio implements IAlumnoNegocio {
 
     /**
      * Guarda un alumno en la base de datos a partir de su DTO.
-     * 
+     *
      * @param alumnoDTO DTO con la información del alumno a guardar.
      * @return AlumnoDTO con la información del alumno guardado.
      */
@@ -90,7 +93,7 @@ public class AlumnoNegocio implements IAlumnoNegocio {
 
     /**
      * Obtiene un alumno por su ID.
-     * 
+     *
      * @param id Identificador del alumno.
      * @return AlumnoDTO con la información del alumno.
      */
@@ -102,7 +105,7 @@ public class AlumnoNegocio implements IAlumnoNegocio {
 
     /**
      * Obtiene una lista de todos los alumnos.
-     * 
+     *
      * @return Lista de AlumnoDTO con la información de todos los alumnos.
      */
     @Override
@@ -112,7 +115,7 @@ public class AlumnoNegocio implements IAlumnoNegocio {
 
     /**
      * Actualiza la información de un alumno en la base de datos.
-     * 
+     *
      * @param alumnoDTO DTO con la información actualizada del alumno.
      * @return AlumnoDTO con la información del alumno actualizado.
      */
@@ -138,7 +141,7 @@ public class AlumnoNegocio implements IAlumnoNegocio {
 
     /**
      * Marca un alumno como eliminado en la base de datos.
-     * 
+     *
      * @param alumnoDTO DTO con la información del alumno a eliminar.
      */
     @Override
@@ -158,9 +161,10 @@ public class AlumnoNegocio implements IAlumnoNegocio {
 
     /**
      * Busca alumnos por su nombre.
-     * 
+     *
      * @param nombre Nombre del alumno a buscar.
-     * @return Lista de AlumnoDTO con la información de los alumnos que coinciden.
+     * @return Lista de AlumnoDTO con la información de los alumnos que
+     * coinciden.
      */
     @Override
     public List<AlumnoDTO> buscarAlumnosTabla(String nombre) {
@@ -175,7 +179,7 @@ public class AlumnoNegocio implements IAlumnoNegocio {
 
     /**
      * Convierte un objeto CarreraDTO a Carrera.
-     * 
+     *
      * @param carreraDTO DTO de la carrera.
      * @return Objeto Carrera.
      */
@@ -189,7 +193,7 @@ public class AlumnoNegocio implements IAlumnoNegocio {
 
     /**
      * Convierte un objeto AlumnoDTO a Alumno.
-     * 
+     *
      * @param alumnoDTO DTO del alumno.
      * @return Objeto Alumno.
      */
@@ -212,7 +216,7 @@ public class AlumnoNegocio implements IAlumnoNegocio {
 
     /**
      * Convierte un objeto Alumno a AlumnoDTO.
-     * 
+     *
      * @param alumno Objeto Alumno.
      * @return AlumnoDTO con la información del alumno.
      */
@@ -222,19 +226,19 @@ public class AlumnoNegocio implements IAlumnoNegocio {
         }
         CarreraDTO carreraDTO = convertirADTO(alumno.getCarrera());
         return new AlumnoDTO(
-            alumno.getId(),
-            alumno.getNombres(),
-            alumno.getApellidoPaterno(),
-            alumno.getApellidoMaterno(),
-            alumno.getContraseña(),
-            carreraDTO,
-            alumno.isEstaEliminado()
+                alumno.getId(),
+                alumno.getNombres(),
+                alumno.getApellidoPaterno(),
+                alumno.getApellidoMaterno(),
+                alumno.getContraseña(),
+                carreraDTO,
+                alumno.isEstaEliminado()
         );
     }
 
     /**
      * Convierte un objeto Carrera a CarreraDTO.
-     * 
+     *
      * @param carrera Objeto Carrera.
      * @return CarreraDTO con la información de la carrera.
      */
@@ -244,7 +248,15 @@ public class AlumnoNegocio implements IAlumnoNegocio {
         }
         return new CarreraDTO(carrera.getId(), carrera.getNombre(), carrera.getTiempoMaxUsoDiario());
     }
-    
+
+    /**
+     * Obtiene el conteo total de alumnos a través del DAO.
+     *
+     * @return El número total de alumnos como long.
+     *
+     * Este método delega la llamada al método contarAlumnos() del alumnoDAO
+     * para obtener el total de registros de alumnos en la base de datos.
+     */
     public long contarAlumnos() {
         return alumnoDAO.contarAlumnos();
     }

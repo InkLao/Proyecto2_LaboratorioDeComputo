@@ -83,6 +83,14 @@ public class CarreraNegocio implements ICarreraNegocio {
         carreraDTO.setNombre(carrera.getNombre());
         return carreraDTO;
     }
+    /**
+ * Obtiene el tiempo máximo de uso diario total a través del DAO de Carrera.
+ *
+ * @return El tiempo máximo de uso diario total como Integer, o null si ocurre un error.
+ * 
+ * Este método delega la llamada al método obtenerTiempoMaxUsoDiarioTotal() del 
+ * carreraDAO para obtener el tiempo total de uso diario de todas las carreras.
+ */
      public Integer obtenerTiempoMaxUsoDiarioTotal() {
  return carreraDAO.obtenerTiempoMaxUsoDiarioTotal();
     }

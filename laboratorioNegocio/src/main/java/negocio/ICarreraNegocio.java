@@ -34,6 +34,10 @@ public interface ICarreraNegocio {
      * @throws NegocioException en caso de error durante la operación.
      */
     public List<CarreraDTO> obtenerTodos() throws NegocioException;
-
+/**
+ * Obtiene el tiempo máximo de uso diario total para todas las carreras.
+ *
+ * @return El tiempo máximo de uso diario total como Integer, o null si ocurre un error.
+ */
      public Integer obtenerTiempoMaxUsoDiarioTotal();
 }

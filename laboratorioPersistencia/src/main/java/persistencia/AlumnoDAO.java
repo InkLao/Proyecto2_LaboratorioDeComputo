@@ -164,7 +164,14 @@ public class AlumnoDAO implements IAlumnoDAO {
         return null;
     }
     
-    
+    /**
+ * Cuenta el número total de alumnos en la base de datos.
+ *
+ * @return Número total de alumnos (long). Si ocurre un error, retorna 0.
+ * 
+ * Ejecuta una consulta de conteo sobre la entidad Alumno y maneja cualquier
+ * excepción, cerrando el EntityManager al final.
+ */
     public long contarAlumnos() {
     EntityManager em = emf.createEntityManager();
     try {
