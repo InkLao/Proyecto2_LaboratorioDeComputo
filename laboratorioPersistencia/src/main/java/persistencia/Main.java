@@ -100,10 +100,10 @@ public class Main {
         pruebaDAO.buscarCentroComputo(idCentro);
 
         // Editar el Centro de Cómputo
-        pruebaDAO.editarCentroComputo(idCentro);
-
-        // Eliminar el Centro de Cómputo
-        pruebaDAO.eliminarCentroComputo(centroComputo);
+//        pruebaDAO.editarCentroComputo(idCentro);
+//
+//        // Eliminar el Centro de Cómputo
+//        pruebaDAO.eliminarCentroComputo(centroComputo);
 //
 //        // Cerrar conexiones
         pruebaDAO.cerrar();
