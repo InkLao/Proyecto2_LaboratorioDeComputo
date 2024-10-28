@@ -39,6 +39,8 @@ public class EquipoDisponible extends javax.swing.JFrame {
     private String ip;
     private static ComputadoraDTO compu;
     private static boolean detener = false;
+    static List<PrestamoComputadoraDTO> prestamos;
+    private ScheduledExecutorService scheduler;
     
     
     IComputadoraNegocio computadoraNegocio;
@@ -198,44 +200,43 @@ public class EquipoDisponible extends javax.swing.JFrame {
     
     public void metodoEjecutadorCada10Segundos(){
 
+        scheduler = Executors.newScheduledThreadPool(1);
 
-        
-        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-
-        
-        
-            Runnable tarea = () -> {
-            // Aquí va el código que deseas ejecutar cada 10 segundos
- 
-                System.out.println("Ejecutando tarea cada 10 segundos: " + System.currentTimeMillis());
-                
+        Runnable tarea = () -> {
+            if (detener) {
+                scheduler.shutdown();
+                return;
+            }
             try {
                 comprobacionDisponibilidad();
             } catch (NegocioException ex) {
                 Logger.getLogger(EquipoDisponible.class.getName()).log(Level.SEVERE, null, ex);
             }
+        };
 
-
-            };
-
-            // Programa la tarea para que se ejecute cada 10 segundos, con un retraso inicial de 0 segundos
-            scheduler.scheduleAtFixedRate(tarea, 0, 10, TimeUnit.SECONDS);
+        // Programa la tarea para que se ejecute cada 10 segundos
+        scheduler.scheduleAtFixedRate(tarea, 0, 10, TimeUnit.SECONDS);
          
     }
     
-    public void comprobacionDisponibilidad() throws NegocioException{
+    public synchronized void comprobacionDisponibilidad() throws NegocioException{
         
         compu = computadoraNegocio.obtenerPorIP(ip);
         System.out.println(compu.getIp());
         txtNumMaquina.setText("Numero de maquina #" + compu.getNumeroMaquina());
         
-        List<PrestamoComputadoraDTO> prestamos = new ArrayList<>();
+        prestamos = new ArrayList<>();
         
         System.out.println("compu" + compu.getId());
-        System.out.println("lista " + prestamos.size());
+
         
         prestamos = prestamoComputadoraNegocio.buscarPrestamoPorComputadora(compu.getId());
         PrestamoComputadoraDTO elBueno = prestamos.get(prestamos.size() - 1);
+        
+        
+        System.out.println(elBueno.toString());
+        System.out.println("lista " + prestamos.size());
+        System.out.println(prestamos.get(prestamos.size()-1).isSigueApartada());
         
         System.out.println("esta apartada " + elBueno.isSigueApartada());
         if(elBueno.isSigueApartada()){

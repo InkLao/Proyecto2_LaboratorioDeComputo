@@ -30,39 +30,38 @@ public class PrestamoComputadoraDAO implements IPrestamoComputadoraDAO{
     
     
     @Override
-    public PrestamoComputadora buscarPrestamoComputadora(Long id) throws PersistenciaException{
-        
-        try{
+    public PrestamoComputadora buscarPrestamoComputadora(Long id) throws PersistenciaException {
         EntityManager entityManager = emf.createEntityManager();
-  
-        PrestamoComputadora prestamoComputadora = entityManager.find(PrestamoComputadora.class, id);
-        
-        entityManager.close();
-        
-        return prestamoComputadora;
-        }
-        
-        catch(Exception e){
+        PrestamoComputadora prestamoComputadora = null;
+        try {
+            prestamoComputadora = entityManager.find(PrestamoComputadora.class, id);
+            entityManager.refresh(prestamoComputadora);
+        } catch (Exception e) {
             System.out.println(e.getMessage());
-            System.out.println("error en buscarPrestamo id persistencia");
+        } finally {
+            entityManager.close();
         }
-        
-        return null;
+        return prestamoComputadora;
     }
     
     
     @Override
     public PrestamoComputadora agregarPrestamoComputadora(PrestamoComputadora prestamoComputadora) {
-        
         EntityManager entityManager = emf.createEntityManager();
-
-        entityManager.getTransaction().begin();
-        entityManager.persist(prestamoComputadora);
-        entityManager.getTransaction().commit();
-        entityManager.close();
-        
+        try {
+            entityManager.getTransaction().begin();
+            entityManager.persist(prestamoComputadora);
+            entityManager.getTransaction().commit();
+        } catch (Exception e) {
+            if (entityManager.getTransaction().isActive()) {
+                entityManager.getTransaction().rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            entityManager.close();
+        }
         return prestamoComputadora;
-    } 
+    }
     
     
     @Override

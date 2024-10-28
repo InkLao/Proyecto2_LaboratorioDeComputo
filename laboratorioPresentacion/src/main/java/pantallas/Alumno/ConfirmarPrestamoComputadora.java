@@ -31,7 +31,7 @@ public class ConfirmarPrestamoComputadora extends javax.swing.JFrame implements 
     
     private PrestamoComputadora prestamoComputadora; // la pantalla anterior
     private PrestamoComputadoraDTO prestamoComputadoraDTO;
-    private IniciarSesionAlumno iniciarSesionAlumno;
+    private InicioSesionAlumno inicioSesionAlumno;
     
     private AlumnoDTO alumnoDTO;
     private static int minutosMax = 0;
@@ -42,7 +42,7 @@ public class ConfirmarPrestamoComputadora extends javax.swing.JFrame implements 
     /**
      * Creates new form ConfirmarPrestamoComputadora
      */
-    public ConfirmarPrestamoComputadora(PrestamoComputadora prestamoComputadora, IniciarSesionAlumno iniciarSesionAlumno, IAlumnoNegocio alumnoNegocio, IComputadoraNegocio computadoraNegocio, PrestamoComputadoraDTO prestamoComputadoraDTO, AlumnoDTO alumnoDTO,
+    public ConfirmarPrestamoComputadora(PrestamoComputadora prestamoComputadora, InicioSesionAlumno inicioSesionAlumno, IAlumnoNegocio alumnoNegocio, IComputadoraNegocio computadoraNegocio, PrestamoComputadoraDTO prestamoComputadoraDTO, AlumnoDTO alumnoDTO,
                                         IPrestamoComputadoraNegocio prestamoComputadoraNegocio) {
         this.prestamoComputadora = prestamoComputadora;
         this.alumnoNegocio = alumnoNegocio;
@@ -50,7 +50,7 @@ public class ConfirmarPrestamoComputadora extends javax.swing.JFrame implements 
         this.prestamoComputadoraDTO = prestamoComputadoraDTO;
         this.alumnoDTO = alumnoDTO;
         this.prestamoComputadoraNegocio = prestamoComputadoraNegocio;
-        this.iniciarSesionAlumno = iniciarSesionAlumno;
+        this.inicioSesionAlumno = inicioSesionAlumno;
         
         initComponents();
         
@@ -84,6 +84,7 @@ public class ConfirmarPrestamoComputadora extends javax.swing.JFrame implements 
                         ComputadoraDTO compu = computadoraNegocio.buscarComputadorasPorNumMaquina(prestamoComputadoraDTO.getNumMaquina());
                         compu.setEstatus("Disponible");
                         computadoraNegocio.actualizarComputadora(compu);
+                        pres.setSigueApartada(false);
                         prestamoComputadoraNegocio.actualizarPrestamoComputadoraDTO(pres);
                         System.out.println("y tu tiempo se acabo");
                         
@@ -323,7 +324,7 @@ public class ConfirmarPrestamoComputadora extends javax.swing.JFrame implements 
             
             this.dispose();
             prestamoComputadora.dispose();
-            iniciarSesionAlumno.setVisible(true);
+            inicioSesionAlumno.setVisible(true);
         }
         
         catch(NegocioException e){

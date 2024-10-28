@@ -20,7 +20,7 @@ import negocio.ICentroComputoNegocio;
 import negocio.IComputadoraNegocio;
 import negocio.IPrestamoComputadoraNegocio;
 import negocio.IUnidadNegocio;
-import pantallas.Alumno.IniciarSesionAlumno;
+import pantallas.Alumno.InicioSesionAlumno;
 
 /**
  *
@@ -178,8 +178,7 @@ public class Inicio extends javax.swing.JFrame {
         
         
         
-        IniciarSesionAlumno iniAlumno = new IniciarSesionAlumno(prestamoComputadoraNegocio, alumnoNegocio, computadoraNegocio, centroComputoNegocio,
-                                                                alumnoDTO);
+        InicioSesionAlumno iniAlumno = new InicioSesionAlumno(alumnoNegocio, computadoraNegocio, prestamoComputadoraNegocio);
         this.setVisible(false);
         iniAlumno.setVisible(true);
         

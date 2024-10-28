@@ -137,6 +137,11 @@ public class PrestamoComputadoraDTO {
     public void setSigueApartada(boolean sigueApartada) {
         this.sigueApartada = sigueApartada;
     }
+
+    @Override
+    public String toString() {
+        return "PrestamoComputadoraDTO{" + "id=" + id + ", idAlumno=" + idAlumno + ", idComputadora=" + idComputadora + ", minutos=" + minutos + ", fechaPrestamo=" + fechaPrestamo + ", sigueApartada=" + sigueApartada + '}';
+    }
     
     
     

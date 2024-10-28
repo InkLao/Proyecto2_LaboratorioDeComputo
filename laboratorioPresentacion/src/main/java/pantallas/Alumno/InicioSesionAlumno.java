@@ -2,14 +2,18 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package pantallas;
+package pantallas.Alumno;
 
 import dto.AlumnoDTO;
+import dto.PrestamoComputadoraDTO;
+import java.util.List;
+import javax.swing.JOptionPane;
 import negocio.IAlumnoNegocio;
 import negocio.IBloqueoNegocio;
 import negocio.ICarreraNegocio;
 import negocio.ICentroComputoNegocio;
 import negocio.IComputadoraNegocio;
+import negocio.IPrestamoComputadoraNegocio;
 import negocio.IUnidadNegocio;
 
 /**
@@ -17,17 +21,24 @@ import negocio.IUnidadNegocio;
  * @author Oley
  */
 public class InicioSesionAlumno extends javax.swing.JFrame {
- private ICarreraNegocio carreraNegocio;
+ 
+    private ICarreraNegocio carreraNegocio;
     private IUnidadNegocio unidadNegocio;
     private IAlumnoNegocio alumnoNegocio;
     private IBloqueoNegocio bloqueoNegocio;
     private ICentroComputoNegocio centroComputoNegocio;
     private IComputadoraNegocio computadoraNegocio;
+    private IPrestamoComputadoraNegocio prestamoComputadoraNegocio;
+    
     /**
      * Creates new form InicioSesionAlumno
      */
-    public InicioSesionAlumno(IAlumnoNegocio alumnoNegocio) {
+    public InicioSesionAlumno(IAlumnoNegocio alumnoNegocio, IComputadoraNegocio computadoraNegocio, IPrestamoComputadoraNegocio prestamoComputadoraNegocio) {
         this.alumnoNegocio=alumnoNegocio;
+        this.computadoraNegocio = computadoraNegocio;
+        this.prestamoComputadoraNegocio = prestamoComputadoraNegocio;
+        
+        
         initComponents();
     }
 
@@ -92,6 +103,7 @@ public class InicioSesionAlumno extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -107,7 +119,32 @@ public class InicioSesionAlumno extends javax.swing.JFrame {
         AlumnoDTO alumno = alumnoNegocio.buscarAlumno(idAlumno);
 
         if (alumno != null) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Bienvenido, acceso concedido.");
+            
+            PrestamoComputadora prestamo = new PrestamoComputadora(this, computadoraNegocio, alumnoNegocio, prestamoComputadoraNegocio, alumno);      
+            
+            List<PrestamoComputadoraDTO> prestamoComputadoraDTO = prestamoComputadoraNegocio.buscarPrestamoPorAlumno(alumno.getId());
+            
+            if(prestamoComputadoraDTO.isEmpty()){
+                prestamo.setVisible(true);
+                this.setVisible(false);
+            }
+            
+            else{
+               PrestamoComputadoraDTO ultimo = prestamoComputadoraDTO.get(prestamoComputadoraDTO.size() - 1);
+               
+                System.out.println(ultimo.toString());
+               if(ultimo.isSigueApartada() == true){
+                   ultimo.setSigueApartada(false);
+                   prestamoComputadoraNegocio.actualizarPrestamoComputadoraDTO(ultimo);
+                   JOptionPane.showMessageDialog(this, "Computadora liberada");
+               }
+               
+               else{
+                   prestamo.setVisible(true);
+                   this.setVisible(false);
+                   }
+                }       
+
 
         } else {
             javax.swing.JOptionPane.showMessageDialog(this, "ID de alumno no encontrado. Intenta nuevamente.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);

@@ -121,6 +121,9 @@ public class PrestamoComputadora implements Serializable {
         this.sigueAparta = sigueAparta;
     }
 
+
+
+
     @Override
     public String toString() {
         return "PrestamoComputadora{" + "id=" + id + ", fechaPrestamo=" + fechaPrestamo + ", minutos=" + minutos + ", sigueAparta=" + sigueAparta + ", alumno=" + alumno + ", computadora=" + computadora + '}';

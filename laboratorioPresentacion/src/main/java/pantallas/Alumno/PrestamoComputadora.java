@@ -31,7 +31,7 @@ public class PrestamoComputadora extends javax.swing.JFrame {
     
     private IComputadoraNegocio computadoraNegocio;
     private AlumnoDTO alumnoDTO;
-    private IniciarSesionAlumno iniciarSesionAlumno;
+    private InicioSesionAlumno inicioSesionAlumno;
     private IAlumnoNegocio alumnoNegocio;
     private IPrestamoComputadoraNegocio prestamoComputadoraNegocio;
     
@@ -39,11 +39,11 @@ public class PrestamoComputadora extends javax.swing.JFrame {
     /**
      * Creates new form PrestamoComputadora
      */
-    public PrestamoComputadora(IniciarSesionAlumno iniciarSesionAlumno, IComputadoraNegocio computadoraNegocio, IAlumnoNegocio alumnoNegocio, 
+    public PrestamoComputadora(InicioSesionAlumno inicioSesionAlumno, IComputadoraNegocio computadoraNegocio, IAlumnoNegocio alumnoNegocio, 
                                IPrestamoComputadoraNegocio prestamoComputadoraNegocio, AlumnoDTO alumnoDTO ) {
         this.computadoraNegocio = computadoraNegocio;
         this.alumnoDTO = alumnoDTO;
-        this.iniciarSesionAlumno = iniciarSesionAlumno;
+        this.inicioSesionAlumno = inicioSesionAlumno;
         this.alumnoNegocio = alumnoNegocio;
         this.prestamoComputadoraNegocio = prestamoComputadoraNegocio;
         
@@ -65,7 +65,7 @@ public class PrestamoComputadora extends javax.swing.JFrame {
     
     private void seleccionarPrestamoComputadoraTabla(PrestamoComputadoraDTO prestamoCompu) {
 
-        ConfirmarPrestamoComputadora confirmarPrestamoComputadora = new ConfirmarPrestamoComputadora(this, iniciarSesionAlumno, alumnoNegocio, computadoraNegocio, prestamoCompu, alumnoDTO, prestamoComputadoraNegocio);
+        ConfirmarPrestamoComputadora confirmarPrestamoComputadora = new ConfirmarPrestamoComputadora(this, inicioSesionAlumno, alumnoNegocio, computadoraNegocio, prestamoCompu, alumnoDTO, prestamoComputadoraNegocio);
         confirmarPrestamoComputadora.setVisible(true);
         this.setVisible(false);
         
@@ -317,7 +317,7 @@ public class PrestamoComputadora extends javax.swing.JFrame {
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         // TODO add your handling code here:
-        iniciarSesionAlumno.setVisible(true);
+        inicioSesionAlumno.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnRegresarActionPerformed
 

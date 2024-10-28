@@ -117,7 +117,7 @@ public class PrestamoComputadoraNegocio implements IPrestamoComputadoraNegocio{
                 throw new NegocioException("prestamo no encontrado");
             }
             
-            entidad.setSigueAparta(false);
+            entidad.setSigueAparta(prestamoComputadora.isSigueApartada());
             
             
             System.out.println(entidad.getId() + " id negocio");
@@ -257,7 +257,8 @@ public class PrestamoComputadoraNegocio implements IPrestamoComputadoraNegocio{
             dto.setMinutos(prestamo.getMinutos());
             dto.setIdAlumno(prestamo.getAlumno().getId());
             dto.setIdComputadora(prestamo.getComputadora().getId());
-            prestamo.setFechaPrestamo(prestamo.getFechaPrestamo());          
+            prestamo.setFechaPrestamo(prestamo.getFechaPrestamo()); 
+            prestamo.setSigueAparta(prestamo.isSigueAparta());
 
             bloqueoDTO.add(dto);
         }
