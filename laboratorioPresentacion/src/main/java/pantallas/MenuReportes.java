@@ -15,6 +15,7 @@ import negocio.IUnidadNegocio;
  */
 public class MenuReportes extends javax.swing.JFrame {
     
+    private IBloqueoNegocio bloqueoNegocio;
     private ICarreraNegocio carreraNegocio;
     private IUnidadNegocio unidadNegocio;
     private IAlumnoNegocio alumnoNegocio;
@@ -24,10 +25,11 @@ public class MenuReportes extends javax.swing.JFrame {
     /**
      * Creates new form MenuReportes
      */
-    public MenuReportes(Administrador administrador) {
+    public MenuReportes(Administrador administrador, IBloqueoNegocio bloqueoNegocio, IAlumnoNegocio alumnoNegocio) {
         this.administrador = administrador;
-        this.inicioSesion = inicioSesion;
-        
+        this.bloqueoNegocio = bloqueoNegocio;
+        this.alumnoNegocio = alumnoNegocio;
+
         initComponents();
     }
 
@@ -41,25 +43,30 @@ public class MenuReportes extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btnCentroComputo = new javax.swing.JButton();
+        btnCarreras = new javax.swing.JButton();
+        btnBloqueos = new javax.swing.JButton();
+        btnRegresar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("Reportes");
 
-        jButton1.setText("Centro de Computo");
+        btnCentroComputo.setText("Centro de Computo");
 
-        jButton2.setText("Carreras");
+        btnCarreras.setText("Carreras");
 
-        jButton3.setText("Bloqueos");
-
-        jButton4.setText("Regresar");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        btnBloqueos.setText("Bloqueos");
+        btnBloqueos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                btnBloqueosActionPerformed(evt);
+            }
+        });
+
+        btnRegresar.setText("Regresar");
+        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegresarActionPerformed(evt);
             }
         });
 
@@ -68,20 +75,23 @@ public class MenuReportes extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(170, 170, 170)
-                .addComponent(jLabel1))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(120, 120, 120)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(120, 120, 120)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(120, 120, 120)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jButton4))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(170, 170, 170)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(120, 120, 120)
+                        .addComponent(btnCentroComputo, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(120, 120, 120)
+                        .addComponent(btnCarreras, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(120, 120, 120)
+                        .addComponent(btnBloqueos, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(btnRegresar)))
+                .addContainerGap(102, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -89,32 +99,39 @@ public class MenuReportes extends javax.swing.JFrame {
                 .addGap(20, 20, 20)
                 .addComponent(jLabel1)
                 .addGap(14, 14, 14)
-                .addComponent(jButton1)
+                .addComponent(btnCentroComputo)
                 .addGap(7, 7, 7)
-                .addComponent(jButton2)
+                .addComponent(btnCarreras)
                 .addGap(7, 7, 7)
-                .addComponent(jButton3)
+                .addComponent(btnBloqueos)
                 .addGap(27, 27, 27)
-                .addComponent(jButton4))
+                .addComponent(btnRegresar)
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-this.setVisible(false);
-administrador.setVisible(true);
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+        this.dispose();
+        administrador.setVisible(true);
 
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_btnRegresarActionPerformed
 
-  
+    private void btnBloqueosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBloqueosActionPerformed
+        // TODO add your handling code here:
+        ReporteBloqueoFiltros rbf = new ReporteBloqueoFiltros(bloqueoNegocio, alumnoNegocio);
+        rbf.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnBloqueosActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton btnBloqueos;
+    private javax.swing.JButton btnCarreras;
+    private javax.swing.JButton btnCentroComputo;
+    private javax.swing.JButton btnRegresar;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }

@@ -6,6 +6,7 @@ package persistencia;
 
 import Excepciones.PersistenciaException;
 import entidades.Bloqueo;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -25,4 +26,6 @@ public interface IBloqueoDAO {
        public List<Bloqueo> obtenerTodos() throws PersistenciaException;
        
        public List<Bloqueo> buscarBloqueo(String motivo) throws PersistenciaException;
+       
+       List<Bloqueo> buscarBloqueoPorFecha(Calendar fechaInicio, Calendar fechaFinal) throws PersistenciaException;
 }

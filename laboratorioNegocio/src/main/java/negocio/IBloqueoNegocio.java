@@ -6,6 +6,7 @@ package negocio;
 
 import NegocioException.NegocioException;
 import dto.BloqueoDTO;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -27,5 +28,7 @@ public interface IBloqueoNegocio {
     void eliminarBloqueo(BloqueoDTO bloqueo) throws NegocioException;
     
     public List<BloqueoDTO> buscarBloqueosTabla(String motivo) throws NegocioException;
+    
+    List<BloqueoDTO> buscarBloqueosPorFecha(Calendar fechaInicio, Calendar fechaFinal) throws NegocioException;
     
 }
