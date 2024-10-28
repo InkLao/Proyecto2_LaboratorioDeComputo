@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package persistencia;
 
 import entidades.Computadora;
@@ -10,19 +6,33 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
 /**
- *
- * @author Oley
+ * Clase de acceso a datos (DAO) para la entidad Software. Proporciona métodos 
+ * para realizar operaciones CRUD sobre los datos de software en la base de datos.
+ * 
+ * @autor Oley
  */
 public class SoftwareDAO {
-      private EntityManager entityManager;
 
+    /**
+     * Administrador de entidades para gestionar la persistencia de datos.
+     */
+    private EntityManager entityManager;
+
+    /**
+     * Constructor de la clase SoftwareDAO que recibe un EntityManager.
+     * 
+     * @param entityManager El EntityManager para gestionar la persistencia de datos.
+     */
     public SoftwareDAO(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 
-    
-    
-    public void agregarSoftware(Software  software){
+    /**
+     * Agrega un nuevo software a la base de datos.
+     * 
+     * @param software El software a agregar.
+     */
+    public void agregarSoftware(Software software) {
         EntityTransaction transaction = entityManager.getTransaction();
         try {
             transaction.begin();
@@ -32,7 +42,7 @@ public class SoftwareDAO {
             if (transaction.isActive()) {
                 transaction.rollback();
             }
-            e.printStackTrace(); 
+            e.printStackTrace();
         }
-    }  
+    }
 }
