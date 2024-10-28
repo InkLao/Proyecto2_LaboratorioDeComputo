@@ -1,31 +1,82 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package dto;
 
 import java.util.Calendar;
 
 /**
- *
- * @author Arturo ITSON
+ * Clase de transferencia de datos (DTO) para representar la información de un préstamo de computadora.
+ * Esta clase se utiliza para transferir datos entre la capa de negocio y la capa de presentación, 
+ * encapsulando la información del préstamo de computadora sin exponer la entidad directamente.
+ * 
+ * @autor Arturo ITSON
  */
 public class PrestamoComputadoraDTO {
     
+    /**
+     * Identificador único del préstamo de computadora.
+     */
     private long id;
+
+    /**
+     * Identificador del alumno asociado al préstamo.
+     */
     private long idAlumno;
+
+    /**
+     * Identificador de la computadora asociada al préstamo.
+     */
     private long idComputadora;
+
+    /**
+     * Número de la máquina asignada a la computadora prestada.
+     */
     private Integer numMaquina;
+
+    /**
+     * Nombres del alumno que realiza el préstamo.
+     */
     private String nombres;
+
+    /**
+     * Apellido paterno del alumno que realiza el préstamo.
+     */
     private String apellidoPaterno;
+
+    /**
+     * Apellido materno del alumno que realiza el préstamo.
+     */
     private String apellidoMaterno;
+
+    /**
+     * Duración del préstamo en minutos.
+     */
     private Integer minutos;
+
+    /**
+     * Fecha en que se realizó el préstamo.
+     */
     private Calendar fechaPrestamo;
+
+    /**
+     * Indica si la computadora sigue apartada.
+     */
     private boolean sigueApartada;
-    
+
+    /**
+     * Constructor por defecto de la clase PrestamoComputadoraDTO.
+     */
     public PrestamoComputadoraDTO() {
     }
 
+    /**
+     * Constructor de la clase PrestamoComputadoraDTO con detalles del alumno y computadora, sin minutos y fecha.
+     * 
+     * @param idAlumno Identificador del alumno.
+     * @param idComputadora Identificador de la computadora.
+     * @param numMaquina Número de la máquina de la computadora.
+     * @param nombres Nombres del alumno.
+     * @param apellidoPaterno Apellido paterno del alumno.
+     * @param apellidoMaterno Apellido materno del alumno.
+     */
     public PrestamoComputadoraDTO(long idAlumno, long idComputadora, Integer numMaquina, String nombres, String apellidoPaterno, String apellidoMaterno) {
         this.idAlumno = idAlumno;
         this.idComputadora = idComputadora;
@@ -35,6 +86,15 @@ public class PrestamoComputadoraDTO {
         this.apellidoMaterno = apellidoMaterno;
     }
 
+    /**
+     * Constructor de la clase PrestamoComputadoraDTO con detalles de préstamo, sin ID.
+     * 
+     * @param idAlumno Identificador del alumno.
+     * @param idComputadora Identificador de la computadora.
+     * @param minutos Duración del préstamo en minutos.
+     * @param fechaPrestamo Fecha en que se realizó el préstamo.
+     * @param sigueApartada Indica si la computadora sigue apartada.
+     */
     public PrestamoComputadoraDTO(long idAlumno, long idComputadora, Integer minutos, Calendar fechaPrestamo, boolean sigueApartada) {
         this.idAlumno = idAlumno;
         this.idComputadora = idComputadora;
@@ -43,6 +103,16 @@ public class PrestamoComputadoraDTO {
         this.sigueApartada = sigueApartada;
     }
 
+    /**
+     * Constructor completo de la clase PrestamoComputadoraDTO.
+     * 
+     * @param id Identificador del préstamo.
+     * @param idAlumno Identificador del alumno.
+     * @param idComputadora Identificador de la computadora.
+     * @param minutos Duración del préstamo en minutos.
+     * @param fechaPrestamo Fecha en que se realizó el préstamo.
+     * @param sigueApartada Indica si la computadora sigue apartada.
+     */
     public PrestamoComputadoraDTO(long id, long idAlumno, long idComputadora, Integer minutos, Calendar fechaPrestamo, boolean sigueApartada) {
         this.id = id;
         this.idAlumno = idAlumno;
@@ -52,8 +122,6 @@ public class PrestamoComputadoraDTO {
         this.sigueApartada = sigueApartada;
     }
 
-    
-    
     public long getId() {
         return id;
     }
@@ -61,10 +129,6 @@ public class PrestamoComputadoraDTO {
     public void setId(long id) {
         this.id = id;
     }
-
-
-    
-    
 
     public long getIdAlumno() {
         return idAlumno;
@@ -138,11 +202,13 @@ public class PrestamoComputadoraDTO {
         this.sigueApartada = sigueApartada;
     }
 
+    /**
+     * Representación en formato de texto de los datos del préstamo de computadora.
+     *
+     * @return Una cadena de texto con los datos del préstamo.
+     */
     @Override
     public String toString() {
         return "PrestamoComputadoraDTO{" + "id=" + id + ", idAlumno=" + idAlumno + ", idComputadora=" + idComputadora + ", minutos=" + minutos + ", fechaPrestamo=" + fechaPrestamo + ", sigueApartada=" + sigueApartada + '}';
     }
-    
-    
-    
 }
