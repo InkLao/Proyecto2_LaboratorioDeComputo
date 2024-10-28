@@ -14,7 +14,7 @@ import negocio.IUnidadNegocio;
  * @author Oley
  */
 public class MenuReportes extends javax.swing.JFrame {
-    
+
     private IBloqueoNegocio bloqueoNegocio;
     private ICarreraNegocio carreraNegocio;
     private IUnidadNegocio unidadNegocio;
@@ -25,11 +25,11 @@ public class MenuReportes extends javax.swing.JFrame {
     /**
      * Creates new form MenuReportes
      */
-    public MenuReportes(Administrador administrador, IBloqueoNegocio bloqueoNegocio, IAlumnoNegocio alumnoNegocio) {
+    public MenuReportes(Administrador administrador, IBloqueoNegocio bloqueoNegocio, IAlumnoNegocio alumnoNegocio, ICarreraNegocio carreraNegocio) {
         this.administrador = administrador;
         this.bloqueoNegocio = bloqueoNegocio;
         this.alumnoNegocio = alumnoNegocio;
-
+        this.carreraNegocio = carreraNegocio;
         initComponents();
     }
 
@@ -55,6 +55,11 @@ public class MenuReportes extends javax.swing.JFrame {
         btnCentroComputo.setText("Centro de Computo");
 
         btnCarreras.setText("Carreras");
+        btnCarreras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCarrerasActionPerformed(evt);
+            }
+        });
 
         btnBloqueos.setText("Bloqueos");
         btnBloqueos.addActionListener(new java.awt.event.ActionListener() {
@@ -125,6 +130,14 @@ public class MenuReportes extends javax.swing.JFrame {
         rbf.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnBloqueosActionPerformed
+
+    private void btnCarrerasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarrerasActionPerformed
+        this.setVisible(false);
+        ReporteCarrerasFiltro reporteCarrerasFiltro = new ReporteCarrerasFiltro(carreraNegocio, alumnoNegocio);
+        reporteCarrerasFiltro.setVisible(true);
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCarrerasActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

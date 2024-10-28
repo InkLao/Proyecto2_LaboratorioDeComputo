@@ -90,4 +90,6 @@ public interface IAlumnoNegocio {
      * @return Objeto Alumno con la información convertida.
      */
     public Alumno convertirAEntidad(AlumnoDTO alumno);
+    
+    public long contarAlumnos();
 }

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c09b2abb-5da6-47ab-adf2-f40ffa4ba267">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT
+    c.nombreCarrera AS nombreCarrera,
+    c.tiempoMaxUsoDiario AS minutosUso,
+    COUNT(a.idAlumno) AS cantidadAlumnos
+FROM 
+    tblCarrera c
+LEFT JOIN 
+    tblAlumno a ON c.idCarrera = a.CARRERA_idCarrera
+GROUP BY 
+    c.nombreCarrera, c.tiempoMaxUsoDiario;
+]]>
+	</queryString>
+	<field name="nombreCarrera" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="minutosUso" class="java.lang.Integer"/>
+	<field name="cantidadAlumnos" class="java.lang.Long"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="137" y="15" width="302" height="51" uuid="4755b2d4-e5ba-4fc8-b813-ef8c233841b1"/>
+				<textElement>
+					<font size="36"/>
+				</textElement>
+				<text><![CDATA[Carrera-Reporte]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement x="65" y="15" width="100" height="20" uuid="04ef5e8c-a2e5-45e1-ac5d-0ab60fb90a2f"/>
+				<text><![CDATA[nombre de la carrera]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="242" y="15" width="100" height="20" uuid="8afb67b9-de9e-4684-b815-ca18d608ee51"/>
+				<text><![CDATA[Minutos de Uso]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="402" y="15" width="133" height="20" uuid="8d5c8d0d-325b-4fe1-9680-c17efaaeccd9"/>
+				<text><![CDATA[Cantidad de Alumnos]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="242" y="17" width="100" height="20" uuid="c8b17388-5b58-4e9c-a860-e0e1259a18f0"/>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="65" y="17" width="100" height="20" uuid="3f810cfc-a954-454d-8f23-592ca0b2ba45"/>
+				<textFieldExpression><![CDATA[$F{nombreCarrera}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="242" y="17" width="100" height="20" uuid="36ede2bc-9c51-4080-8bab-66486f42093d"/>
+				<textFieldExpression><![CDATA[$F{minutosUso}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="402" y="17" width="133" height="20" uuid="57dfb7b2-85d9-4c46-9d9b-c94f16038c6d"/>
+				<textFieldExpression><![CDATA[$F{cantidadAlumnos}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

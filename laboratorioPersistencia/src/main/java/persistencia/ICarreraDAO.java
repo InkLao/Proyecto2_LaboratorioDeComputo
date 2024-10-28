@@ -34,4 +34,8 @@ public interface ICarreraDAO {
      * @throws PersistenciaException Si ocurre un error al obtener las carreras.
      */
     public List<Carrera> obtenerTodos() throws PersistenciaException;
+
+public Integer obtenerTiempoMaxUsoDiarioTotal();
+
+
 }

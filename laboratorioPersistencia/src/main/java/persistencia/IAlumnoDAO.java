@@ -57,4 +57,7 @@ public interface IAlumnoDAO {
      * @return Lista de alumnos con el nombre especificado.
      */
     List<Alumno> buscarAlumno(String nombre);
+    
+    
+public long contarAlumnos() ;
 }

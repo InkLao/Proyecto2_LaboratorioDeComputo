@@ -34,4 +34,6 @@ public interface ICarreraNegocio {
      * @throws NegocioException en caso de error durante la operación.
      */
     public List<CarreraDTO> obtenerTodos() throws NegocioException;
+
+     public Integer obtenerTiempoMaxUsoDiarioTotal();
 }

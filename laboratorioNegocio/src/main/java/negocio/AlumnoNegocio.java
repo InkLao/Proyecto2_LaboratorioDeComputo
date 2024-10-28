@@ -244,4 +244,8 @@ public class AlumnoNegocio implements IAlumnoNegocio {
         }
         return new CarreraDTO(carrera.getId(), carrera.getNombre(), carrera.getTiempoMaxUsoDiario());
     }
+    
+    public long contarAlumnos() {
+        return alumnoDAO.contarAlumnos();
+    }
 }

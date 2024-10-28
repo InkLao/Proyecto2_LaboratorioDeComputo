@@ -83,4 +83,7 @@ public class CarreraNegocio implements ICarreraNegocio {
         carreraDTO.setNombre(carrera.getNombre());
         return carreraDTO;
     }
+     public Integer obtenerTiempoMaxUsoDiarioTotal() {
+ return carreraDAO.obtenerTiempoMaxUsoDiarioTotal();
+    }
 }

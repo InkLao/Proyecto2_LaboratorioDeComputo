@@ -424,7 +424,7 @@ carreraNegocio.agregarCarrera(carrera33);
 
     private void btnReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportesActionPerformed
         this.setVisible(false);
-        MenuReportes menuReportes = new MenuReportes(this, bloqueoNegocio, alumnoNegocio);
+        MenuReportes menuReportes = new MenuReportes(this, bloqueoNegocio, alumnoNegocio,carreraNegocio);
         menuReportes.setVisible(true);
 
         // TODO add your handling code here:

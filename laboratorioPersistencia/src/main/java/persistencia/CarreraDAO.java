@@ -2,6 +2,7 @@ package persistencia;
 
 import Excepciones.PersistenciaException;
 import entidades.Carrera;
+import java.math.BigDecimal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
@@ -89,5 +90,21 @@ public class CarreraDAO implements ICarreraDAO {
         List<Carrera> carreras = em.createQuery("SELECT c FROM Carrera c", Carrera.class).getResultList();
         em.close();
         return carreras;
+    }
+    
+    
+    public Integer obtenerTiempoMaxUsoDiarioTotal() {
+ EntityManager em = entityManagerFactory.createEntityManager();
+    try {
+        BigDecimal total = em.createQuery("SELECT COALESCE(SUM(c.tiempoMaxUsoDiario), 0) FROM Carrera c", BigDecimal.class).getSingleResult();
+        Integer resultado = total.intValue(); // Convertir a Integer
+        System.out.println("Tiempo máximo de uso diario total calculado: " + resultado);
+        return resultado;
+    } catch (Exception e) {
+        System.out.println("Error al obtener tiempo máximo de uso diario total: " + e.getMessage());
+        return null;
+    } finally {
+        em.close();
+    }
     }
 }

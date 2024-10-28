@@ -163,4 +163,17 @@ public class AlumnoDAO implements IAlumnoDAO {
           
         return null;
     }
+    
+    
+    public long contarAlumnos() {
+    EntityManager em = emf.createEntityManager();
+    try {
+        return em.createQuery("SELECT COUNT(a) FROM Alumno a", Long.class).getSingleResult();
+    } catch (Exception e) {
+        System.out.println("Error al contar alumnos: " + e.getMessage());
+        return 0; 
+    } finally {
+        em.close(); 
+    }
+    }
 }
