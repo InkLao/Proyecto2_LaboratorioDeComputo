@@ -1,16 +1,20 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package NegocioException;
 
 /**
- *
- * @author Arturo ITSON
+ * Excepción personalizada para errores en la capa de negocio. 
+ * Esta clase se utiliza para representar excepciones específicas relacionadas 
+ * con la lógica de negocio de la aplicación.
+ * 
+ * @autor Arturo ITSON
  */
-public class NegocioException extends Exception{
- 
-        public NegocioException(String mensaje) {
+public class NegocioException extends Exception {
+
+    /**
+     * Constructor de la excepción que acepta un mensaje de error.
+     * 
+     * @param mensaje El mensaje de error asociado con la excepción.
+     */
+    public NegocioException(String mensaje) {
         super(mensaje);
     }
 }
