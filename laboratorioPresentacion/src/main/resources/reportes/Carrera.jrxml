@@ -13,8 +13,7 @@ FROM
 LEFT JOIN 
     tblAlumno a ON c.idCarrera = a.CARRERA_idCarrera
 GROUP BY 
-    c.nombreCarrera, c.tiempoMaxUsoDiario;
-]]>
+    c.nombreCarrera, c.tiempoMaxUsoDiario;]]>
 	</queryString>
 	<field name="nombreCarrera" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
@@ -38,15 +37,15 @@ GROUP BY
 	<pageHeader>
 		<band height="35" splitType="Stretch">
 			<staticText>
-				<reportElement x="65" y="15" width="100" height="20" uuid="04ef5e8c-a2e5-45e1-ac5d-0ab60fb90a2f"/>
-				<text><![CDATA[nombre de la carrera]]></text>
+				<reportElement x="41" y="15" width="100" height="20" uuid="04ef5e8c-a2e5-45e1-ac5d-0ab60fb90a2f"/>
+				<text><![CDATA[Nombre de la carrera]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="242" y="15" width="100" height="20" uuid="8afb67b9-de9e-4684-b815-ca18d608ee51"/>
+				<reportElement x="274" y="15" width="100" height="20" uuid="8afb67b9-de9e-4684-b815-ca18d608ee51"/>
 				<text><![CDATA[Minutos de Uso]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="402" y="15" width="133" height="20" uuid="8d5c8d0d-325b-4fe1-9680-c17efaaeccd9"/>
+				<reportElement x="422" y="15" width="133" height="20" uuid="8d5c8d0d-325b-4fe1-9680-c17efaaeccd9"/>
 				<text><![CDATA[Cantidad de Alumnos]]></text>
 			</staticText>
 		</band>
@@ -58,15 +57,15 @@ GROUP BY
 				<text><![CDATA[]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="65" y="17" width="100" height="20" uuid="3f810cfc-a954-454d-8f23-592ca0b2ba45"/>
+				<reportElement x="41" y="17" width="183" height="20" uuid="3f810cfc-a954-454d-8f23-592ca0b2ba45"/>
 				<textFieldExpression><![CDATA[$F{nombreCarrera}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="242" y="17" width="100" height="20" uuid="36ede2bc-9c51-4080-8bab-66486f42093d"/>
+				<reportElement x="274" y="17" width="100" height="20" uuid="36ede2bc-9c51-4080-8bab-66486f42093d"/>
 				<textFieldExpression><![CDATA[$F{minutosUso}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="402" y="17" width="133" height="20" uuid="57dfb7b2-85d9-4c46-9d9b-c94f16038c6d"/>
+				<reportElement x="422" y="17" width="133" height="20" uuid="57dfb7b2-85d9-4c46-9d9b-c94f16038c6d"/>
 				<textFieldExpression><![CDATA[$F{cantidadAlumnos}]]></textFieldExpression>
 			</textField>
 		</band>
