@@ -39,6 +39,9 @@ public class PrestamoComputadora implements Serializable {
     @Column(name = "minutos", nullable = false)
     private Integer minutos;
     
+    @Column(name = "sigueApartada")
+    private boolean sigueAparta;
+    
     @ManyToOne()
     @JoinColumn(name = "alumno")
     private Alumno alumno;
@@ -51,17 +54,19 @@ public class PrestamoComputadora implements Serializable {
     public PrestamoComputadora() {
     }
 
-    public PrestamoComputadora(Long id, Calendar fechaPrestamo, Integer minutos, Alumno alumno, Computadora computadora) {
+    public PrestamoComputadora(Long id, Calendar fechaPrestamo, Integer minutos, boolean sigueApartada, Alumno alumno, Computadora computadora) {
         this.id = id;
         this.fechaPrestamo = fechaPrestamo;
         this.minutos = minutos;
+        this.sigueAparta = sigueApartada;
         this.alumno = alumno;
         this.computadora = computadora;
     }
 
-    public PrestamoComputadora(Calendar fechaPrestamo, Integer minutos, Alumno alumno, Computadora computadora) {
+    public PrestamoComputadora(Calendar fechaPrestamo, Integer minutos, boolean sigueApartada, Alumno alumno, Computadora computadora) {
         this.fechaPrestamo = fechaPrestamo;
         this.minutos = minutos;
+        this.sigueAparta = sigueApartada;
         this.alumno = alumno;
         this.computadora = computadora;
     }
@@ -108,10 +113,20 @@ public class PrestamoComputadora implements Serializable {
         this.computadora = computadora;
     }
 
+    public boolean isSigueAparta() {
+        return sigueAparta;
+    }
+
+    public void setSigueAparta(boolean sigueAparta) {
+        this.sigueAparta = sigueAparta;
+    }
+
     @Override
     public String toString() {
-        return "PrestamoComputadora{" + "id=" + id + ", fechaPrestamo=" + fechaPrestamo + ", minutos=" + minutos + ", alumno=" + alumno + ", computadora=" + computadora + '}';
+        return "PrestamoComputadora{" + "id=" + id + ", fechaPrestamo=" + fechaPrestamo + ", minutos=" + minutos + ", sigueAparta=" + sigueAparta + ", alumno=" + alumno + ", computadora=" + computadora + '}';
     }
+
+
     
     
 }

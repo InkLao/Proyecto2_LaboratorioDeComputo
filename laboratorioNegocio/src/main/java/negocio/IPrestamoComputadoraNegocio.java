@@ -6,6 +6,8 @@ package negocio;
 
 import NegocioException.NegocioException;
 import dto.PrestamoComputadoraDTO;
+import entidades.PrestamoComputadora;
+import java.util.List;
 
 /**
  *
@@ -13,5 +15,13 @@ import dto.PrestamoComputadoraDTO;
  */
 public interface IPrestamoComputadoraNegocio {
     
+    public PrestamoComputadoraDTO obtenerPorId(Long id) throws NegocioException;
+    
     public PrestamoComputadoraDTO guardarPrestamo(PrestamoComputadoraDTO prestamoComputadoraDTO) throws NegocioException;
+    
+    public PrestamoComputadoraDTO actualizarPrestamoComputadoraDTO(PrestamoComputadoraDTO prestamoComputadora) throws NegocioException;
+    
+    public List<PrestamoComputadoraDTO> buscarPrestamoPorAlumno(long idAlumno) throws NegocioException;
+    
+    public List<PrestamoComputadoraDTO> buscarPrestamoPorComputadora(long idComputadora) throws NegocioException;
 }

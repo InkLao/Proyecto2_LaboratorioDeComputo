@@ -36,6 +36,7 @@ public class ConfirmarPrestamoComputadora extends javax.swing.JFrame implements 
     private AlumnoDTO alumnoDTO;
     private static int minutosMax = 0;
     private static int minutosSeleccionados = 0;
+    private static PrestamoComputadoraDTO pres;
     
     
     /**
@@ -83,6 +84,7 @@ public class ConfirmarPrestamoComputadora extends javax.swing.JFrame implements 
                         ComputadoraDTO compu = computadoraNegocio.buscarComputadorasPorNumMaquina(prestamoComputadoraDTO.getNumMaquina());
                         compu.setEstatus("Disponible");
                         computadoraNegocio.actualizarComputadora(compu);
+                        prestamoComputadoraNegocio.actualizarPrestamoComputadoraDTO(pres);
                         System.out.println("y tu tiempo se acabo");
                         
                         
@@ -312,7 +314,7 @@ public class ConfirmarPrestamoComputadora extends javax.swing.JFrame implements 
             prestamo.setMinutos(Integer.valueOf(minutosSeleccionados));
             prestamo.setFechaPrestamo(Calendar.getInstance());
             
-            prestamoComputadoraNegocio.guardarPrestamo(prestamo);
+            pres = prestamoComputadoraNegocio.guardarPrestamo(prestamo);
             
             System.out.println("minutos seleccionados: " + minutosSeleccionados);
             

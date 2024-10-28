@@ -4,6 +4,7 @@
  */
 package persistencia;
 
+import Excepciones.PersistenciaException;
 import entidades.UnidadAcademica;
 import java.util.List;
 
@@ -14,4 +15,7 @@ import java.util.List;
 public interface IUnidadAcademicaDAO {
     void agregarUnidadAcademica(UnidadAcademica  unidadAcademica);
     List<UnidadAcademica> obtenerTodas();
+    
+    public UnidadAcademica buscarUnidadAcademica(Long id) throws PersistenciaException;
+            
 }

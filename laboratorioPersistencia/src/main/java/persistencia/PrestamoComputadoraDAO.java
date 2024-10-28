@@ -4,10 +4,15 @@
  */
 package persistencia;
 
+import Excepciones.PersistenciaException;
+import entidades.Alumno;
+import entidades.Computadora;
 import entidades.PrestamoComputadora;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -25,6 +30,28 @@ public class PrestamoComputadoraDAO implements IPrestamoComputadoraDAO{
     
     
     @Override
+    public PrestamoComputadora buscarPrestamoComputadora(Long id) throws PersistenciaException{
+        
+        try{
+        EntityManager entityManager = emf.createEntityManager();
+  
+        PrestamoComputadora prestamoComputadora = entityManager.find(PrestamoComputadora.class, id);
+        
+        entityManager.close();
+        
+        return prestamoComputadora;
+        }
+        
+        catch(Exception e){
+            System.out.println(e.getMessage());
+            System.out.println("error en buscarPrestamo id persistencia");
+        }
+        
+        return null;
+    }
+    
+    
+    @Override
     public PrestamoComputadora agregarPrestamoComputadora(PrestamoComputadora prestamoComputadora) {
         
         EntityManager entityManager = emf.createEntityManager();
@@ -37,5 +64,77 @@ public class PrestamoComputadoraDAO implements IPrestamoComputadoraDAO{
         return prestamoComputadora;
     } 
     
+    
+    @Override
+    public PrestamoComputadora editarPrestamoComputadora(PrestamoComputadora prestamoComputadora) {
+
+        EntityManager entityManager = emf.createEntityManager();
+
+        
+        System.out.println("prestamoEditar " + prestamoComputadora.toString());
+        entityManager.getTransaction().begin();
+        entityManager.merge(prestamoComputadora);
+        entityManager.getTransaction().commit();
+        entityManager.close();
+        
+        return prestamoComputadora;
+        
+    }
+    
+    
+    @Override
+    public List<PrestamoComputadora> buscarUltimoPrestamoAlumno(Alumno alumno) throws PersistenciaException{
+       
+        try{
+        EntityManager em = emf.createEntityManager();
+
+        String consultaJPQL = """
+                                    SELECT p from PrestamoComputadora p
+                                    WHERE p.alumno = :alumno
+                                
+                                """;
+            TypedQuery<PrestamoComputadora> query = em.createQuery(consultaJPQL, PrestamoComputadora.class);
+            query.setParameter("alumno", alumno);
+            
+            List<PrestamoComputadora> prestamo = query.getResultList();
+            
+            return prestamo;
+            
+        }
+        
+        catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+          
+        return null;
+    }
+    
+    
+    @Override
+    public List<PrestamoComputadora> buscarUltimoPrestamoPorComputadora(Computadora Computadora) throws PersistenciaException{
+       
+        try{
+        EntityManager em = emf.createEntityManager();
+
+        String consultaJPQL = """
+                                    SELECT p from PrestamoComputadora p
+                                    WHERE p.computadora = :computadora
+                                
+                                """;
+            TypedQuery<PrestamoComputadora> query = em.createQuery(consultaJPQL, PrestamoComputadora.class);
+            query.setParameter("computadora", Computadora);
+            
+            List<PrestamoComputadora> prestamo = query.getResultList();
+            
+            return prestamo;
+            
+        }
+        
+        catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+          
+        return null;
+    }
     
 }

@@ -86,6 +86,8 @@ public class ComputadoraDAO implements IComputadoraDAO{
         
         return null;
     }
+    
+   
 
     @Override
     public Computadora buscarComputadorasPorNumMaquina(Integer numMaquina) throws PersistenciaException{
@@ -115,7 +117,7 @@ public class ComputadoraDAO implements IComputadoraDAO{
     }
     
     @Override
-    public List<Computadora> buscarComputadoras(String ip) throws PersistenciaException{
+    public Computadora buscarComputadoras(String ip) throws PersistenciaException{
        
         try{
         EntityManager em = emf.createEntityManager();
@@ -128,7 +130,7 @@ public class ComputadoraDAO implements IComputadoraDAO{
             TypedQuery<Computadora> query = em.createQuery(consultaJPQL, Computadora.class);
             query.setParameter("direccionIP", ip);
             
-            List<Computadora> computadora = query.getResultList();
+            Computadora computadora = query.getSingleResult();
             
             return computadora;
             
@@ -141,6 +143,34 @@ public class ComputadoraDAO implements IComputadoraDAO{
         return null;
     }
     
+    
+    @Override
+    public List<Computadora> buscarComputadorasPorIP(String direccionIP) throws PersistenciaException{
+       
+        try{
+                
+        EntityManager em = emf.createEntityManager();
+
+        String consultaJPQL = """
+                                    SELECT c from Computadora c
+                                    WHERE c.direccionIP = :direccionIP
+                                
+                                """;
+            TypedQuery<Computadora> query = em.createQuery(consultaJPQL, Computadora.class);
+            query.setParameter("direccionIP", direccionIP);
+            
+            List<Computadora> computadora = query.getResultList();
+            
+            return computadora;
+            
+        }
+        
+        catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+          
+        return null;
+    } 
     
     @Override
     public List<Computadora> buscarComputadorasUsoAlumno() throws PersistenciaException{

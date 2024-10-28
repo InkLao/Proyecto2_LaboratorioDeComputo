@@ -49,7 +49,7 @@ public class LaboratorioPresentacion {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("laboratorioComputo");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         
-        IUnidadAcademicaDAO unidadAcademicaDAO = new UnidadAcademicaDAO(entityManager);
+        IUnidadAcademicaDAO unidadAcademicaDAO = new UnidadAcademicaDAO(entityManager, entityManagerFactory);
         ICarreraDAO carreraDAO = new CarreraDAO(entityManager, entityManagerFactory);
         IAlumnoDAO alumnoDAO = new AlumnoDAO(entityManagerFactory, entityManager);
         IBloqueoDAO bloqueoDAO = new BloqueoDAO(entityManager, entityManagerFactory);
@@ -63,7 +63,7 @@ public class LaboratorioPresentacion {
         IBloqueoNegocio bloqueoNegocio = new BloqueoNegocio(bloqueoDAO, alumnoNegocio);
         ICentroComputoNegocio centroComputoNegocio = new CentroComputoNegocio(centroComputoDAO);
         IComputadoraNegocio computadoraNegocio = new ComputadoraNegocio(computadoraDAO, centroComputoNegocio);
-        IPrestamoComputadoraNegocio prestamoComputadoraNegocio = new PrestamoComputadoraNegocio(prestamoComputadoraDAO, alumnoNegocio, computadoraNegocio, centroComputoNegocio);
+        IPrestamoComputadoraNegocio prestamoComputadoraNegocio = new PrestamoComputadoraNegocio(prestamoComputadoraDAO, alumnoNegocio, computadoraNegocio, centroComputoNegocio, unidadNegocio);
         
         Inicio inicio = new Inicio(carreraNegocio, unidadNegocio, alumnoNegocio, bloqueoNegocio, centroComputoNegocio, computadoraNegocio, prestamoComputadoraNegocio);
         inicio.setVisible(true);

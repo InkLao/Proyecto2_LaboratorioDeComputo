@@ -22,12 +22,14 @@ public interface IComputadoraDAO {
     public Computadora editarComputadora(Computadora computadora);
             
     public Computadora buscarComputadora(Long id) throws PersistenciaException;
-    
+        
     public Computadora buscarComputadorasPorNumMaquina(Integer numMaquina) throws PersistenciaException;
     
     public List<Computadora> buscarComputadorasUsoAlumno() throws PersistenciaException;
     
-    public List<Computadora> buscarComputadoras(String ip) throws PersistenciaException;
+    public Computadora buscarComputadoras(String ip) throws PersistenciaException;
+    
+    public List<Computadora> buscarComputadorasPorIP(String direccionIP) throws PersistenciaException;
     
     public Computadora eliminarComputadora(Computadora computadora);
     

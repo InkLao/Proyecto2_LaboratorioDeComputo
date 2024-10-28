@@ -4,6 +4,7 @@
  */
 package negocio;
 
+import NegocioException.NegocioException;
 import dto.UnidadAcademicaDTO;
 import entidades.UnidadAcademica;
 import java.util.List;
@@ -15,6 +16,8 @@ import java.util.List;
 public interface IUnidadNegocio {
     void agregarUnidadAcademica(UnidadAcademicaDTO  unidadAcademicaDTO);
     List<UnidadAcademicaDTO> obtenerUnidadesDTO();
+    
+    public UnidadAcademicaDTO obtenerPorId(Long id) throws NegocioException;
 }
 
 

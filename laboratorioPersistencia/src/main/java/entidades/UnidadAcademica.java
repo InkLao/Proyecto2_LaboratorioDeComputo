@@ -39,6 +39,13 @@ public class UnidadAcademica implements Serializable {
     public UnidadAcademica() {
     }
 
+    public UnidadAcademica(Long id, String nombre) {
+        this.id = id;
+        this.nombre = nombre;
+    }
+
+    
+    
     public UnidadAcademica(String nombre) {
         this.nombre = nombre;
     }

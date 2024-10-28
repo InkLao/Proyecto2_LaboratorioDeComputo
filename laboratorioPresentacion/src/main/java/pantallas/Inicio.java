@@ -4,7 +4,15 @@
  */
 package pantallas;
 
+import pantallas.Maquina.EquipoOcupado;
+import pantallas.Maquina.EquipoDisponible;
+import NegocioException.NegocioException;
 import dto.AlumnoDTO;
+import dto.ComputadoraDTO;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import negocio.IAlumnoNegocio;
 import negocio.IBloqueoNegocio;
 import negocio.ICarreraNegocio;
@@ -48,6 +56,16 @@ public class Inicio extends javax.swing.JFrame {
         initComponents();
     }
 
+    
+    
+    public String obtenerIP() throws UnknownHostException {
+        InetAddress ip = InetAddress.getLocalHost();
+        return ip.getHostAddress(); 
+    
+    }
+    
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -88,6 +106,11 @@ public class Inicio extends javax.swing.JFrame {
 
         btnMaquina.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnMaquina.setText("Maquina");
+        btnMaquina.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMaquinaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -162,40 +185,39 @@ public class Inicio extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnAlumnoActionPerformed
 
-//    /**
-//     * @param args the command line arguments
-//     */
-//    public static void main(String args[]) {
-//        /* Set the Nimbus look and feel */
-//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-//         */
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(Inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(Inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(Inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(Inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        //</editor-fold>
-//
-//        /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new Inicio().setVisible(true);
-//            }
-//        });
-//    }
+    private void btnMaquinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMaquinaActionPerformed
+    // TODO add your handling code here:
+         
+        try {
+            String ip = obtenerIP();
+            ComputadoraDTO compu = computadoraNegocio.obtenerPorIP(ip);
+            
+            System.out.println(compu.getEstatus());
+            
+            if(compu.getEstatus().equals("Disponible")){
+        
+                EquipoDisponible equipoDisponible = new EquipoDisponible(computadoraNegocio, alumnoNegocio, prestamoComputadoraNegocio);
+                equipoDisponible.setVisible(true);
+                this.dispose();
+            }
+            
+            if(compu.getEstatus().equals("Apartada")){
+        
+                EquipoOcupado equipoOcupado = new EquipoOcupado(computadoraNegocio, alumnoNegocio, prestamoComputadoraNegocio);
+                equipoOcupado.setVisible(true);
+                this.dispose();
+            }
+            
+            
+        } catch (UnknownHostException ex) {
+            Logger.getLogger(Inicio.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NegocioException ex) {
+            Logger.getLogger(Inicio.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+    }//GEN-LAST:event_btnMaquinaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdmin;

@@ -21,6 +21,7 @@ public class PrestamoComputadoraDTO {
     private String apellidoMaterno;
     private Integer minutos;
     private Calendar fechaPrestamo;
+    private boolean sigueApartada;
     
     public PrestamoComputadoraDTO() {
     }
@@ -34,11 +35,21 @@ public class PrestamoComputadoraDTO {
         this.apellidoMaterno = apellidoMaterno;
     }
 
-    public PrestamoComputadoraDTO(long idAlumno, long idComputadora, Integer minutos, Calendar fechaPrestamo) {
+    public PrestamoComputadoraDTO(long idAlumno, long idComputadora, Integer minutos, Calendar fechaPrestamo, boolean sigueApartada) {
         this.idAlumno = idAlumno;
         this.idComputadora = idComputadora;
         this.minutos = minutos;
         this.fechaPrestamo = fechaPrestamo;
+        this.sigueApartada = sigueApartada;
+    }
+
+    public PrestamoComputadoraDTO(long id, long idAlumno, long idComputadora, Integer minutos, Calendar fechaPrestamo, boolean sigueApartada) {
+        this.id = id;
+        this.idAlumno = idAlumno;
+        this.idComputadora = idComputadora;
+        this.minutos = minutos;
+        this.fechaPrestamo = fechaPrestamo;
+        this.sigueApartada = sigueApartada;
     }
 
     
@@ -117,6 +128,14 @@ public class PrestamoComputadoraDTO {
 
     public void setFechaPrestamo(Calendar fechaPrestamo) {
         this.fechaPrestamo = fechaPrestamo;
+    }
+
+    public boolean isSigueApartada() {
+        return sigueApartada;
+    }
+
+    public void setSigueApartada(boolean sigueApartada) {
+        this.sigueApartada = sigueApartada;
     }
     
     

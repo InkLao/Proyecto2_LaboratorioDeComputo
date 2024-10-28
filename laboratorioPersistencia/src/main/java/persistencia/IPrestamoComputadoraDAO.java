@@ -4,7 +4,11 @@
  */
 package persistencia;
 
+import Excepciones.PersistenciaException;
+import entidades.Alumno;
+import entidades.Computadora;
 import entidades.PrestamoComputadora;
+import java.util.List;
 
 /**
  *
@@ -12,6 +16,14 @@ import entidades.PrestamoComputadora;
  */
 public interface IPrestamoComputadoraDAO {
     
+    public PrestamoComputadora buscarPrestamoComputadora(Long id) throws PersistenciaException;
+    
     public PrestamoComputadora agregarPrestamoComputadora(PrestamoComputadora prestamoComputadora);
+    
+    public PrestamoComputadora editarPrestamoComputadora(PrestamoComputadora prestamoComputadora);
+    
+    public List<PrestamoComputadora> buscarUltimoPrestamoAlumno(Alumno Alumno) throws PersistenciaException;
+    
+    public List<PrestamoComputadora> buscarUltimoPrestamoPorComputadora(Computadora Computadora) throws PersistenciaException;
     
 }

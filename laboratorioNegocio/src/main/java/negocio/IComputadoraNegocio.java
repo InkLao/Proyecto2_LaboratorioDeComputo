@@ -22,6 +22,8 @@ public interface IComputadoraNegocio {
     
     public ComputadoraDTO obtenerPorId(Long id) throws NegocioException;
     
+    public ComputadoraDTO obtenerPorIP(String ip) throws NegocioException;
+    
     public List<ComputadoraDTO> buscarBloqueosTabla(String ip) throws NegocioException;
     
     public List<ComputadoraDTO> buscarBloqueosPorEstatusTabla(String estatus) throws NegocioException;

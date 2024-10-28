@@ -4,6 +4,7 @@
  */
 package negocio;
 
+import NegocioException.NegocioException;
 import dto.UnidadAcademicaDTO;
 import entidades.UnidadAcademica;
 import java.util.List;
@@ -35,7 +36,25 @@ UnidadAcademica unidadAcademica=new UnidadAcademica(unidadAcademicaDTO.getNombre
                 .collect(Collectors.toList());
     }
     
-    
+    @Override
+    public UnidadAcademicaDTO obtenerPorId(Long id) throws NegocioException {
+        
+        try {
+            System.out.println("id busca " + id);
+            UnidadAcademica entidad = unidadAcademicaDAO.buscarUnidadAcademica(id);
+            if (entidad == null) {
+                throw new NegocioException("unidad no encontrado");
+            }
+            
+            System.out.println("encontro este id " + entidad.getId());
+            
+            return new UnidadAcademicaDTO(entidad.getId(), entidad.getNombre());
+        } 
+        
+        catch (Exception e) {
+            throw new NegocioException("Error al obtener lss unidadesAcademicas por id");
+        }    
+    } 
     
     
     

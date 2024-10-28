@@ -131,10 +131,25 @@ public class ComputadoraNegocio implements IComputadoraNegocio{
     
     
     @Override
+    public ComputadoraDTO obtenerPorIP(String ip) throws NegocioException {
+        
+        try {
+            Computadora computadoras = this.computadoraDAO.buscarComputadoras(ip);
+            return this.convertirComputadoraDTO(computadoras);
+        } 
+        
+        catch (PersistenciaException ex) {
+            System.out.println(ex.getMessage());
+            throw new NegocioException(ex.getMessage());   
+        }  
+        
+    }    
+    
+    @Override
     public List<ComputadoraDTO> buscarBloqueosTabla(String ip) throws NegocioException {
         
         try {
-            List<Computadora> computadoras = this.computadoraDAO.buscarComputadoras(ip);
+            List<Computadora> computadoras = this.computadoraDAO.buscarComputadorasPorIP(ip);
             return this.convertirComputadoraDTO(computadoras);
         } 
         
