@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package persistencia;
 
 import Excepciones.PersistenciaException;
@@ -14,20 +10,42 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 
 /**
- *
- * @author Oley
+ * Clase de acceso a datos (DAO) para la entidad Carrera. Proporciona métodos 
+ * para realizar operaciones CRUD sobre los datos de carreras en la base de datos.
+ * 
+ * Implementa la interfaz {@link ICarreraDAO}.
+ * 
+ * @autor Oley
  */
-public class CarreraDAO implements ICarreraDAO{
-       
+public class CarreraDAO implements ICarreraDAO {
+    
+    /**
+     * Administrador de entidades para gestionar la persistencia de datos.
+     */
     private EntityManager entityManager;
+
+    /**
+     * Factoría de administradores de entidades de JPA.
+     */
     private EntityManagerFactory entityManagerFactory;   
 
+    /**
+     * Constructor de la clase CarreraDAO que recibe un EntityManager y un EntityManagerFactory.
+     * 
+     * @param entityManager El EntityManager para gestionar la persistencia de datos.
+     * @param entityManagerFactory El EntityManagerFactory para crear instancias de EntityManager.
+     */
     public CarreraDAO(EntityManager entityManager, EntityManagerFactory entityManagerFactory) {
         this.entityManager = entityManager;
         this.entityManagerFactory = entityManagerFactory;
     }
     
-    public void agregarCarrera(Carrera carrera){
+    /**
+     * Agrega una nueva carrera a la base de datos.
+     * 
+     * @param carrera La carrera a agregar.
+     */
+    public void agregarCarrera(Carrera carrera) {
         EntityTransaction transaction = entityManager.getTransaction();
         try {
             transaction.begin();
@@ -41,9 +59,15 @@ public class CarreraDAO implements ICarreraDAO{
         }
     }  
 
+    /**
+     * Obtiene una carrera de la base de datos según su nombre.
+     * 
+     * @param nombre El nombre de la carrera a buscar.
+     * @return La carrera encontrada o {@code null} si no existe.
+     */
     @Override
     public Carrera obtenerCarreraPorNombre(String nombre) {
-   try {
+        try {
             return entityManager.createQuery("SELECT c FROM Carrera c WHERE c.nombre = :nombre", Carrera.class)
                                 .setParameter("nombre", nombre)
                                 .getSingleResult();
@@ -53,16 +77,17 @@ public class CarreraDAO implements ICarreraDAO{
         }
     }
     
-    
+    /**
+     * Obtiene una lista de todas las carreras en la base de datos.
+     * 
+     * @return Lista de todas las carreras.
+     * @throws PersistenciaException Si ocurre un error al obtener las carreras.
+     */
     @Override
     public List<Carrera> obtenerTodos() throws PersistenciaException {
-        
         EntityManager em = entityManagerFactory.createEntityManager();
-        
         List<Carrera> carreras = em.createQuery("SELECT c FROM Carrera c", Carrera.class).getResultList();
-        
         em.close();
-        
         return carreras;
     }
 }
