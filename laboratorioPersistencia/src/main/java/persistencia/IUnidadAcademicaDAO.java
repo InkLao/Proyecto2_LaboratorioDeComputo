@@ -8,10 +8,24 @@ import entidades.UnidadAcademica;
 import java.util.List;
 
 /**
- *
+ * Interfaz que define las operaciones CRUD para la entidad `UnidadAcademica`.
+ * Proporciona métodos para agregar una nueva unidad académica y obtener todas las unidades académicas almacenadas.
+ * 
  * @author Oley
  */
 public interface IUnidadAcademicaDAO {
-    void agregarUnidadAcademica(UnidadAcademica  unidadAcademica);
+    
+    /**
+     * Agrega una nueva unidad académica a la base de datos.
+     *
+     * @param unidadAcademica Unidad académica a agregar
+     */
+    void agregarUnidadAcademica(UnidadAcademica unidadAcademica);
+
+    /**
+     * Obtiene todas las unidades académicas almacenadas en la base de datos.
+     *
+     * @return Lista de todas las unidades académicas
+     */
     List<UnidadAcademica> obtenerTodas();
 }

@@ -10,19 +10,32 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
 /**
- *
+ * Clase de acceso a datos (DAO) para gestionar la persistencia de la entidad `Software` en la base de datos.
+ * Proporciona métodos para agregar un nuevo software a la base de datos.
+ * 
  * @author Oley
  */
 public class SoftwareDAO {
-      private EntityManager entityManager;
+    /**
+     * `EntityManager` utilizado para manejar las entidades dentro de las transacciones.
+     */
+    private EntityManager entityManager;
 
+    /**
+     * Constructor que inicializa `SoftwareDAO` con un objeto `EntityManager`.
+     *
+     * @param entityManager Manejador de entidades para la sesión actual
+     */
     public SoftwareDAO(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 
-    
-    
-    public void agregarSoftware(Software  software){
+    /**
+     * Agrega un nuevo software a la base de datos.
+     *
+     * @param software Software a agregar
+     */
+    public void agregarSoftware(Software software) {
         EntityTransaction transaction = entityManager.getTransaction();
         try {
             transaction.begin();

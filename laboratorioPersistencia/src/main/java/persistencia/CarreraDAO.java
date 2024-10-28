@@ -14,20 +14,40 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 
 /**
- *
+ * Implementación de la interfaz `ICarreraDAO` para gestionar las operaciones CRUD de la entidad `Carrera` 
+ * en la base de datos.
+ * 
  * @author Oley
  */
 public class CarreraDAO implements ICarreraDAO{
        
+    /**
+     * `EntityManager` utilizado para manejar las entidades dentro de las transacciones.
+     */
     private EntityManager entityManager;
+    
+    /**
+     * Fábrica de `EntityManager` para la gestión de transacciones en la base de datos.
+     */
     private EntityManagerFactory entityManagerFactory;   
 
+    /**
+     * Constructor que inicializa `CarreraDAO` con los objetos `EntityManager` y `EntityManagerFactory`.
+     *
+     * @param entityManager Manejador de entidades para la sesión actual
+     * @param entityManagerFactory Fábrica de `EntityManager` para la gestión de transacciones
+     */
     public CarreraDAO(EntityManager entityManager, EntityManagerFactory entityManagerFactory) {
         this.entityManager = entityManager;
         this.entityManagerFactory = entityManagerFactory;
     }
     
-    public void agregarCarrera(Carrera carrera){
+    /**
+     * Agrega una nueva carrera a la base de datos.
+     *
+     * @param carrera Carrera a agregar
+     */
+    public void agregarCarrera(Carrera carrera) {
         EntityTransaction transaction = entityManager.getTransaction();
         try {
             transaction.begin();
@@ -37,13 +57,19 @@ public class CarreraDAO implements ICarreraDAO{
             if (transaction.isActive()) {
                 transaction.rollback();
             }
-            e.printStackTrace(); 
+            e.printStackTrace();
         }
     }  
 
+    /**
+     * Busca una carrera en la base de datos por su nombre.
+     *
+     * @param nombre Nombre de la carrera
+     * @return Carrera encontrada o null si no existe
+     */
     @Override
     public Carrera obtenerCarreraPorNombre(String nombre) {
-   try {
+        try {
             return entityManager.createQuery("SELECT c FROM Carrera c WHERE c.nombre = :nombre", Carrera.class)
                                 .setParameter("nombre", nombre)
                                 .getSingleResult();
@@ -53,16 +79,17 @@ public class CarreraDAO implements ICarreraDAO{
         }
     }
     
-    
+    /**
+     * Obtiene todas las carreras almacenadas en la base de datos.
+     *
+     * @return Lista de todas las carreras
+     * @throws PersistenciaException si ocurre un error durante la operación
+     */
     @Override
     public List<Carrera> obtenerTodos() throws PersistenciaException {
-        
         EntityManager em = entityManagerFactory.createEntityManager();
-        
         List<Carrera> carreras = em.createQuery("SELECT c FROM Carrera c", Carrera.class).getResultList();
-        
         em.close();
-        
         return carreras;
     }
 }
